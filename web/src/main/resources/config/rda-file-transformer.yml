@@ -1,13 +1,14 @@
 rda-file-transformer:
   transformerId: "rda-file-transformer"
-  organizationReferenceCode: "organisations"
-  grantReferenceCode: "grants"
-  funderReferenceCode: "funders"
-  researcherReferenceCode: "researchers"
-  licenceReferenceCode: "licenses"
-  projectReferenceCode: "projects"
-  datasetReferenceCode: "datasets"
-  publicationReferenceCode: "publications"
+  organizationReferenceCode: ${RDA_FILE_TRANSFORMER_ORGANIZATIONS_CODE:organisations}
+  grantReferenceCode: ${RDA_FILE_TRANSFORMER_GRANTS_CODE:grants}
+  funderReferenceCode: ${RDA_FILE_TRANSFORMER_FUNDERS_CODE:funders}
+  researcherReferenceCode: ${RDA_FILE_TRANSFORMER_RESEARCHERS_CODE:researchers}
+  licenceReferenceCode: ${RDA_FILE_TRANSFORMER_LICENCES_CODE:licenses}
+  projectReferenceCode: ${RDA_FILE_TRANSFORMER_PROJECTS_CODE:projects}
+  datasetReferenceCode: ${RDA_FILE_TRANSFORMER_DATASETS_CODE:datasets}
+  publicationReferenceCode: ${RDA_FILE_TRANSFORMER_PUBLICATIONS_CODE:publications}
+  useSharedStorage: ${RDA_FILE_TRANSFORMER_USE_SHARED_STORAGE:false}
   researcherMalCode: "primaryEmail"
   projectStartDateCode: "startDate"
   projectEndDateCode: "endDate"

@@ -233,8 +233,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 try {
                     cost.setCurrencyCode(Cost.CurrencyCode.fromValue(valueModel.getValue()));
                 } catch (Exception e) {
-                    logger.error(e.getMessage(), e);
-                    logger.warn("Dmp cost currency code is not valid and will not be set.");
+                    logger.warn("invalid dmp cost currency code value: " + valueModel.getValue());
                 }
             }
         }
@@ -250,6 +249,25 @@ public class RdaFileTransformerService implements FileTransformerClient {
         if (project.getDefinition() != null && project.getDefinition().getFields() != null) {
 	        project.getDefinition().getFields().stream().filter(field -> this.configuration.getRdaFileTransformerServiceProperties().getProjectStartDateCode().equalsIgnoreCase(field.getCode()) && field.getValue() != null && !field.getValue().isBlank()).map(ReferenceFieldModel::getValue).findFirst().ifPresent(rda::setStart);
 	        project.getDefinition().getFields().stream().filter(field -> this.configuration.getRdaFileTransformerServiceProperties().getProjectEndDateCode().equalsIgnoreCase(field.getCode()) && field.getValue() != null && !field.getValue().isBlank()).map(ReferenceFieldModel::getValue).findFirst().ifPresent(rda::setEnd);
+
+            if (rda.getStart() != null && !rda.getStart().isBlank()) {
+                try {
+                    LocalDateTime ldt = LocalDateTime.ofInstant(Instant.parse(rda.getStart()), ZoneOffset.UTC);
+                    rda.setStart(ldt.format(DateTimeFormatter.ISO_LOCAL_DATE));
+                } catch (Exception e) {
+                    logger.warn("invalid rda project parse date for value: " + rda.getStart());
+                }
+            }
+
+            if (rda.getEnd() != null && !rda.getEnd().isBlank()) {
+                try {
+                    LocalDateTime ldt = LocalDateTime.ofInstant(Instant.parse(rda.getEnd()), ZoneOffset.UTC);
+                    rda.setEnd(ldt.format(DateTimeFormatter.ISO_LOCAL_DATE));
+                } catch (Exception e) {
+                    logger.warn("invalid rda project parse date for value: " + rda.getEnd());
+                }
+            }
+
         }
         if (!funders.isEmpty()) rda.setFunding(List.of(this.buildRRdaFunding(funders.getFirst(), grants.isEmpty() ? null : grants.getFirst())));
 
@@ -526,7 +544,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         Dmp.EthicalIssuesExist value = Dmp.EthicalIssuesExist.fromValue(fieldValue.getTextValue());
                         if (!Dmp.EthicalIssuesExist.UNKNOWN.equals(value)) dmpRda.setEthicalIssuesExist(value);
                     } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
+                        logger.warn("invalid dmp ethical issues exist value: " + fieldValue.getTextValue());
                     }
                 }
             }
@@ -540,7 +558,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     try {
                         Dmp.EthicalIssuesExist value = Dmp.EthicalIssuesExist.fromValue(fieldValue.getTextValue());
                         if (!Dmp.EthicalIssuesExist.UNKNOWN.equals(value)) dmpRda.setEthicalIssuesExist(value);
-                    } catch (Exception e) { logger.error(e.getMessage(), e); }
+                    } catch (Exception e) {
+                        logger.warn("invalid dmp ethical issues exist value: " + fieldValue.getTextValue());
+                    }
                 }
                 if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
                     for (String val : fieldValue.getTextListValue()) {
@@ -548,7 +568,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             Dmp.EthicalIssuesExist value = Dmp.EthicalIssuesExist.fromValue(val);
                             if (!Dmp.EthicalIssuesExist.UNKNOWN.equals(value)) dmpRda.setEthicalIssuesExist(value);
                         } catch (Exception e) {
-                            logger.error(e.getMessage(), e);
+                            logger.warn("invalid dmp ethical issues exist value: " + val);
                         }
                     }
                 }
@@ -566,7 +586,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         try {
                             dmpRda.setEthicalIssuesReport(URI.create(fieldValue.getTextValue()));
                         } catch (Exception ex) {
-                            logger.error(ex.getMessage(), ex);
+                            logger.warn("invalid dmp ethical issues report value: " + fieldValue.getTextValue());
                         }
                     }
                 }
@@ -588,7 +608,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         item.setCurrencyCode(Cost.CurrencyCode.fromValue(fieldValue.getTextValue()));
                         valueFound = true;
                     } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
+                        logger.warn("invalid cost currency cost value: " + fieldValue.getTextValue());
                     }
                 }
 
@@ -610,7 +630,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         item.setValue(Double.valueOf(fieldValue.getTextValue()));
                         valueFound = true;
                     } catch (Exception ex) {
-                        logger.error(ex.getMessage(), ex);
+                        logger.warn("invalid cost value: " + fieldValue.getTextValue());
                     }
                 }
 
@@ -658,7 +678,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     try {
                         item.setDownloadUrl(URI.create(fieldValue.getTextValue()));
                         valueFound = true;
-                    } catch (Exception ex) { logger.error(ex.getMessage(), ex); }
+                    } catch (Exception ex) {
+                        logger.warn("invalid dataset distribution download url value: " + fieldValue.getTextValue());
+                    }
                 }
 
                 fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_DISTRIBUTION_DESCRIPTION);
@@ -672,7 +694,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     try {
                         item.setDataAccess(Distribution.DataAccess.fromValue(fieldValue.getTextValue()));
                         valueFound = true;
-                    } catch (Exception ex) { logger.error(ex.getMessage(), ex); }
+                    } catch (Exception ex) {
+                        logger.warn("invalid distribution data access type: " + fieldValue.getTextValue());
+                    }
                 }
                 if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
                     for (String val : fieldValue.getTextListValue()) {
@@ -680,7 +704,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             item.setDataAccess(Distribution.DataAccess.fromValue(val));
                             valueFound = true;
                         } catch (Exception ex) {
-                            logger.error(ex.getMessage(), ex);
+                            logger.warn("invalid distribution data access type: " + val);
                         }
                     }
                     
@@ -691,7 +715,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     try {
                         item.setByteSize(Integer.valueOf(fieldValue.getTextValue()));
                         valueFound = true;
-                    } catch (Exception ex) { logger.error(ex.getMessage(), ex); }
+                    } catch (Exception ex) {
+                        logger.warn("invalid distribution byte size value: " + fieldValue.getTextValue());
+                    }
                 }
 
                 fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_DISTRIBUTION_AVAILABLE_UTIL);
@@ -715,9 +741,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     item.setLicense(new ArrayList<>());
                     for (ReferenceModel referenceModel : fieldValue.getReferences()) {
                         if (referenceModel.getDefinition() != null && referenceModel.getDefinition().getFields() != null) {
+                            License license = new License();
+                            String refValue = referenceModel.getReference();
                             try {
-                                License license = new License();
-                                String refValue = referenceModel.getReference();
                                 if (refValue != null && !refValue.isBlank()) license.setLicenseRef(URI.create(refValue));
                                 String startDateValue = referenceModel.getDefinition().getFields().stream().filter(f -> this.configuration.getRdaFileTransformerServiceProperties().getLicenseStartDateCode().equalsIgnoreCase(f.getCode()) && f.getValue() != null && !f.getValue().isBlank()).map(ReferenceFieldModel::getValue).findFirst().orElse(null);
                                 if (refValue != null && !refValue.isBlank()) license.setStartDate(startDateValue);
@@ -725,7 +751,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
 
                                 item.getLicense().add(license);
                             } catch (Exception ex) {
-                                logger.error(ex.getMessage(), ex);
+                                logger.warn("invalid distribution license ref uri value: " + refValue);
                             }
                         }
                     }
@@ -751,7 +777,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
             try {
                 license.setLicenseRef(URI.create(fieldValue.getTextValue()));
             } catch (Exception ex) {
-                logger.error(ex.getMessage(), ex);
+                logger.warn("invalid distribution license ref uri value: " + fieldValue.getTextValue());
             }
         }
 
@@ -783,7 +809,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
             try {
                 item.setUrl(URI.create(fieldValue.getTextValue()));
                 valueFound = true;
-            } catch (Exception ex) { logger.error(ex.getMessage(), ex); }
+            } catch (Exception ex) {
+                logger.warn("invalid distribution host url value: " + fieldValue.getTextValue());
+            }
         }
 
         fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_DISTRIBUTION_HOST_DESCRIPTION);
@@ -821,7 +849,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
             try {
                 item.setGeoLocation(Host.GeoLocation.fromValue(fieldValue.getTextValue()));
                 valueFound = true;
-            } catch (Exception ex) { logger.error(ex.getMessage(), ex); }
+            } catch (Exception ex) {
+                logger.warn("invalid distribution host geo location value: " + fieldValue.getTextValue());
+            }
         }
         if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
             for (String val : fieldValue.getTextListValue()) {
@@ -829,7 +859,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     item.setGeoLocation(Host.GeoLocation.fromValue(val));
                     valueFound = true;
                 } catch (Exception ex) {
-                    logger.error(ex.getMessage(), ex);
+                    logger.warn("invalid distribution host geo location value: " + val);
                 }
             }
         }
@@ -840,7 +870,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 item.setSupportVersioning(Host.SupportVersioning.fromValue(fieldValue.getTextValue()));
                 valueFound = true;
             } catch (Exception ex) {
-                logger.error(ex.getMessage(), ex);
+                logger.warn("invalid host support versioning value: " + fieldValue.getTextValue());
             }
         }
         if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -849,7 +879,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     item.setSupportVersioning(Host.SupportVersioning.fromValue(val));
                     valueFound = true;
                 } catch (Exception ex) {
-                    logger.error(ex.getMessage(), ex);
+                    logger.warn("invalid host support versioning value: " + val);
                 }
             }
         }
@@ -860,7 +890,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 item.setCertifiedWith(Host.CertifiedWith.fromValue(fieldValue.getTextValue()));
                 valueFound = true;
             } catch (Exception ex) {
-                logger.error(ex.getMessage(), ex);
+                logger.warn("invalid host certified value: " + fieldValue.getTextValue());
             }
         }
         if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -869,7 +899,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     item.setCertifiedWith(Host.CertifiedWith.fromValue(val));
                     valueFound = true;
                 } catch (Exception ex) {
-                    logger.error(ex.getMessage(), ex);
+                    logger.warn("invalid host certified value: " + val);
                 }
             }
         }
@@ -881,7 +911,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 item.getPidSystem().add(PidSystem.fromValue(fieldValue.getTextValue()));
                 valueFound = true;
             } catch (Exception ex) {
-                logger.error(ex.getMessage(), ex);
+                logger.warn("invalid host pid system value: " + fieldValue.getTextValue());
             }
         }
         if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -891,7 +921,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     item.getPidSystem().add(PidSystem.fromValue(itm));
                     valueFound = true;
                 } catch (Exception ex) {
-                    logger.error(ex.getMessage(), ex);
+                    logger.warn("invalid host pid system value: " + itm);
                 }
             }
         }
@@ -928,9 +958,9 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 if (fieldValue.getExternalIdentifier() != null) {
                     datasetId.setIdentifier(fieldValue.getExternalIdentifier().getIdentifier());
                     try {
-                        datasetId.setType(DatasetId.Type.fromValue(fieldValue.getExternalIdentifier().getType()));
+                        if (fieldValue.getExternalIdentifier().getType() != null && !fieldValue.getExternalIdentifier().getType().isEmpty()) datasetId.setType(DatasetId.Type.fromValue(fieldValue.getExternalIdentifier().getType()));
                     } catch (Exception ex) {
-                        logger.error(ex.getMessage(), ex);
+                        logger.warn("invalid External Identifier Type: " + fieldValue.getExternalIdentifier().getType());
                     }
                     return datasetId;
                 }
@@ -954,7 +984,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         datasetId.setType(DatasetId.Type.fromValue(fieldValue.getTextValue()));
                         valueFound = true;
                     } catch (Exception ex){
-                        logger.error(ex.getMessage(), ex);
+                        logger.warn("invalid dataset id type with value: " + fieldValue.getTextValue());
                     }
                 }
                 if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -963,7 +993,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             datasetId.setType(DatasetId.Type.fromValue(val));
                             valueFound = true;
                         } catch (Exception ex) {
-                            logger.error(ex.getMessage(), ex);
+                            logger.warn("invalid dataset id type with value: " + val);
                         }
                     }
                 }
@@ -988,7 +1018,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         item.setLanguage(Metadatum.Language.fromValue(fieldValue.getTextValue()));
                         valueFound = true;
                     } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
+                        logger.warn("invalid metadatum language value: " + fieldValue.getTextValue());
                     }
                 }
                 if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -997,7 +1027,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             item.setLanguage(Metadatum.Language.fromValue(val));
                             valueFound = true;
                         } catch (Exception e) {
-                            logger.error(e.getMessage(), e);
+                            logger.warn("invalid metadatum language value: " + val);
                         }
                     }
                 }
@@ -1043,7 +1073,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
             try {
                 standardId.setType(MetadataStandardId.Type.fromValue(fieldValue.getTextValue()));
             } catch (Exception ex){
-                logger.error(ex.getMessage(), ex);
+                logger.warn("invalid metadata standard id type value: " + fieldValue.getTextValue());
             }
         }
         if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -1051,7 +1081,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 try {
                     standardId.setType(MetadataStandardId.Type.fromValue(val));
                 } catch (Exception ex) {
-                    logger.error(ex.getMessage(), ex);
+                    logger.warn("invalid metadata standard id type value: " + val);
                 }
             }
         }
@@ -1137,7 +1167,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         value = Dataset.SensitiveData.fromValue(fieldValue.getTextValue());
                         return value;
                     } catch (IllegalArgumentException | MyApplicationException e) {
-                        logger.error(e.getMessage(), e);
+                        logger.warn("invalid dataset sensitive data value: " + fieldValue.getTextValue());
                     }
                 }
                 if (fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -1146,7 +1176,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             value = Dataset.SensitiveData.fromValue(val);
                             return value;
                         } catch (IllegalArgumentException | MyApplicationException e) {
-                            logger.error(e.getMessage(), e);
+                            logger.warn("invalid dataset sensitive data value: " + val);
                         }
                     }
                 }
@@ -1165,7 +1195,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         value = Dataset.PersonalData.fromValue(fieldValue.getTextValue());
                         return value;
                     } catch (IllegalArgumentException | MyApplicationException e) {
-                        logger.error(e.getMessage(), e);
+                        logger.warn("invalid dataset personal data value: " + fieldValue.getTextValue());
                     }
                 }
                 if (fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -1174,7 +1204,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             value = Dataset.PersonalData.fromValue(val);
                             return value;
                         } catch (IllegalArgumentException | MyApplicationException e) {
-                            logger.error(e.getMessage(), e);
+                            logger.warn("invalid dataset personal data value: " + val);
                         }
                     }
                 }
@@ -1224,7 +1254,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         value = Language.fromValue(fieldValue.getTextValue());
                         return value;
                     } catch (IllegalArgumentException | MyApplicationException e) {
-                        logger.error(e.getMessage(), e);
+                        logger.warn("invalid dataset language value: " + fieldValue.getTextValue());
                     }
                 }
                 if (fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
@@ -1233,7 +1263,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             value = Language.fromValue(val);
                             return value;
                         } catch (IllegalArgumentException | MyApplicationException e) {
-                            logger.error(e.getMessage(), e);
+                            logger.warn("invalid dataset language value: " + val);
                         }
                     }
                 }
@@ -1309,7 +1339,6 @@ public class RdaFileTransformerService implements FileTransformerClient {
             if (rdaModel.getDmp().getLanguage() != null && rdaModel.getDmp().getLanguage().value() != null) model.setLanguage(this.configuration.getRdaFileTransformerServiceProperties().getLanguageMap().getOrDefault(rdaModel.getDmp().getLanguage().value(), "en"));
             model.setCreatedAt(rdaModel.getDmp().getCreated());
             model.setUpdatedAt(rdaModel.getDmp().getModified());
-            model.setStatus(PlanStatus.Draft);
 //            model.setUsers(buildDmpUsersByRdaContributors(rdaModel.getDmp().getContributor()));
             model.setProperties(buildPlanPropertiesModel(planImportModel.getBlueprintModel(), rdaModel.getDmp()));
             model.setReferences(buildPlanReferences(planImportModel.getBlueprintModel(), rdaModel.getDmp().getProject(), rdaModel.getDmp().getContributor()));
@@ -1631,7 +1660,6 @@ public class RdaFileTransformerService implements FileTransformerClient {
         model.setDescription(dataset.getDescription());
         model.setDescriptionTemplate(descriptionImportModel.getDescriptionTemplate());
         model.setSectionId(descriptionImportModel.getSectionId());
-        model.setStatus(DescriptionStatus.Draft);
         model.setTags(dataset.getKeyword());
         model.setProperties(this.buildPropertyDefinitionModel(descriptionImportModel.getDescriptionTemplate(), dataset, dmp));
 
@@ -1749,7 +1777,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                                 try {
                                     fieldModel.setDateValue(LocalDate.parse(dataset.getIssued(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                                 } catch (Exception e) {
-                                    logger.error(e.getMessage(), e);
+                                    logger.warn("invalid date parse from dataset issued value: " + dataset.getIssued());
                                 }
                                 valueFound = true;
                             }
@@ -2145,7 +2173,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                                 try {
                                     fieldModel.setDateValue(LocalDate.parse(distribution.getAvailableUntil(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                                 } catch (Exception e) {
-                                    logger.error(e.getMessage(), e);
+                                    logger.warn("invalid date parse from distribution available until value: " + distribution.getAvailableUntil());
                                 }
                                 valueFound = true;
                             }
@@ -2225,7 +2253,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                                         try {
                                             fieldModel.setDateValue(LocalDate.parse(license.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                                         } catch (Exception e) {
-                                            logger.error(e.getMessage(), e);
+                                            logger.warn("invalid date parse from license start date value: " + license.getStartDate());
                                         }
                                         valueFound = true;
                                     }
