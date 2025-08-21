@@ -1,7 +1,9 @@
 package org.opencdmp.filetransformer.rda.service.rdafiletransformer;
 
+import org.opencdmp.commonmodels.models.ConfigurationField;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
 import java.util.Map;
 
 @ConfigurationProperties(prefix = "rda-file-transformer")
@@ -22,7 +24,8 @@ public class RdaFileTransformerServiceProperties {
 	private String licenseStartDateCode;
 
 	private Map<String, String> languageMap;
-
+	private List<ConfigurationField> configurationFields;
+	private List<ConfigurationField> userConfigurationFields;
 
 	public String getTransformerId() {
 		return transformerId;
@@ -142,5 +145,21 @@ public class RdaFileTransformerServiceProperties {
 
 	public void setLicenseStartDateCode(String licenseStartDateCode) {
 		this.licenseStartDateCode = licenseStartDateCode;
+	}
+
+	public List<ConfigurationField> getConfigurationFields() {
+		return configurationFields;
+	}
+
+	public void setConfigurationFields(List<ConfigurationField> configurationFields) {
+		this.configurationFields = configurationFields;
+	}
+
+	public List<ConfigurationField> getUserConfigurationFields() {
+		return userConfigurationFields;
+	}
+
+	public void setUserConfigurationFields(List<ConfigurationField> userConfigurationFields) {
+		this.userConfigurationFields = userConfigurationFields;
 	}
 }

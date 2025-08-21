@@ -13,6 +13,8 @@ rda-file-transformer:
   projectStartDateCode: "startDate"
   projectEndDateCode: "endDate"
   licenseStartDateCode: "start_date"
+  configuration-fields:
+  user-configuration-fields:
   language-map:
     aa: aar
     ab: abk

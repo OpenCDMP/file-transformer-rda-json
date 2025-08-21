@@ -17,15 +17,16 @@ import org.opencdmp.commonmodels.models.plan.PlanPropertiesModel;
 import org.opencdmp.commonmodels.models.planblueprint.PlanBlueprintModel;
 import org.opencdmp.commonmodels.models.planblueprint.ReferenceTypeFieldModel;
 import org.opencdmp.commonmodels.models.planblueprint.SectionModel;
+import org.opencdmp.commonmodels.models.planblueprint.SystemFieldModel;
 import org.opencdmp.commonmodels.models.plandescriptiontemplate.PlanDescriptionTemplateModel;
 import org.opencdmp.commonmodels.models.planreference.PlanReferenceDataModel;
 import org.opencdmp.commonmodels.models.planreference.PlanReferenceModel;
 import org.opencdmp.commonmodels.models.reference.ReferenceFieldModel;
 import org.opencdmp.commonmodels.models.reference.ReferenceModel;
 import org.opencdmp.commonmodels.models.reference.ReferenceTypeModel;
+import org.opencdmp.commonmodels.models.user.UserModel;
 import org.opencdmp.filetransformer.rda.model.rda.*;
 import org.opencdmp.filetransformer.rda.service.descriptiontemplatesearcher.TemplateFieldSearcherService;
-import org.opencdmp.filetransformerbase.enums.FileTransformerEntityType;
 import org.opencdmp.filetransformerbase.interfaces.FileTransformerClient;
 import org.opencdmp.filetransformerbase.interfaces.FileTransformerConfiguration;
 import org.opencdmp.filetransformer.rda.service.json.JsonHandlingService;
@@ -37,12 +38,15 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -54,10 +58,26 @@ public class RdaFileTransformerService implements FileTransformerClient {
     private final RdaFileTransformerServiceConfiguration configuration;
     private final TemplateFieldSearcherService templateFieldSearcherService;
     
-    private final static List<FileTransformerEntityType> FILE_TRANSFORMER_ENTITY_TYPES = List.of(FileTransformerEntityType.Plan);
+    private final static List<PluginEntityType> FILE_TRANSFORMER_ENTITY_TYPES = List.of(PluginEntityType.Plan);
     private final static String REPOSITORY_ZENODO = "Zenodo";
     private final static String PREFIX_ORCID = "orcid";
     private final static String ORCID_URL = "http://orcid.org/";
+    private static final String SEMANTIC_DMP_TITLE = "rda.dmp.title";
+    private static final String SEMANTIC_DMP_DESCRIPTION = "rda.dmp.description";
+    private static final String SEMANTIC_DMP_CREATED = "rda.dmp.created";
+    private static final String SEMANTIC_DMP_LANGUAGE = "rda.dmp.language";
+    private static final String SEMANTIC_DMP_MODIFIED = "rda.dmp.modified";
+    private static final String SEMANTIC_PROJECT_FUNDING_FUNDER_ID = "rda.dmp.project.funding.funder_id";
+    private static final String SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER = "rda.dmp.project.funding.funder_id.identifier";
+    private static final String SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE = "rda.dmp.project.funding.funder_id.type";
+    private static final String SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS = "rda.dmp.project.funding.funding_status";
+    private static final String SEMANTIC_PROJECT_FUNDING_GRANT_ID = "rda.dmp.project.funding.grant_id";
+    private static final String SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER = "rda.dmp.project.funding.grant_id.identifier";
+    private static final String SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE = "rda.dmp.project.funding.grant_id.type";
+    private static final String SEMANTIC_PROJECT_START = "rda.dmp.project.start";
+    private static final String SEMANTIC_PROJECT_END = "rda.dmp.project.end";
+    private static final String SEMANTIC_PROJECT_TITLE = "rda.dmp.project.title";
+    private static final String SEMANTIC_PROJECT_DESCRIPTION = "rda.dmp.project.description";
     private static final String SEMANTIC_ETHICAL_ISSUES_EXISTS = "rda.dmp.ethical_issues_exist";
     private static final String SEMANTIC_ETHICAL_ISSUES_DESCRIPTION = "rda.dmp.ethical_issues_description";
     private static final String SEMANTIC_ETHICAL_ISSUES_REPORT = "rda.dmp.ethical_issues_report";
@@ -65,9 +85,16 @@ public class RdaFileTransformerService implements FileTransformerClient {
     private static final String SEMANTIC_COST_DESCRIPTION = "rda.dmp.cost.description";
     private static final String SEMANTIC_COST_TITLE = "rda.dmp.cost.title";
     private static final String SEMANTIC_COST_VALUE = "rda.dmp.cost.value";
+    private static final String SEMANTIC_CONTACT_NAME = "rda.dmp.contact.name";
+    private static final String SEMANTIC_CONTACT_MBOX = "rda.dmp.contact.mbox";
+    private static final String SEMANTIC_CONTACT_ID_IDENTIFIER = "rda.dmp.contact.contact_id.identifier";
+    private static final String SEMANTIC_CONTACT_ID_TYPE = "rda.dmp.contact.contact_id.type";
     private static final String SEMANTIC_DATASET_LANGUAGE = "rda.dataset.language";
+    private static final String SEMANTIC_DATASET_TITLE = "rda.dataset.title";
+    private static final String SEMANTIC_DATASET_DESCRIPTION = "rda.dataset.description";
     private static final String SEMANTIC_DATASET_TYPE = "rda.dataset.type";
     private static final String SEMANTIC_DATASET_ISSUED = "rda.dataset.issued";
+    private static final String SEMANTIC_DATASET_IS_REUSED = "rda.dataset.is_reused";
     private static final String SEMANTIC_DATASET_KEYWORD = "rda.dataset.keyword";
     private static final String SEMANTIC_DATASET_PERSONAL_DATA = "rda.dataset.personal_data";
     private static final String SEMANTIC_DATASET_SENSITIVE_DATA = "rda.dataset.sensitive_data";
@@ -85,6 +112,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
     private static final String SEMANTIC_DATASET_DATASET_ID = "rda.dataset.dataset_id";
     private static final String SEMANTIC_DATASET_DATASET_ID_ID = "rda.dataset.dataset_id.identifier";
     private static final String SEMANTIC_DATASET_DATASET_ID_TYPE = "rda.dataset.dataset_id.type";
+    private static final String SEMANTIC_DATASET_DISTRIBUTION_EXISTS = "rda.dataset.distribution.exists";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_ACCESS_URL = "rda.dataset.distribution.access_url";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_AVAILABLE_UTIL = "rda.dataset.distribution.available_until";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_BYTE_SIZE = "rda.dataset.distribution.byte_size";
@@ -104,10 +132,16 @@ public class RdaFileTransformerService implements FileTransformerClient {
     private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_GEO_LOCATION = "rda.dataset.distribution.host.geo_location";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM = "rda.dataset.distribution.host.pid_system";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_STORAGE_TYPE = "rda.dataset.distribution.host.storage_type";
-    private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_SUPPORT_VERSIONING = "rda.dataset.distribution.host.supports_versioning";
+    private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_SUPPORT_VERSIONING = "rda.dataset.distribution.host.support_versioning";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_TITLE = "rda.dataset.distribution.host.title";
     private static final String SEMANTIC_DATASET_DISTRIBUTION_HOST_URL = "rda.dataset.distribution.host.url";
     private static final String SEMANTIC_DATASET_CONTRIBUTOR = "rda.dmp.contributor";
+    private static final String SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER = "rda.dmp.contributor.contributor_id.identifier";
+    private static final String SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE = "rda.dmp.contributor.contributor_id.type";
+    private static final String SEMANTIC_DATASET_CONTRIBUTOR_MBOX = "rda.dmp.contributor.mbox";
+    private static final String SEMANTIC_DATASET_CONTRIBUTOR_NAME = "rda.dmp.contributor.name";
+    private static final String SEMANTIC_DATASET_CONTRIBUTOR_ROLE = "rda.dmp.contributor.role";
+
     
     @Autowired
     public RdaFileTransformerService(FileStorageService storageService, JsonHandlingService jsonHandlingService, RdaFileTransformerServiceConfiguration configuration, TemplateFieldSearcherService templateFieldSearcherService) {
@@ -124,15 +158,15 @@ public class RdaFileTransformerService implements FileTransformerClient {
         String dmpJson = jsonHandlingService.toJsonSafe(rdaModel);
         
         byte[] bytes = dmpJson.getBytes(StandardCharsets.UTF_8);
-        FileEnvelopeModel wordFile = new FileEnvelopeModel();
+        FileEnvelopeModel exportFile = new FileEnvelopeModel();
         if (this.getConfiguration().isUseSharedStorage()) {
             String fileRef = this.storageService.storeFile(bytes);
-            wordFile.setFileRef(fileRef);
+            exportFile.setFileRef(fileRef);
         } else {
-            wordFile.setFile(bytes);
+            exportFile.setFile(bytes);
         }
-        wordFile.setFilename(planFileTransformerModel.getLabel() + ".json");
-        return wordFile;
+        exportFile.setFilename(planFileTransformerModel.getLabel() + ".json");
+        return exportFile;
     }
 
     @Override
@@ -175,11 +209,11 @@ public class RdaFileTransformerService implements FileTransformerClient {
 
         Dmp rda = new Dmp();
         rda.setDmpId(this.buildRdaDmpId(plan));
-        rda.setCreated(plan.getCreatedAt());
-        rda.setDescription(plan.getDescription());
-        rda.setModified(plan.getUpdatedAt());
-        rda.setTitle(plan.getLabel());
-        rda.setLanguage(this.buildRdaLanguage(plan.getLanguage() != null ? plan.getLanguage() : "en"));
+        rda.setCreated(this.buildDmpCreated(plan));
+        rda.setModified(this.buildDmpModified(plan));
+        rda.setTitle(this.buildRdaDmpTitle(plan));
+        rda.setDescription(this.buildRdaDmpDescription(plan));
+        rda.setLanguage(this.buildDmpLanguage(plan));
         rda.setContributor(buildRdaContributors(researchers, plan.getUsers()));
         rda.setContact(buildRdaContact(plan));
         rda.setEthicalIssuesExist(buildRdaEthicalIssuesExist(plan));
@@ -202,6 +236,87 @@ public class RdaFileTransformerService implements FileTransformerClient {
         }
         
         return rda;
+    }
+
+    private Language buildDmpLanguage(PlanModel model){
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> titleFields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_DMP_LANGUAGE);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : titleFields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) {
+                String rdaLanguage = this.configuration.getRdaFileTransformerServiceProperties().getLanguageMap().getOrDefault(valueModel.getValue(), null);
+                if(rdaLanguage != null) {
+                    try {
+                        return Language.fromValue(rdaLanguage);
+                    } catch (Exception e) {
+                        logger.warn("invalid language value: " + rdaLanguage);
+                    }
+                }
+            }
+        }
+
+        String rdaLanguage = this.configuration.getRdaFileTransformerServiceProperties().getLanguageMap().getOrDefault(model.getLanguage(), null);
+        try {
+            return Language.fromValue(rdaLanguage);
+        } catch (Exception e) {
+            logger.warn("invalid language value: " + rdaLanguage);
+        }
+        return null;
+    }
+
+    private Instant buildDmpCreated(PlanModel model){
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> titleFields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_DMP_CREATED);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : titleFields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null) {
+                if (valueModel.getDateValue() != null) {
+                    return valueModel.getDateValue();
+                } else if (valueModel.getValue() != null) {
+                    try {
+                        return Instant.parse(valueModel.getValue());
+                    } catch (DateTimeParseException e) {
+                        logger.warn("invalid date for modified value: " + valueModel.getValue());
+                    }
+                }
+            }
+        }
+        return model.getCreatedAt();
+    }
+
+    private Instant buildDmpModified(PlanModel model){
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> titleFields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_DMP_MODIFIED);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : titleFields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null) {
+                if (valueModel.getDateValue() != null) {
+                    return valueModel.getDateValue();
+                } else if (valueModel.getValue() != null) {
+                    try {
+                        return Instant.parse(valueModel.getValue());
+                    } catch (DateTimeParseException e) {
+                        logger.warn("invalid date for modified value: " + valueModel.getValue());
+                    }
+                }
+            }
+        }
+        return model.getUpdatedAt();
+    }
+
+    private String buildRdaDmpDescription(PlanModel model){
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> titleFields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_DMP_DESCRIPTION);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : titleFields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) return valueModel.getValue();
+        }
+        return model.getDescription();
+    }
+
+    private String buildRdaDmpTitle(PlanModel model){
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> titleFields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_DMP_TITLE);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : titleFields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) return valueModel.getValue();
+        }
+        return model.getLabel();
     }
 
     public Cost buildRdaCost(PlanModel model) {
@@ -344,6 +459,70 @@ public class RdaFileTransformerService implements FileTransformerClient {
 
     public Contact buildRdaContact(PlanModel model) {
         if (model == null) throw new MyApplicationException("Plan is missing");
+
+        Contact rdaModel = new Contact();
+
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> fields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_CONTACT_NAME);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) {
+                rdaModel.setName(valueModel.getValue());
+            } else if (field != null && field.getCategory() != null && field.getCategory().equals(PlanBlueprintFieldCategory.System)) {
+                try {
+                    SystemFieldModel systemField = (SystemFieldModel) field;
+                    if (systemField.getSystemFieldType() != null && systemField.getSystemFieldType().equals(PlanBlueprintSystemFieldType.Contact)
+                            && model.getProperties() != null && model.getProperties().getContacts() != null && !model.getProperties().getContacts().isEmpty()) {
+                        rdaModel.setName(model.getProperties().getContacts().getFirst().getFirstName() + " " + model.getProperties().getContacts().getFirst().getLastName());
+                    }
+                } catch (Exception e) {
+                    logger.warn(e.getMessage());
+                }
+            }
+        }
+
+        fields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_CONTACT_MBOX);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) {
+                rdaModel.setMbox(valueModel.getValue());
+            } else if (field != null && field.getCategory() != null && field.getCategory().equals(PlanBlueprintFieldCategory.System)) {
+                try {
+                    SystemFieldModel systemField = (SystemFieldModel) field;
+                    if (systemField.getSystemFieldType() != null && systemField.getSystemFieldType().equals(PlanBlueprintSystemFieldType.Contact)
+                         && model.getProperties() != null && model.getProperties().getContacts() != null && !model.getProperties().getContacts().isEmpty()) {
+                        rdaModel.setMbox(model.getProperties().getContacts().getFirst().getEmail());
+                    }
+                } catch (Exception e) {
+                    logger.warn(e.getMessage());
+                }
+            }
+        }
+
+        ContactId rdaContactId = new ContactId();
+
+        fields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_CONTACT_ID_IDENTIFIER);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) {
+                rdaContactId.setIdentifier(valueModel.getValue());
+            }
+        }
+
+        fields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_CONTACT_ID_TYPE);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
+            PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) {
+                try {
+                    rdaContactId.setType(ContactId.Type.fromValue(valueModel.getValue()));
+                } catch (Exception e) {
+                    logger.warn("invalid contact id type value: " + valueModel.getValue());
+                }
+            }
+        }
+
+        rdaModel.setContactId(rdaContactId);
+
+        // if values are null fallback to default
         UserModel creator = model.getCreator();
         if (creator == null) {
             creator = model.getUsers().stream().filter(x -> x.getRole().equals(PlanUserRole.Owner) && x.getUser() != null && x.getUser().getContacts() != null && x.getUser().getContacts()
@@ -354,15 +533,13 @@ public class RdaFileTransformerService implements FileTransformerClient {
         if (creator.getName() == null) throw new MyApplicationException("Contact Name is missing");
         UserContactInfoModel emailContact = creator.getContacts() != null ? creator.getContacts().stream().filter(userContactInfo -> userContactInfo.getType().equals(ContactInfoType.Email)).findFirst().orElse(null) : null;
 
-        Contact rdaModel = new Contact();
-        rdaModel.setName(creator.getName());
+        if (rdaModel.getName() == null) rdaModel.setName(creator.getName());
 
         if (emailContact != null) {
-            rdaModel.setMbox(emailContact.getValue());
+            if (rdaModel.getMbox() == null) rdaModel.setMbox(emailContact.getValue());
             if (emailContact.getId() != null) {
-                ContactId rdaContactId = new ContactId();
-                rdaContactId.setIdentifier(emailContact.getId().toString());
-                rdaContactId.setType(ContactId.Type.OTHER);
+                if (rdaContactId.getIdentifier() == null) rdaContactId.setIdentifier(emailContact.getId().toString());
+                if (rdaContactId.getType() == null) rdaContactId.setType(ContactId.Type.OTHER);
                 rdaModel.setContactId(rdaContactId);
             }
         }
@@ -492,11 +669,12 @@ public class RdaFileTransformerService implements FileTransformerClient {
 
         Dataset rda = new Dataset();
         rda.setDatasetId(this.buildRdaDatasetId(model));
-        rda.setTitle(model.getLabel());
-        rda.setDescription(model.getDescription());
+        rda.setTitle(this.buildRdaDatasetTitle(model));
+        rda.setDescription(this.buildRdaDatasetDescription(model));
         rda.setLanguage(this.buildRdaDatasetLanguage(model));
         rda.setType(this.buildRdaDatasetType(model));
         rda.setIssued(this.buildRdaDatasetIssued(model));
+        rda.setIsReused(this.buildRdaDatasetIsReused(model));
         rda.setKeyword(this.buildRdaDatasetKeywords(model));
         if (rda.getKeyword().isEmpty() && model.getTags() != null){
             rda.getKeyword().addAll(model.getTags());
@@ -513,24 +691,365 @@ public class RdaFileTransformerService implements FileTransformerClient {
         dmpRda.getCost().addAll(this.buildRdaCosts(model));
         dmpRda.setContributor(this.buildContributor(model, dmpRda.getContributor()));
         this.mergeEthicalIssues(model, dmpRda);
+
+        dmpRda.setProject(this.buildProject(model, dmpRda.getProject()));
             
         return rda;
     }
 
-    private List<Contributor> buildContributor(DescriptionModel model, List<Contributor> values){
-        if (values == null) values = new ArrayList<>();
-        for (FieldModel field : this.templateFieldSearcherService.searchFieldsBySemantics(model.getDescriptionTemplate(), SEMANTIC_DATASET_CONTRIBUTOR)) {
+    private Boolean buildRdaDatasetIsReused(DescriptionModel model){
+        for (FieldModel field : this.templateFieldSearcherService.searchFieldsBySemantics(model.getDescriptionTemplate(), SEMANTIC_DATASET_IS_REUSED)) {
             List<org.opencdmp.commonmodels.models.description.FieldModel> fieldValues = this.findValueField(field, model.getProperties());
             for (org.opencdmp.commonmodels.models.description.FieldModel fieldValue : fieldValues) {
-                if (fieldValue.getReferences() != null  && !fieldValue.getReferences().isEmpty()) {
+                if (fieldValue.getBooleanValue() != null) {
+                    return fieldValue.getBooleanValue();
+                } else if (fieldValue.getTextValue() != null) {
+                    String text = fieldValue.getTextValue().trim().toLowerCase();
+                    if ("true".equals(text)) {
+                        return true;
+                    } else if ("false".equals(text)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private String buildRdaDatasetTitle(DescriptionModel model){
+        List<FieldModel> fields = this.templateFieldSearcherService.searchFieldsBySemantics(model.getDescriptionTemplate(),SEMANTIC_DATASET_TITLE);
+        for(FieldModel field : fields) {
+            List<org.opencdmp.commonmodels.models.description.FieldModel> fieldValues = this.findValueField(field, model.getProperties());
+            for(org.opencdmp.commonmodels.models.description.FieldModel fieldValue : fieldValues){
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank())
+                    return fieldValue.getTextValue();
+            }
+        }
+
+        return model.getLabel();
+    }
+
+    private String buildRdaDatasetDescription(DescriptionModel model){
+        List<FieldModel> fields = this.templateFieldSearcherService.searchFieldsBySemantics(model.getDescriptionTemplate(),SEMANTIC_DATASET_DESCRIPTION);
+        for(FieldModel field : fields) {
+            List<org.opencdmp.commonmodels.models.description.FieldModel> fieldValues = this.findValueField(field, model.getProperties());
+            for(org.opencdmp.commonmodels.models.description.FieldModel fieldValue : fieldValues){
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank())
+                    return fieldValue.getTextValue();
+            }
+        }
+
+        return model.getDescription();
+    }
+
+    private List<Project> buildProject(DescriptionModel model, List<Project> values){
+        if (values == null) values = new ArrayList<>();
+
+        for (FieldSetModel fieldSet : this.templateFieldSearcherService.searchFieldSetsBySemantics(model.getDescriptionTemplate(), List.of(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_FUNDER_ID, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, SEMANTIC_PROJECT_FUNDING_GRANT_ID,
+                SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE, SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS, SEMANTIC_PROJECT_START, SEMANTIC_PROJECT_END, SEMANTIC_PROJECT_TITLE, SEMANTIC_PROJECT_DESCRIPTION))) {
+            List<org.opencdmp.commonmodels.models.description.PropertyDefinitionFieldSetItemModel> propertyDefinitionFieldSetItemModels = this.findFieldSetValue(fieldSet, model.getProperties());
+            for (org.opencdmp.commonmodels.models.description.PropertyDefinitionFieldSetItemModel propertyDefinitionFieldSetItemModel : propertyDefinitionFieldSetItemModels) {
+                boolean valueFound = false;
+                Project project = new Project();
+
+                org.opencdmp.commonmodels.models.description.FieldModel fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_TITLE);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    project.setTitle(fieldValue.getTextValue());
+                    valueFound = true;
+                }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_DESCRIPTION);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    project.setDescription(fieldValue.getTextValue());
+                    valueFound = true;
+                }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_START);
+                if (fieldValue != null && fieldValue.getDateValue() != null) {
+                    LocalDateTime ldt = LocalDateTime.ofInstant(fieldValue.getDateValue(), ZoneOffset.UTC);
+                    project.setStart(ldt.format(DateTimeFormatter.ISO_LOCAL_DATE));
+                    valueFound = true;
+                } if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    try {
+                        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.parse(fieldValue.getTextValue()), ZoneOffset.UTC);
+                        project.setStart(ldt.format(DateTimeFormatter.ISO_LOCAL_DATE));
+                        valueFound = true;
+                    } catch (Exception e) {
+                        logger.warn("invalid rda project parse date for value: " + fieldValue.getTextValue());
+                    }
+                }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_END);
+                if (fieldValue != null && fieldValue.getDateValue() != null) {
+                    LocalDateTime ldt = LocalDateTime.ofInstant(fieldValue.getDateValue(), ZoneOffset.UTC);
+                    project.setEnd(ldt.format(DateTimeFormatter.ISO_LOCAL_DATE));
+                    valueFound = true;
+                } if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    try {
+                        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.parse(fieldValue.getTextValue()), ZoneOffset.UTC);
+                        project.setEnd(ldt.format(DateTimeFormatter.ISO_LOCAL_DATE));
+                        valueFound = true;
+                    } catch (Exception e) {
+                        logger.warn("invalid rda project parse date for value: " + fieldValue.getTextValue());
+                    }
+                }
+
+                List<Funding> fundings = this.buildRDAFunding(propertyDefinitionFieldSetItemModel, fieldSet);
+                if (!fundings.isEmpty()) {
+                    project.setFunding(fundings);
+                    valueFound = true;
+                }
+
+                if (valueFound) values.add(project);
+            }
+        }
+        return values;
+    }
+
+    private List<Funding> buildRDAFunding(org.opencdmp.commonmodels.models.description.PropertyDefinitionFieldSetItemModel propertyDefinitionFieldSetItemModel, FieldSetModel fieldSet){
+        List<Funding> fundings = new ArrayList<>();
+
+        boolean valueFound = false;
+        Funding funding = new Funding();
+
+        org.opencdmp.commonmodels.models.description.FieldModel fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_FUNDER_ID);
+        if (fieldValue != null && fieldValue.getReferences() != null  && !fieldValue.getReferences().isEmpty()) {
+            ReferenceModel funder = fieldValue.getReferences().getFirst();
+            if (funder != null && funder.getReference() != null) {
+                FunderId funderId = new FunderId();
+                funderId.setIdentifier(funder.getReference());
+                funderId.setType(FunderId.Type.FUNDREF);
+                funding.setFunderId(funderId);
+                valueFound = true;
+            } else if (funder != null){
+                FunderId funderId = new FunderId();
+                funderId.setIdentifier(funder.getId().toString());
+                funderId.setType(FunderId.Type.OTHER);
+                funding.setFunderId(funderId);
+                valueFound = true;
+            }
+        } else if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            FunderId funderId = new FunderId();
+            funderId.setIdentifier(fieldValue.getTextValue());
+            funderId.setType(FunderId.Type.OTHER);
+            funding.setFunderId(funderId);
+            valueFound = true;
+        }
+
+        fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER);
+        if (fieldValue != null && fieldValue.getReferences() != null  && !fieldValue.getReferences().isEmpty()) {
+            ReferenceModel funder = fieldValue.getReferences().getFirst();
+            if (funder != null && funder.getReference() != null) {
+                FunderId funderId = new FunderId();
+                funderId.setIdentifier(funder.getReference());
+                funderId.setType(FunderId.Type.FUNDREF);
+                funding.setFunderId(funderId);
+                valueFound = true;
+            } else if (funder != null){
+                FunderId funderId = new FunderId();
+                funderId.setIdentifier(funder.getId().toString());
+                funderId.setType(FunderId.Type.OTHER);
+                funding.setFunderId(funderId);
+                valueFound = true;
+            }
+        } else if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            FunderId funderId = new FunderId();
+            funderId.setIdentifier(fieldValue.getTextValue());
+            funderId.setType(FunderId.Type.OTHER);
+            funding.setFunderId(funderId);
+            valueFound = true;
+        }
+
+        fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE);
+        if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            try {
+                FunderId.Type value = FunderId.Type.fromValue(fieldValue.getTextValue());
+                funding.getFunderId().setType(value);
+                valueFound = true;
+            } catch (Exception e) {
+                logger.warn("invalid funding funder id type value: " + fieldValue.getTextValue());
+            }
+        } else if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
+            for (String val : fieldValue.getTextListValue()) {
+                try {
+                    FunderId.Type value = FunderId.Type.fromValue(val);
+                    funding.getFunderId().setType(value);
+                    valueFound = true;
+                } catch (Exception e) {
+                    logger.warn("invalid funding funder id type value:  " + val);
+                }
+            }
+        }
+
+        fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_GRANT_ID);
+        if (fieldValue != null && fieldValue.getReferences() != null  && !fieldValue.getReferences().isEmpty()) {
+            ReferenceModel grant = fieldValue.getReferences().getFirst();
+            if (grant != null && grant.getReference() != null) {
+                GrantId grantId = new GrantId();
+                grantId.setIdentifier(grant.getReference());
+                grantId.setType(GrantId.Type.OTHER);
+                funding.setGrantId(grantId);
+                valueFound = true;
+            } else if (grant != null) {
+                GrantId grantId = new GrantId();
+                grantId.setIdentifier(grant.getId().toString());
+                grantId.setType(GrantId.Type.OTHER);
+                funding.setGrantId(grantId);
+                valueFound = true;
+            }
+        } else if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            GrantId grantId = new GrantId();
+            grantId.setIdentifier(fieldValue.getTextValue());
+            grantId.setType(GrantId.Type.OTHER);
+            funding.setGrantId(grantId);
+            valueFound = true;
+        }
+
+        fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER);
+        if (fieldValue != null && fieldValue.getReferences() != null  && !fieldValue.getReferences().isEmpty()) {
+            ReferenceModel grant = fieldValue.getReferences().getFirst();
+            if (grant != null && grant.getReference() != null) {
+                GrantId grantId = new GrantId();
+                grantId.setIdentifier(grant.getReference());
+                grantId.setType(GrantId.Type.OTHER);
+                funding.setGrantId(grantId);
+                valueFound = true;
+            } else if (grant != null) {
+                GrantId grantId = new GrantId();
+                grantId.setIdentifier(grant.getId().toString());
+                grantId.setType(GrantId.Type.OTHER);
+                funding.setGrantId(grantId);
+                valueFound = true;
+            }
+        } else if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            GrantId grantId = new GrantId();
+            grantId.setIdentifier(fieldValue.getTextValue());
+            grantId.setType(GrantId.Type.OTHER);
+            funding.setGrantId(grantId);
+            valueFound = true;
+        }
+
+        fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE);
+        if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            try {
+                GrantId.Type value = GrantId.Type.fromValue(fieldValue.getTextValue());
+                funding.getGrantId().setType(value);
+                valueFound = true;
+            } catch (Exception e) {
+                logger.warn("invalid funding grant id type value: " + fieldValue.getTextValue());
+            }
+        } else if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
+            for (String val : fieldValue.getTextListValue()) {
+                try {
+                    GrantId.Type value = GrantId.Type.fromValue(val);
+                    funding.getGrantId().setType(value);
+                    valueFound = true;
+                } catch (Exception e) {
+                    logger.warn("invalid funding grant id type value: " + val);
+                }
+            }
+        }
+
+
+        fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS);
+        if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+            try {
+                Funding.FundingStatus value = Funding.FundingStatus.fromValue(fieldValue.getTextValue());
+                funding.setFundingStatus(value);
+                valueFound = true;
+            } catch (Exception e) {
+                logger.warn("invalid Funding Status value: " + fieldValue.getTextValue());
+            }
+        } else if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
+            for (String val : fieldValue.getTextListValue()) {
+                try {
+                    Funding.FundingStatus value = Funding.FundingStatus.fromValue(val);
+                    funding.setFundingStatus(value);
+                    valueFound = true;
+                } catch (Exception e) {
+                    logger.warn("invalid Funding Status value:  " + val);
+                }
+            }
+        }
+
+        if (valueFound) fundings.add(funding);
+
+        return fundings;
+    }
+
+    private List<Contributor> buildContributor(DescriptionModel model, List<Contributor> values){
+        if (values == null) values = new ArrayList<>();
+
+        for (FieldSetModel fieldSet : this.templateFieldSearcherService.searchFieldSetsBySemantics(model.getDescriptionTemplate(), List.of(SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE,
+                SEMANTIC_DATASET_CONTRIBUTOR_MBOX, SEMANTIC_DATASET_CONTRIBUTOR_NAME, SEMANTIC_DATASET_CONTRIBUTOR_ROLE))) {
+            List<org.opencdmp.commonmodels.models.description.PropertyDefinitionFieldSetItemModel> propertyDefinitionFieldSetItemModels = this.findFieldSetValue(fieldSet, model.getProperties());
+            for (org.opencdmp.commonmodels.models.description.PropertyDefinitionFieldSetItemModel propertyDefinitionFieldSetItemModel : propertyDefinitionFieldSetItemModels) {
+                boolean valueFound = false;
+                Contributor item = new Contributor();
+
+                org.opencdmp.commonmodels.models.description.FieldModel fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_CONTRIBUTOR);
+                if (fieldValue != null && fieldValue.getReferences() != null  && !fieldValue.getReferences().isEmpty()) {
                     for (ReferenceModel referenceModel : fieldValue.getReferences()){
                         Contributor contributor = this.buildRdaContributor(referenceModel);
                         if (values.isEmpty()) values.add(contributor);
                         else if (values.stream().filter(x -> x.getContributorId().getIdentifier().equals(contributor.getContributorId().getIdentifier())).findFirst().orElse(null) == null) values.add(contributor);
                     }
                 }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_CONTRIBUTOR_MBOX);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    item.setMbox(fieldValue.getTextValue());
+                    valueFound = true;
+                }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_CONTRIBUTOR_NAME);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    item.setName(fieldValue.getTextValue());
+                    valueFound = true;
+                }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_CONTRIBUTOR_ROLE);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    item.setRole(new HashSet<>(List.of(fieldValue.getTextValue())));
+                    valueFound = true;
+                }
+                if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
+                    item.setRole(new HashSet<>(fieldValue.getTextListValue()));
+                    valueFound = true;
+                }
+
+                ContributorId id = new ContributorId();
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    id.setIdentifier(fieldValue.getTextValue());
+                    valueFound = true;
+                }
+
+                fieldValue = this.findValueFieldBySemantic(fieldSet, propertyDefinitionFieldSetItemModel, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE);
+                if (fieldValue != null && fieldValue.getTextValue() != null && !fieldValue.getTextValue().isBlank()) {
+                    try {
+                        id.setType(ContributorId.Type.fromValue(fieldValue.getTextValue()));
+                        valueFound = true;
+                    } catch (Exception ex) {
+                        logger.warn("invalid contributor type value: " + fieldValue.getTextValue());
+                    }
+                }
+                if (fieldValue != null && fieldValue.getTextListValue() != null && !fieldValue.getTextListValue().isEmpty()) {
+                    try {
+                        id.setType(ContributorId.Type.fromValue(fieldValue.getTextListValue().getFirst()));
+                        valueFound = true;
+                    } catch (Exception ex) {
+                        logger.warn("invalid contributor type value: " + fieldValue.getTextListValue().getFirst());
+                    }
+                }
+
+                if (id.getIdentifier() != null || id.getType() != null) item.setContributorId(id);
+
+                if (valueFound) values.add(item);
             }
         }
+
         return values;
     }
     
@@ -964,6 +1483,16 @@ public class RdaFileTransformerService implements FileTransformerClient {
                     }
                     return datasetId;
                 }
+                if (fieldValue.getReferences() != null && !fieldValue.getReferences().isEmpty()) {
+                    ReferenceModel dataset = fieldValue.getReferences().getFirst();
+                    if (dataset != null && dataset.getReference() != null) {
+                        datasetId.setIdentifier(dataset.getReference());
+                        return datasetId;
+                    } else if (dataset != null) {
+                        datasetId.setIdentifier(dataset.getId().toString());
+                        return datasetId;
+                    }
+                }
             }
         }
         
@@ -1336,7 +1865,17 @@ public class RdaFileTransformerService implements FileTransformerClient {
             model.setLabel(rdaModel.getDmp().getTitle());
             model.setDescription(rdaModel.getDmp().getDescription());
             model.setAccessType(PlanAccessType.Restricted);
-            if (rdaModel.getDmp().getLanguage() != null && rdaModel.getDmp().getLanguage().value() != null) model.setLanguage(this.configuration.getRdaFileTransformerServiceProperties().getLanguageMap().getOrDefault(rdaModel.getDmp().getLanguage().value(), "en"));
+            if (rdaModel.getDmp().getLanguage() != null && rdaModel.getDmp().getLanguage().value() != null) {
+                Stream<String> keys = this.configuration.getRdaFileTransformerServiceProperties().getLanguageMap()
+                        .entrySet()
+                        .stream()
+                        .filter(entry -> rdaModel.getDmp().getLanguage().value().equals(entry.getValue()))
+                        .map(Map.Entry::getKey);
+
+                String code = keys.findFirst().orElse(null);
+                if (code != null && !code.isBlank()) model.setLanguage(code);
+                else model.setLanguage("en");
+            }
             model.setCreatedAt(rdaModel.getDmp().getCreated());
             model.setUpdatedAt(rdaModel.getDmp().getModified());
 //            model.setUsers(buildDmpUsersByRdaContributors(rdaModel.getDmp().getContributor()));
@@ -1391,11 +1930,15 @@ public class RdaFileTransformerService implements FileTransformerClient {
             catch (IllegalArgumentException e) {}
         }
 
-        if (contributor.getRole() != null){
-            if (contributor.getRole().equals(PlanUserRole.Owner.name())) planUserModel.setRole(PlanUserRole.Owner);
-            else if (contributor.getRole().equals(PlanUserRole.DescriptionContributor.name())) planUserModel.setRole(PlanUserRole.DescriptionContributor);
-            else if (contributor.getRole().equals(PlanUserRole.Reviewer.name())) planUserModel.setRole(PlanUserRole.Reviewer);
-            else if (contributor.getRole().equals(PlanUserRole.Viewer.name())) planUserModel.setRole(PlanUserRole.Viewer);
+        if (contributor.getRole() != null && !contributor.getRole().isEmpty()){
+            if (contributor.getRole().contains(PlanUserRole.Owner.name())) planUserModel.setRole(PlanUserRole.Owner);
+            else if (contributor.getRole().contains(PlanUserRole.DescriptionContributor.name())) planUserModel.setRole(PlanUserRole.DescriptionContributor);
+            else if (contributor.getRole().contains(PlanUserRole.Reviewer.name())) planUserModel.setRole(PlanUserRole.Reviewer);
+            else if (contributor.getRole().contains(PlanUserRole.Viewer.name())) planUserModel.setRole(PlanUserRole.Viewer);
+            else if (contributor.getRole().contains(PlanUserRole.DataSteward.name())) planUserModel.setRole(PlanUserRole.DataSteward);
+            else if (contributor.getRole().contains(PlanUserRole.DataPrivacyOfficer.name())) planUserModel.setRole(PlanUserRole.DataPrivacyOfficer);
+            else if (contributor.getRole().contains(PlanUserRole.EthicsReviewer.name())) planUserModel.setRole(PlanUserRole.EthicsReviewer);
+
         }
 
         return planUserModel;
@@ -1421,6 +1964,20 @@ public class RdaFileTransformerService implements FileTransformerClient {
         if (dmp.getEthicalIssuesExist() != null) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesByRdaEthicalIssuesExist(planBlueprintModel, dmp.getEthicalIssuesExist()));
         if (dmp.getEthicalIssuesDescription() != null && !dmp.getEthicalIssuesDescription().isEmpty()) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesByRdaEthicalIssuesDescription(planBlueprintModel, dmp.getEthicalIssuesDescription()));
         if (dmp.getEthicalIssuesReport() != null) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesByRdaEthicalIssueReport(planBlueprintModel, dmp.getEthicalIssuesReport().toString()));
+        if (dmp.getTitle() != null) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesBySingleString(planBlueprintModel, dmp.getTitle(), SEMANTIC_DMP_TITLE));
+        if (dmp.getDescription() != null) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesBySingleString(planBlueprintModel, dmp.getDescription(), SEMANTIC_DMP_DESCRIPTION));
+        if (dmp.getLanguage() != null && dmp.getLanguage().value() != null) {
+
+            Stream<String> keys = this.configuration.getRdaFileTransformerServiceProperties().getLanguageMap()
+                    .entrySet()
+                    .stream()
+                    .filter(entry -> dmp.getLanguage().value().equals(entry.getValue()))
+                    .map(Map.Entry::getKey);
+
+            keys.findFirst().ifPresent(code -> planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesBySingleString(planBlueprintModel, code, SEMANTIC_DMP_LANGUAGE)));
+        }
+        if (dmp.getCreated() != null) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesBySingleDate(planBlueprintModel, dmp.getCreated(), SEMANTIC_DMP_CREATED));
+        if (dmp.getModified() != null) planPropertiesModel.getPlanBlueprintValues().addAll(buildPlanBlueprintValuesBySingleDate(planBlueprintModel, dmp.getModified(), SEMANTIC_DMP_MODIFIED));
 
         return planPropertiesModel;
     }
@@ -1529,6 +2086,43 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 PlanBlueprintValueModel valueModel = new PlanBlueprintValueModel();
                 valueModel.setFieldId(field.getId());
                 valueModel.setValue(ethicalIssuesReport);
+                dmpBlueprintValueModels.add(valueModel);
+            }
+        }
+
+        return dmpBlueprintValueModels;
+    }
+
+    public List<PlanBlueprintValueModel> buildPlanBlueprintValuesBySingleString(PlanBlueprintModel planBlueprintModel, String value, String semantic) {
+        List<PlanBlueprintValueModel> dmpBlueprintValueModels = new ArrayList<>();
+
+        if (planBlueprintModel == null || value == null) return dmpBlueprintValueModels;
+
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> fields = this.getFieldsOfSemantic(planBlueprintModel, semantic);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
+            if (field != null){
+                PlanBlueprintValueModel valueModel = new PlanBlueprintValueModel();
+                valueModel.setFieldId(field.getId());
+                valueModel.setValue(value);
+                dmpBlueprintValueModels.add(valueModel);
+            }
+        }
+
+        return dmpBlueprintValueModels;
+    }
+
+    public List<PlanBlueprintValueModel> buildPlanBlueprintValuesBySingleDate(PlanBlueprintModel planBlueprintModel, Instant value, String semantic) {
+        List<PlanBlueprintValueModel> dmpBlueprintValueModels = new ArrayList<>();
+
+        if (planBlueprintModel == null || value == null) return dmpBlueprintValueModels;
+
+        List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> fields = this.getFieldsOfSemantic(planBlueprintModel, semantic);
+        for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
+            if (field != null){
+                PlanBlueprintValueModel valueModel = new PlanBlueprintValueModel();
+                valueModel.setFieldId(field.getId());
+                valueModel.setValue(value.toString());
+                valueModel.setDateValue(value);
                 dmpBlueprintValueModels.add(valueModel);
             }
         }
@@ -1678,6 +2272,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
         if (dmp.getCost() != null) fieldSets.putAll(this.buildFieldByRdaCost(descriptionTemplateModel, dmp.getCost()));
         if (dmp.getContributor() != null) fieldSets.putAll(this.buildFieldByRdaContributor(descriptionTemplateModel, dmp.getContributor()));
         if (dataset.getDistribution() != null) fieldSets.putAll(this.buildFieldByRdaDistribution(descriptionTemplateModel, dataset.getDistribution()));
+        if (dmp.getProject() != null) fieldSets.putAll(this.buildFieldByRdaProject(descriptionTemplateModel, dmp.getProject()));
 
         for (FieldSetModel fieldSetModel: descriptionTemplateModel.getDefinition().getAllFieldSets()){
             if (!fieldSets.containsKey(fieldSetModel.getId())){
@@ -1722,7 +2317,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 SEMANTIC_DATASET_DISTRIBUTION_HOST_TITLE, SEMANTIC_DATASET_DISTRIBUTION_HOST_URL, SEMANTIC_DATASET_DISTRIBUTION_HOST_GEO_LOCATION, SEMANTIC_DATASET_DISTRIBUTION_HOST_SUPPORT_VERSIONING,
                 SEMANTIC_DATASET_DISTRIBUTION_FORMAT, SEMANTIC_DATASET_METADATA_DESCRIPTION, SEMANTIC_DATASET_METADATA_LANGUAGE,
                 SEMANTIC_DATASET_METADATA_STANDARD_ID_IDENTIFIER, SEMANTIC_DATASET_METADATA_STANDARD_ID_TYPE, SEMANTIC_DATASET_SECURITY_AND_PRIVACY_TITLE, SEMANTIC_DATASET_SECURITY_AND_PRIVACY_DESCRIPTION, SEMANTIC_COST_CURRENCY_CODE, SEMANTIC_COST_TITLE,
-                SEMANTIC_COST_VALUE, SEMANTIC_COST_DESCRIPTION, SEMANTIC_DATASET_CONTRIBUTOR));
+                SEMANTIC_COST_VALUE, SEMANTIC_COST_DESCRIPTION, SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_DESCRIPTION, SEMANTIC_DATASET_IS_REUSED, SEMANTIC_DATASET_TITLE, SEMANTIC_DATASET_DATASET_ID_TYPE));
         if (!fieldSetsWithSemantics.isEmpty()){
             for (FieldSetModel templateFieldSetModel: fieldSetsWithSemantics) {
                 PropertyDefinitionFieldSetModel propertyDefinitionFieldSetModel = fieldSetModelMap.getOrDefault(templateFieldSetModel.getId(), null);
@@ -1742,14 +2337,32 @@ public class RdaFileTransformerService implements FileTransformerClient {
                         if (dataset != null) {
                             if (dataset.getDatasetId() != null && (templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DATASET_ID))){
                                 fieldModel.setTextValue(dataset.getDatasetId().getIdentifier());
+
                                 ExternalIdentifierModel externalIdentifierModel = new ExternalIdentifierModel();
                                 externalIdentifierModel.setIdentifier(dataset.getDatasetId().getIdentifier());
                                 externalIdentifierModel.setType(dataset.getDatasetId().getType().toString());
                                 fieldModel.setExternalIdentifier(externalIdentifierModel);
+
+                                ReferenceModel referenceModel = new ReferenceModel();
+                                referenceModel.setReference(dataset.getDatasetId().getIdentifier());
+                                referenceModel.setLabel(dataset.getTitle());
+                                ReferenceTypeDataModel referenceTypeDataModel = (ReferenceTypeDataModel) templateFieldModel.getData();
+                                if (referenceTypeDataModel != null) referenceModel.setType(referenceTypeDataModel.getReferenceType());
+                                fieldModel.setReferences(new ArrayList<>());
+                                fieldModel.getReferences().add(referenceModel);
+
                                 valueFound = true;
                             }
                             if (dataset.getDatasetId() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DATASET_ID_ID)){
                                 fieldModel.setTextValue(dataset.getDatasetId().getIdentifier());
+                                valueFound = true;
+                            }
+                            if (dataset.getTitle() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_TITLE)){
+                                fieldModel.setTextValue(dataset.getTitle());
+                                valueFound = true;
+                            }
+                            if (dataset.getDescription() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DESCRIPTION)){
+                                fieldModel.setTextValue(dataset.getDescription());
                                 valueFound = true;
                             }
                             if (dataset.getDatasetId() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DATASET_ID_TYPE)){
@@ -1770,6 +2383,11 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             }
                             if (dataset.getType() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_TYPE)){
                                 fieldModel.setTextValue(dataset.getType());
+                                valueFound = true;
+                            }
+                            if (dataset.getIsReused() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_IS_REUSED)){
+                                fieldModel.setBooleanValue(dataset.getIsReused());
+                                fieldModel.setTextValue(dataset.getIsReused().toString());
                                 valueFound = true;
                             }
                             if (dataset.getIssued() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_ISSUED)){
@@ -1798,6 +2416,30 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             }
                         }
                         if (dmp != null) {
+                            if (dmp.getTitle() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DMP_TITLE)){
+                                fieldModel.setTextValue(dmp.getTitle());
+                                fieldModel.setTextListValue(List.of(dmp.getTitle()));
+                                valueFound = true;
+                            }
+                            if (dmp.getDescription() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DMP_DESCRIPTION)){
+                                fieldModel.setTextValue(dmp.getDescription());
+                                fieldModel.setTextListValue(List.of(dmp.getDescription()));
+                                valueFound = true;
+                            }
+                            if (dmp.getCreated() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DMP_CREATED)){
+                                fieldModel.setTextValue(dmp.getCreated().toString());
+                                fieldModel.setDateValue(dmp.getCreated());
+                                valueFound = true;
+                            }
+                            if (dmp.getModified() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DMP_MODIFIED)){
+                                fieldModel.setTextValue(dmp.getModified().toString());
+                                fieldModel.setDateValue(dmp.getModified());
+                                valueFound = true;
+                            }
+                            if (dmp.getLanguage() != null && dmp.getLanguage().value() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DMP_LANGUAGE)){
+                                fieldModel.setTextValue(dmp.getLanguage().value());
+                                valueFound = true;
+                            }
                             if (dmp.getEthicalIssuesExist() != null && templateFieldModel.getSemantics().contains(SEMANTIC_ETHICAL_ISSUES_EXISTS)){
                                 fieldModel.setTextValue(dmp.getEthicalIssuesExist().value());
                                 fieldModel.setTextListValue(List.of(dmp.getEthicalIssuesExist().value()));
@@ -2069,7 +2711,8 @@ public class RdaFileTransformerService implements FileTransformerClient {
 
         if (contributors == null) return fieldSetModelMap;
 
-        List<FieldSetModel> fieldSetsWithSemantics = this.templateFieldSearcherService.searchFieldSetsBySemantics(descriptionTemplateModel, List.of(SEMANTIC_DATASET_CONTRIBUTOR));
+        List<FieldSetModel> fieldSetsWithSemantics = this.templateFieldSearcherService.searchFieldSetsBySemantics(descriptionTemplateModel, List.of(SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER,
+                SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE, SEMANTIC_DATASET_CONTRIBUTOR_MBOX, SEMANTIC_DATASET_CONTRIBUTOR_NAME, SEMANTIC_DATASET_CONTRIBUTOR_ROLE));
         if (!fieldSetsWithSemantics.isEmpty()){
             for (Contributor contributor: contributors) {
                 for (FieldSetModel templateFieldSetModel: fieldSetsWithSemantics) {
@@ -2087,6 +2730,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             boolean valueFound = false;
                             org.opencdmp.commonmodels.models.description.FieldModel fieldModel = new org.opencdmp.commonmodels.models.description.FieldModel();
                             fieldModel.setId(templateFieldModel.getId());
+
                             if (contributor.getContributorId() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_CONTRIBUTOR)){
                                 ReferenceModel referenceModel = new ReferenceModel();
                                 referenceModel.setReference(contributor.getContributorId().toString());
@@ -2095,6 +2739,31 @@ public class RdaFileTransformerService implements FileTransformerClient {
                                 if (referenceTypeDataModel != null) referenceModel.setType(referenceTypeDataModel.getReferenceType());
                                 fieldModel.setReferences(new ArrayList<>());
                                 fieldModel.getReferences().add(referenceModel);
+                                valueFound = true;
+                            }
+
+                            if (contributor.getContributorId() != null && contributor.getContributorId().getIdentifier() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER)){
+                                fieldModel.setTextValue(contributor.getContributorId().getIdentifier());
+                                valueFound = true;
+                            }
+
+                            if (contributor.getContributorId() != null && contributor.getContributorId().getType() != null && contributor.getContributorId().getType().value() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE)){
+                                fieldModel.setTextValue(contributor.getContributorId().getType().value());
+                                fieldModel.setTextListValue(List.of(contributor.getContributorId().getType().value()));
+                                valueFound = true;
+                            }
+
+                            if (contributor.getName() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_CONTRIBUTOR_NAME)){
+                                fieldModel.setTextValue(contributor.getName());
+                                valueFound = true;
+                            }
+                            if (contributor.getMbox() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_CONTRIBUTOR_MBOX)){
+                                fieldModel.setTextValue(contributor.getMbox());
+                                valueFound = true;
+                            }
+                            if (contributor.getRole() != null && !contributor.getRole().isEmpty() && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_CONTRIBUTOR_ROLE)){
+                                fieldModel.setTextValue(contributor.getRole().stream().toList().getFirst());
+                                fieldModel.setTextListValue(contributor.getRole().stream().toList());
                                 valueFound = true;
                             }
                             if (valueFound) fieldsMap.put(templateFieldModel.getId(), fieldModel);
@@ -2130,7 +2799,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
                 SEMANTIC_DATASET_DISTRIBUTION_HOST_AVAILABILITY, SEMANTIC_DATASET_DISTRIBUTION_HOST_BACKUP_FREQUENCY, SEMANTIC_DATASET_DISTRIBUTION_HOST_BACKUP_TYPE,
                 SEMANTIC_DATASET_DISTRIBUTION_HOST_CERTIFIED_WITH, SEMANTIC_DATASET_DISTRIBUTION_HOST_DESCRIPTION, SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM, SEMANTIC_DATASET_DISTRIBUTION_HOST_STORAGE_TYPE,
                 SEMANTIC_DATASET_DISTRIBUTION_HOST_TITLE, SEMANTIC_DATASET_DISTRIBUTION_HOST_URL, SEMANTIC_DATASET_DISTRIBUTION_HOST_GEO_LOCATION, SEMANTIC_DATASET_DISTRIBUTION_HOST_SUPPORT_VERSIONING,
-                SEMANTIC_DATASET_DISTRIBUTION_FORMAT));
+                SEMANTIC_DATASET_DISTRIBUTION_FORMAT, SEMANTIC_DATASET_DISTRIBUTION_EXISTS));
         if (!fieldSetsWithSemantics.isEmpty()){
             for (Distribution distribution: distributions) {
                 for (FieldSetModel templateFieldSetModel: fieldSetsWithSemantics) {
@@ -2148,6 +2817,14 @@ public class RdaFileTransformerService implements FileTransformerClient {
                             boolean valueFound = false;
                             org.opencdmp.commonmodels.models.description.FieldModel fieldModel = new org.opencdmp.commonmodels.models.description.FieldModel();
                             fieldModel.setId(templateFieldModel.getId());
+
+                            // semantic SEMANTIC_DATASET_DISTRIBUTION_EXISTS is not part of the distribution
+                            if (templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DISTRIBUTION_EXISTS)){
+                                fieldModel.setTextValue("true");
+                                fieldModel.setBooleanValue(true);
+                                valueFound = true;
+                            }
+
                             if (distribution.getDescription() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DISTRIBUTION_DESCRIPTION)){
                                 fieldModel.setTextValue(distribution.getDescription());
                                 valueFound = true;
@@ -2279,6 +2956,142 @@ public class RdaFileTransformerService implements FileTransformerClient {
         return fieldSetModelMap;
     }
 
+    private Map<String, PropertyDefinitionFieldSetModel> buildFieldByRdaProject(DescriptionTemplateModel descriptionTemplateModel, List<Project> projects){
+        Map<String, PropertyDefinitionFieldSetModel> fieldSetModelMap = new HashMap<>();
+
+        if (descriptionTemplateModel == null) throw new MyApplicationException("description template is missing");
+
+        if (projects == null) return fieldSetModelMap;
+
+        List<FieldSetModel> fieldSetsWithSemantics = this.templateFieldSearcherService.searchFieldSetsBySemantics(descriptionTemplateModel, List.of(SEMANTIC_PROJECT_FUNDING_GRANT_ID, SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER,
+                SEMANTIC_PROJECT_FUNDING_FUNDER_ID, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS, SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE,
+                SEMANTIC_PROJECT_START, SEMANTIC_PROJECT_END, SEMANTIC_PROJECT_TITLE, SEMANTIC_PROJECT_DESCRIPTION));
+        if (!fieldSetsWithSemantics.isEmpty()){
+            for (Project project: projects) {
+                for (FieldSetModel templateFieldSetModel: fieldSetsWithSemantics) {
+                    PropertyDefinitionFieldSetModel propertyDefinitionFieldSetModel = fieldSetModelMap.getOrDefault(templateFieldSetModel.getId(), null);
+                    if(propertyDefinitionFieldSetModel == null) {
+                        propertyDefinitionFieldSetModel = new PropertyDefinitionFieldSetModel();
+                        propertyDefinitionFieldSetModel.setItems(new ArrayList<>());
+                        fieldSetModelMap.put(templateFieldSetModel.getId(), propertyDefinitionFieldSetModel);
+                    }
+
+                    PropertyDefinitionFieldSetItemModel propertyDefinitionFieldSetItemModel = new PropertyDefinitionFieldSetItemModel();
+                    Map<String, org.opencdmp.commonmodels.models.description.FieldModel> fieldsMap = new HashMap<>();
+                    for (FieldModel templateFieldModel: templateFieldSetModel.getFields()) {
+                        if (templateFieldModel.getSemantics() != null && !templateFieldModel.getSemantics().isEmpty()){
+                            boolean valueFound = false;
+                            org.opencdmp.commonmodels.models.description.FieldModel fieldModel = new org.opencdmp.commonmodels.models.description.FieldModel();
+                            fieldModel.setId(templateFieldModel.getId());
+
+                            if (project.getFunding() != null && !project.getFunding().isEmpty()) {
+                                for (Funding funding: project.getFunding()) {
+
+                                    if (funding.getFunderId() != null) {
+                                        if (funding.getFunderId().getIdentifier() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_FUNDER_ID)){
+                                            ReferenceModel referenceModel = new ReferenceModel();
+                                            referenceModel.setReference(funding.getFunderId().getIdentifier());
+                                            ReferenceTypeDataModel referenceTypeDataModel = (ReferenceTypeDataModel) templateFieldModel.getData();
+                                            if (referenceTypeDataModel != null) referenceModel.setType(referenceTypeDataModel.getReferenceType());
+                                            fieldModel.setReferences(new ArrayList<>());
+                                            fieldModel.getReferences().add(referenceModel);
+                                            valueFound = true;
+                                        }
+
+                                        if (funding.getFunderId().getIdentifier() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER)){
+                                            fieldModel.setTextValue(funding.getFunderId().getIdentifier());
+                                            valueFound = true;
+                                        }
+
+                                        if (funding.getFunderId().getType() != null && funding.getFunderId().getType().value() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE)){
+                                            fieldModel.setTextValue(funding.getFunderId().getType().value());
+                                            fieldModel.setTextListValue(List.of(funding.getFunderId().getType().value()));
+                                            valueFound = true;
+                                        }
+                                    }
+
+                                    if (funding.getGrantId() != null) {
+                                        if (funding.getGrantId().getIdentifier() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_GRANT_ID)){
+                                            ReferenceModel referenceModel = new ReferenceModel();
+                                            referenceModel.setReference(funding.getGrantId().getIdentifier());
+                                            ReferenceTypeDataModel referenceTypeDataModel = (ReferenceTypeDataModel) templateFieldModel.getData();
+                                            if (referenceTypeDataModel != null) referenceModel.setType(referenceTypeDataModel.getReferenceType());
+                                            fieldModel.setReferences(new ArrayList<>());
+                                            fieldModel.getReferences().add(referenceModel);
+                                            valueFound = true;
+                                        }
+
+                                        if (funding.getGrantId().getIdentifier() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER)){
+                                            fieldModel.setTextValue(funding.getGrantId().getIdentifier());
+                                            valueFound = true;
+                                        }
+
+                                        if (funding.getGrantId().getType() != null && funding.getGrantId().getType().value() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE)){
+                                            fieldModel.setTextValue(funding.getGrantId().getType().value());
+                                            fieldModel.setTextListValue(List.of(funding.getGrantId().getType().value()));
+                                            valueFound = true;
+                                        }
+                                    }
+
+                                    if (funding.getFundingStatus() != null && funding.getFundingStatus().value() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS)){
+                                        fieldModel.setTextValue(funding.getFundingStatus().value());
+                                        fieldModel.setTextListValue(List.of(funding.getFundingStatus().value()));
+                                        valueFound = true;
+                                    }
+
+                                }
+                            }
+
+                            if (project.getTitle() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_TITLE)){
+                                fieldModel.setTextValue(project.getTitle());
+                                valueFound = true;
+                            }
+
+                            if (project.getDescription() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_DESCRIPTION)){
+                                fieldModel.setTextValue(project.getDescription());
+                                valueFound = true;
+                            }
+
+                            if (project.getStart() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_START)){
+                                fieldModel.setTextValue(project.getStart());
+                                try {
+                                    fieldModel.setDateValue(LocalDate.parse(project.getStart(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                                } catch (Exception e) {
+                                    logger.warn("invalid date parse from project start value: " + project.getStart());
+                                }
+                                valueFound = true;
+                            }
+
+                            if (project.getEnd() != null && templateFieldModel.getSemantics().contains(SEMANTIC_PROJECT_END)){
+                                fieldModel.setTextValue(project.getEnd());
+                                try {
+                                    fieldModel.setDateValue(LocalDate.parse(project.getEnd(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                                } catch (Exception e) {
+                                    logger.warn("invalid date parse from project end value: " + project.getEnd());
+                                }
+                                valueFound = true;
+                            }
+
+
+                            if (valueFound) fieldsMap.put(templateFieldModel.getId(), fieldModel);
+                        }
+                    }
+                    if (propertyDefinitionFieldSetModel.getItems() == null){
+                        propertyDefinitionFieldSetModel.setItems(new ArrayList<>());
+                    }
+                    propertyDefinitionFieldSetItemModel.setFields(fieldsMap);
+                    propertyDefinitionFieldSetItemModel.setOrdinal(propertyDefinitionFieldSetModel.getItems().size());
+                    propertyDefinitionFieldSetModel.getItems().add(propertyDefinitionFieldSetItemModel);
+
+                    fieldSetModelMap.put(templateFieldSetModel.getId(), propertyDefinitionFieldSetModel);
+                }
+            }
+
+        }
+
+        return fieldSetModelMap;
+    }
+
     @Override
     public FileTransformerConfiguration getConfiguration() {
         List<FileFormat> supportedFormats = List.of(new FileFormat("json", false, null));
@@ -2286,8 +3099,11 @@ public class RdaFileTransformerService implements FileTransformerClient {
         configuration.setFileTransformerId(this.configuration.getRdaFileTransformerServiceProperties().getTransformerId());
         configuration.setExportVariants(supportedFormats);
         configuration.setExportEntityTypes(FILE_TRANSFORMER_ENTITY_TYPES);
-        configuration.setImportVariants(null);
+        configuration.setImportVariants(supportedFormats);
+        configuration.setImportEntityTypes(FILE_TRANSFORMER_ENTITY_TYPES);
         configuration.setUseSharedStorage(this.configuration.getRdaFileTransformerServiceProperties().isUseSharedStorage());
+        configuration.setConfigurationFields(this.configuration.getRdaFileTransformerServiceProperties().getConfigurationFields());
+        configuration.setUserConfigurationFields(this.configuration.getRdaFileTransformerServiceProperties().getUserConfigurationFields());
         return configuration;
     }
 

@@ -79,6 +79,15 @@ public class Dataset implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Distribution> distribution = null;
     /**
+     * The Dataset is Reused Schema
+     * <p>
+     * Indication if the dataset is reused, i.e., not produced in project(s) covered by this DMP.
+     *
+     */
+    @JsonProperty("is_reused")
+    @JsonPropertyDescription("Indication if the dataset is reused")
+    private Boolean isReused;
+    /**
      * The Dataset Date of Issue Schema
      * <p>
      * Date of Issue
@@ -277,6 +286,28 @@ public class Dataset implements Serializable
     @JsonProperty("distribution")
     public void setDistribution(List<Distribution> distribution) {
         this.distribution = distribution;
+    }
+
+    /**
+     * The Dataset is Reused Schema
+     * <p>
+     * Indication if the dataset is reused, i.e., not produced in project(s) covered by this DMP.
+     *
+     */
+    @JsonProperty("is_reused")
+    public Boolean getIsReused() {
+        return isReused;
+    }
+
+    /**
+     * The Dataset is Reused Schema
+     * <p>
+     * Indication if the dataset is reused, i.e., not produced in project(s) covered by this DMP.
+     *
+     */
+    @JsonProperty("is_reused")
+    public void setIsReused(Boolean isReused) {
+        this.isReused = isReused;
     }
 
     /**
