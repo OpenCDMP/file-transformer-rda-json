@@ -432,7 +432,13 @@ public class RdaFileTransformerService implements FileTransformerClient {
         List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> fields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_ETHICAL_ISSUES_EXISTS);
         for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
             PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
-            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) return Dmp.EthicalIssuesExist.fromValue(valueModel.getValue());
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()){
+                try{
+                    return Dmp.EthicalIssuesExist.fromValue(valueModel.getValue());
+                }catch (Exception e){
+                    logger.warn("invalid rda ethical issue exist for value: " + valueModel.getValue());
+                }
+            }
         }
         return Dmp.EthicalIssuesExist.UNKNOWN;
     }
@@ -442,7 +448,12 @@ public class RdaFileTransformerService implements FileTransformerClient {
         List<org.opencdmp.commonmodels.models.planblueprint.FieldModel> fields = this.getFieldsOfSemantic(model.getPlanBlueprint(), SEMANTIC_ETHICAL_ISSUES_REPORT);
         for(org.opencdmp.commonmodels.models.planblueprint.FieldModel field : fields) {
             PlanBlueprintValueModel valueModel = field != null ? this.getPLanBlueprintValue(model, field.getId()) : null;
-            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank()) return URI.create(valueModel.getValue());
+            if (valueModel != null && valueModel.getValue() != null && !valueModel.getValue().isBlank())
+                try{
+                    return URI.create(valueModel.getValue());
+                }catch (Exception e){
+                    logger.warn("invalid rda  ethical issue report for value: " + valueModel.getValue());
+                }
         }
         return null;
     }
@@ -611,6 +622,7 @@ public class RdaFileTransformerService implements FileTransformerClient {
 
     private DmpId buildRdaDmpId(PlanModel plan){
         if (plan == null) throw new MyApplicationException("Plan is missing");
+        //TODO: Do we need this line? (&& x.getRepositoryId().equalsIgnoreCase(REPOSITORY_ZENODO)).findFirst().orElse(null)) It doesnt need to be only zenodo
         EntityDoiModel model = plan.getEntityDois() == null ? null : plan.getEntityDois().stream().filter(x -> x.getRepositoryId() != null && x.getDoi() != null && !x.getDoi().isBlank() && x.getRepositoryId().equalsIgnoreCase(REPOSITORY_ZENODO)).findFirst().orElse(null);
         DmpId rdaModel = new DmpId();
         if (model == null){
