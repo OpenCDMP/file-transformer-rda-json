@@ -2,10 +2,11 @@
 package org.opencdmp.filetransformer.rda.model.rda;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import java.util.Set;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "affiliation",
     "contributor_id",
     "mbox",
     "name",
@@ -26,16 +28,24 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Contributor implements Serializable
 {
-
+    /**
+     * The Affiliation Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("affiliation")
+    private List<Affiliation> affiliation;
     /**
      * The Contributor_id Schema
      * <p>
      * 
-     * (Required)
+     *
      * 
      */
     @JsonProperty("contributor_id")
-    private ContributorId contributorId;
+    private List<ContributorId> contributorId;
     /**
      * The Contributor Mailbox Schema
      * <p>
@@ -72,14 +82,37 @@ public class Contributor implements Serializable
     private final static long serialVersionUID = 3452606902359513114L;
 
     /**
+     * The Affiliation Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("affiliation")
+    public List<Affiliation> getAffiliation() {
+        return affiliation;
+    }
+
+    /**
+     * The Affiliation Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("affiliation")
+    public void setAffiliation(List<Affiliation> affiliation) {
+        this.affiliation = affiliation;
+    }
+    /**
      * The Contributor_id Schema
      * <p>
      * 
-     * (Required)
+     *
      * 
      */
     @JsonProperty("contributor_id")
-    public ContributorId getContributorId() {
+    public List<ContributorId> getContributorId() {
         return contributorId;
     }
 
@@ -87,11 +120,11 @@ public class Contributor implements Serializable
      * The Contributor_id Schema
      * <p>
      * 
-     * (Required)
+     *
      * 
      */
     @JsonProperty("contributor_id")
-    public void setContributorId(ContributorId contributorId) {
+    public void setContributorId(List<ContributorId> contributorId) {
         this.contributorId = contributorId;
     }
 

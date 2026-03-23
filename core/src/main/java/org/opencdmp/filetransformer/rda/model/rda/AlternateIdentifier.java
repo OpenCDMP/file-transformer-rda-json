@@ -1,4 +1,3 @@
-
 package org.opencdmp.filetransformer.rda.model.rda;
 
 import com.fasterxml.jackson.annotation.*;
@@ -8,52 +7,47 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
- * The DMP Identifier Schema
+ * The Alternate DMP Identifier Schema
  * <p>
- * Identifier for the DMP itself
- * 
+ * Alternate Identifier for the DMP itself
+ *
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "identifier",
-    "type"
+        "identifier",
+        "type"
 })
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class DmpId implements Serializable
+public class AlternateIdentifier implements Serializable
 {
 
     /**
-     * The DMP Identifier Value Schema
+     * The DMP Alternate Identifier Value Schema
      * <p>
      * Identifier for a DMP
      * (Required)
-     * 
+     *
      */
     @JsonProperty("identifier")
-    @JsonPropertyDescription("Identifier for a DMP")
+    @JsonPropertyDescription("Identifier for a DMP for an Affiliation")
     private String identifier;
     /**
      * The DMP Identifier Type Schema
      * <p>
-     * The DMP Identifier Type. Suggested Values: handle, doi, ark, url
+     * The DMP Identifier Type. Suggested Values: ror, grid, isni
      * (Required)
-     * 
+     *
      */
     @JsonProperty("type")
-    @JsonPropertyDescription("The DMP Identifier Type. Allowed values: handle, doi, ark, url, other")
-    private String  type;
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -6059908070202476841L;
+    @JsonPropertyDescription("The DMP Identifier Type For an Affiliation. Suggested Values: ror, grid, isni")
+    private String type;
 
     /**
      * The DMP Identifier Value Schema
      * <p>
      * Identifier for a DMP
      * (Required)
-     * 
+     *
      */
     @JsonProperty("identifier")
     public String getIdentifier() {
@@ -61,11 +55,11 @@ public class DmpId implements Serializable
     }
 
     /**
-     * The DMP Identifier Value Schema
+     * The DMP Identifier Value Schema For an Affiliation
      * <p>
      * Identifier for a DMP
      * (Required)
-     * 
+     *
      */
     @JsonProperty("identifier")
     public void setIdentifier(String identifier) {
@@ -75,9 +69,9 @@ public class DmpId implements Serializable
     /**
      * The DMP Identifier Type Schema
      * <p>
-     * The DMP Identifier Type. Suggested Values: handle, doi, ark, url
+     * The DMP Identifier Type For an Affiliation. Suggested Values: ror, grid, isni"
      * (Required)
-     * 
+     *
      */
     @JsonProperty("type")
     public String getType() {
@@ -87,25 +81,14 @@ public class DmpId implements Serializable
     /**
      * The DMP Identifier Type Schema
      * <p>
-     * The DMP Identifier Type. Suggested Values: handle, doi, ark, url
+     * The DMP Identifier Type For an Affiliation. Allowed values: handle, doi, ark, url, other
      * (Required)
-     * 
+     *
      */
     @JsonProperty("type")
     public void setType(String type) {
         this.type = type;
     }
 
-    @JsonProperty("additional_properties")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonProperty("additional_properties")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 }

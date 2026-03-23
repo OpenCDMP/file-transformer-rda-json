@@ -1,13 +1,12 @@
 package org.opencdmp.filetransformer.rda.service.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.core.JacksonException;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.ObjectReader;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,15 +14,15 @@ import java.util.Map;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class JsonHandlingService {
-    private final ObjectMapper objectMapper;
+    private final JsonMapper objectMapper;
 
     public JsonHandlingService() {
-        this.objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        this.objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        this.objectMapper = JsonMapper.builder()
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .build();
     }
 
-    public String toJson(Object item) throws JsonProcessingException {
+    public String toJson(Object item) throws JacksonException {
         if (item == null) return null;
         return objectMapper.writeValueAsString(item);
     }
@@ -37,12 +36,12 @@ public class JsonHandlingService {
         }
     }
 
-    public <T> T fromJson(Class<T> type, String json) throws JsonProcessingException {
+    public <T> T fromJson(Class<T> type, String json) throws JacksonException {
         if (json == null) return null;
         return objectMapper.readValue(json, type);
     }
 
-    public HashMap<String, String> mapFromJson(String json) throws JsonProcessingException {
+    public HashMap<String, String> mapFromJson(String json) throws JacksonException {
         ObjectReader reader = objectMapper.readerFor(Map.class);
         return reader.readValue(json);
     }

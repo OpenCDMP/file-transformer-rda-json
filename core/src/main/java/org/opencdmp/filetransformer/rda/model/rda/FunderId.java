@@ -43,7 +43,7 @@ public class FunderId implements Serializable
      */
     @JsonProperty("type")
     @JsonPropertyDescription("Identifier type. Allowed values: fundref, url, other")
-    private Type type;
+    private String type;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = 1783349151334366078L;
@@ -80,7 +80,7 @@ public class FunderId implements Serializable
      * 
      */
     @JsonProperty("type")
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
@@ -92,7 +92,7 @@ public class FunderId implements Serializable
      * 
      */
     @JsonProperty("type")
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -108,44 +108,5 @@ public class FunderId implements Serializable
         this.additionalProperties.put(name, value);
     }
 
-    public enum Type {
-
-        FUNDREF("fundref"),
-        URL("url"),
-        OTHER("other");
-        private final String value;
-        private final static Map<String, Type> CONSTANTS = new HashMap<String, Type>();
-
-        static {
-            for (Type c: values()) {
-                CONSTANTS.put(c.value, c);
-            }
-        }
-
-        Type(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return this.value;
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @JsonCreator
-        public static Type fromValue(String value) {
-            Type constant = CONSTANTS.get(value);
-            if (constant == null) {
-                throw new MyApplicationException(value);
-            } else {
-                return constant;
-            }
-        }
-
-    }
 
 }

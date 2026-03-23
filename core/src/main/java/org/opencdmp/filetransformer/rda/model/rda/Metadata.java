@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -22,7 +23,7 @@ import java.util.Map;
     "additional_properties"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Metadatum implements Serializable
+public class Metadata implements Serializable
 {
 
     /**
@@ -52,7 +53,7 @@ public class Metadatum implements Serializable
      * 
      */
     @JsonProperty("metadata_standard_id")
-    private MetadataStandardId metadataStandardId;
+    private List<MetadataStandardId> metadataStandardId;
     @JsonProperty("additional_properties")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -112,7 +113,7 @@ public class Metadatum implements Serializable
      * 
      */
     @JsonProperty("metadata_standard_id")
-    public MetadataStandardId getMetadataStandardId() {
+    public List<MetadataStandardId> getMetadataStandardId() {
         return metadataStandardId;
     }
 
@@ -124,7 +125,7 @@ public class Metadatum implements Serializable
      * 
      */
     @JsonProperty("metadata_standard_id")
-    public void setMetadataStandardId(MetadataStandardId metadataStandardId) {
+    public void setMetadataStandardId(List<MetadataStandardId> metadataStandardId) {
         this.metadataStandardId = metadataStandardId;
     }
 

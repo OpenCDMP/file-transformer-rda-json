@@ -10,9 +10,9 @@ import java.util.Map;
 
 
 /**
- * The Contact ID Schema
+ * The Host Identifier Schema
  * <p>
- * 
+ * Identifier for the DMP itself
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -21,36 +21,37 @@ import java.util.Map;
     "type"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContactId implements Serializable
+public class HostId implements Serializable
 {
 
     /**
-     * The DMP Contact Identifier Schema
+     * The Host Identifier Value Schema
      * <p>
-     * 
+     * Identifier for a DMP
      * (Required)
      * 
      */
     @JsonProperty("identifier")
+    @JsonPropertyDescription("To indicate the specific value of an identifier for a host")
     private String identifier;
     /**
-     * The DMP Contact Identifier Type Schema
+     * The DMP Identifier Type Schema
      * <p>
-     * Identifier type. Allowed values: orcid, isni, openid, other
+     * The DMP Identifier Type. Allowed values: handle, doi, ark, url, other
      * (Required)
      * 
      */
     @JsonProperty("type")
-    @JsonPropertyDescription("Identifier type. Allowed values: orcid, isni, openid, other")
+    @JsonPropertyDescription("To specify a type of an identifier for a host. Suggested Values: url")
     private String type;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -7066973565810615822L;
+    private final static long serialVersionUID = -6059908070202476841L;
 
     /**
-     * The DMP Contact Identifier Schema
+     * The DMP Identifier Value Schema
      * <p>
-     * 
+     * Identifier for a DMP
      * (Required)
      * 
      */
@@ -60,9 +61,9 @@ public class ContactId implements Serializable
     }
 
     /**
-     * The DMP Contact Identifier Schema
+     * The DMP Identifier Value Schema
      * <p>
-     * 
+     * Identifier for a DMP
      * (Required)
      * 
      */
@@ -72,9 +73,9 @@ public class ContactId implements Serializable
     }
 
     /**
-     * The DMP Contact Identifier Type Schema
+     * The DMP Identifier Type Schema
      * <p>
-     * Identifier type. Allowed values: orcid, isni, openid, other
+     * The DMP Identifier Type. Suggested Values: url
      * (Required)
      * 
      */
@@ -84,9 +85,9 @@ public class ContactId implements Serializable
     }
 
     /**
-     * The DMP Contact Identifier Type Schema
+     * The DMP Identifier Type Schema
      * <p>
-     * Identifier type. Allowed values: orcid, isni, openid, other
+     * The DMP Identifier Type. Suggested Values: url
      * (Required)
      * 
      */
@@ -106,5 +107,6 @@ public class ContactId implements Serializable
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
 
 }

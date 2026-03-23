@@ -25,6 +25,7 @@ import java.util.Map;
     "certified_with",
     "description",
     "geo_location",
+    "host_id",
     "pid_system",
     "storage_type",
     "support_versioning",
@@ -94,6 +95,15 @@ public class Host implements Serializable
      * <p>
      * PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
      * 
+     */
+    @JsonProperty("host_id")
+    @JsonPropertyDescription("Identifier of Host.")
+    private List<HostId> hostId;
+    /**
+     * The Dataset Distribution Host PID System Schema
+     * <p>
+     * PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
+     *
      */
     @JsonProperty("pid_system")
     @JsonPropertyDescription("PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other")
@@ -271,6 +281,16 @@ public class Host implements Serializable
     @JsonProperty("geo_location")
     public void setGeoLocation(GeoLocation geoLocation) {
         this.geoLocation = geoLocation;
+    }
+
+    @JsonProperty("host_id")
+    public List<HostId> getHostId() {
+        return hostId;
+    }
+
+    @JsonProperty("host_id")
+    public void setHostId(List<HostId> hostId) {
+        this.hostId = hostId;
     }
 
     /**

@@ -20,6 +20,7 @@ import java.util.Map;
     "description",
     "end",
     "funding",
+    "project_id",
     "start",
     "title"
 })
@@ -56,6 +57,16 @@ public class Project implements Serializable
     @JsonPropertyDescription("Funding related with a project")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Funding> funding = null;
+    /**
+     * The DMP Project Identifier Schema
+     * <p>
+     *
+     *
+     */
+    @JsonProperty("project_id")
+    @JsonPropertyDescription("Funding related with a project")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<ProjectId> projectId = null;
     /**
      * The DMP Project Start Date Schema
      * <p>
@@ -146,6 +157,24 @@ public class Project implements Serializable
     @JsonProperty("funding")
     public void setFunding(List<Funding> funding) {
         this.funding = funding;
+    }
+    /**
+     * The DMP Project Identifier Schema
+     * <p>
+     *
+     *
+     */
+    public List<ProjectId> getProjectId() {
+        return projectId;
+    }
+    /**
+     * The DMP Project Identifier Schema
+     * <p>
+     *
+     *
+     */
+    public void setProjectId(List<ProjectId> projectId) {
+        this.projectId = projectId;
     }
 
     /**

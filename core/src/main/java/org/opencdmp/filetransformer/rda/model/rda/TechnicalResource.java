@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -18,6 +19,7 @@ import java.util.Map;
 @JsonPropertyOrder({
     "description",
     "name",
+    "technical_resource_id",
     "additional_properties"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,6 +45,11 @@ public class TechnicalResource implements Serializable
     @JsonProperty("name")
     @JsonPropertyDescription("Name of the technical resource")
     private String name;
+
+    @JsonProperty("technical_resource_id")
+    @JsonPropertyDescription("Identifier of a technical resource")
+    private List<TechnicalResourceId> technicalResourceId;
+
     @JsonProperty("additional_properties")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -92,6 +99,16 @@ public class TechnicalResource implements Serializable
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty("technical_resource_id")
+    public List<TechnicalResourceId> getTechnicalResourceId() {
+        return technicalResourceId;
+    }
+
+    @JsonProperty("technical_resource_id")
+    public void setTechnicalResourceId(List<TechnicalResourceId> technicalResourceId) {
+        this.technicalResourceId = technicalResourceId;
     }
 
     @JsonProperty("additional_properties")

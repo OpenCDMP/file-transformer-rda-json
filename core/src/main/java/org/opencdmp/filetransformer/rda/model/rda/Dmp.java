@@ -21,6 +21,7 @@ import java.util.Map;
 @JsonIgnoreProperties(value = { "schema" }, ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "alternate_identifier",
     "contact",
     "contributor",
     "cost",
@@ -34,12 +35,22 @@ import java.util.Map;
     "language",
     "modified",
     "project",
+    "related_identifier",
     "title",
     "additional_properties"
 })
 public class Dmp implements Serializable
 {
 
+    /**
+     * The Alternative identifier of DMP
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("alternate_identifier")
+    private List<AlternateIdentifier> alternateIdentifier;
     /**
      * The DMP Contact Schema
      * <p>
@@ -132,7 +143,7 @@ public class Dmp implements Serializable
      */
     @JsonProperty("ethical_issues_report")
     @JsonPropertyDescription("To indicate where a protocol from a meeting with an ethical commitee can be found")
-    private URI ethicalIssuesReport;
+    private String ethicalIssuesReport;
     /**
      * The DMP Language Schema
      * <p>
@@ -163,6 +174,16 @@ public class Dmp implements Serializable
     @JsonPropertyDescription("Project related to a DMP")
     private List<Project> project = null;
     /**
+     * The DMP Related Identifier Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("related_identifier")
+    @JsonPropertyDescription("To provide identifiers of related resources")
+    private List<RelatedIdentifier> relatedIdentifier;
+    /**
      * The DMP Title Schema
      * <p>
      * Title of a DMP
@@ -176,7 +197,28 @@ public class Dmp implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = 4599713332472772292L;
-
+    /**
+     * The Alternative identifier of DMP
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("alternate_identifier")
+    public List<AlternateIdentifier> getAlternateIdentifier() {
+        return alternateIdentifier;
+    }
+    /**
+     * The Alternative identifier of DMP
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("alternate_identifier")
+    public void setAlternateIdentifier(List<AlternateIdentifier> alternateIdentifier) {
+        this.alternateIdentifier = alternateIdentifier;
+    }
     /**
      * The DMP Contact Schema
      * <p>
@@ -390,7 +432,7 @@ public class Dmp implements Serializable
      * 
      */
     @JsonProperty("ethical_issues_report")
-    public URI getEthicalIssuesReport() {
+    public String getEthicalIssuesReport() {
         return ethicalIssuesReport;
     }
 
@@ -401,7 +443,7 @@ public class Dmp implements Serializable
      * 
      */
     @JsonProperty("ethical_issues_report")
-    public void setEthicalIssuesReport(URI ethicalIssuesReport) {
+    public void setEthicalIssuesReport(String ethicalIssuesReport) {
         this.ethicalIssuesReport = ethicalIssuesReport;
     }
 
@@ -474,6 +516,26 @@ public class Dmp implements Serializable
     public void setProject(List<Project> project) {
         this.project = project;
     }
+    /**
+     * The DMP Related Identifier Schema
+     * <p>
+     *
+     *
+     *
+     */
+    public List<RelatedIdentifier> getRelatedIdentifier() {
+        return relatedIdentifier;
+    }
+    /**
+     * The DMP Related Identifier Schema
+     * <p>
+     *
+     *
+     *
+     */
+    public void setRelatedIdentifier(List<RelatedIdentifier> relatedIdentifier) {
+        this.relatedIdentifier = relatedIdentifier;
+    }
 
     /**
      * The DMP Title Schema
@@ -482,6 +544,7 @@ public class Dmp implements Serializable
      * (Required)
      * 
      */
+
     @JsonProperty("title")
     public String getTitle() {
         return title;

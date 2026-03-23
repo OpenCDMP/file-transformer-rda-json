@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 /**
- * The DMP Contact Schema
+ * The DMP Creator Schema
  * <p>
  * 
  * 
@@ -18,12 +18,12 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "affiliation",
-    "contact_id",
+    "creator_id",
     "mbox",
     "name"
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Contact implements Serializable
+public class Creator implements Serializable
 {
 
     /**
@@ -36,14 +36,14 @@ public class Contact implements Serializable
     @JsonProperty("affiliation")
     private List<Affiliation> affiliation;
     /**
-     * The Contact ID Schema
+     * The Creator ID Schema
      * <p>
      * 
      * (Required)
      * 
      */
-    @JsonProperty("contact_id")
-    private List<ContactId> contactId;
+    @JsonProperty("creator_id")
+    private List<CreatorId> creatorId;
     /**
      * The Mailbox Schema
      * <p>
@@ -64,9 +64,6 @@ public class Contact implements Serializable
     @JsonProperty("name")
     @JsonPropertyDescription("Name of the contact person")
     private String name;
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -2062619884605400321L;
     /**
      * The Affiliation Schema
      * <p>
@@ -92,27 +89,27 @@ public class Contact implements Serializable
     }
 
     /**
-     * The Contact ID Schema
+     * The Creator ID Schema
      * <p>
      * 
      * (Required)
      * 
      */
-    @JsonProperty("contact_id")
-    public List<ContactId> getContactId() {
-        return contactId;
+    @JsonProperty("creator_id")
+    public List<CreatorId> getCreatorId() {
+        return creatorId;
     }
 
     /**
-     * The Contact ID Schema
+     * The Creator ID Schema
      * <p>
      * 
      * (Required)
      * 
      */
-    @JsonProperty("contact_id")
-    public void setContactId(List<ContactId> contactId) {
-        this.contactId = contactId;
+    @JsonProperty("creator_id")
+    public void setCreatorId(List<CreatorId> creatorId) {
+        this.creatorId = creatorId;
     }
 
     /**
@@ -163,16 +160,5 @@ public class Contact implements Serializable
         this.name = name;
     }
 
-    @JsonProperty("additional_properties")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonProperty("additional_properties")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 }

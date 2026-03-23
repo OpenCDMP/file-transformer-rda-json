@@ -37,13 +37,13 @@ public class GrantId implements Serializable
     /**
      * The Funding Grant ID Type Schema
      * <p>
-     * Identifier type. Allowed values: url, other
+     * Identifier type. Suggested Values: doi, url
      * (Required)
      * 
      */
     @JsonProperty("type")
     @JsonPropertyDescription("Identifier type. Allowed values: url, other")
-    private Type type;
+    private String type;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = -7738072672837592065L;
@@ -75,24 +75,24 @@ public class GrantId implements Serializable
     /**
      * The Funding Grant ID Type Schema
      * <p>
-     * Identifier type. Allowed values: url, other
+     * Identifier type. Suggested Values: doi, url
      * (Required)
      * 
      */
     @JsonProperty("type")
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
     /**
      * The Funding Grant ID Type Schema
      * <p>
-     * Identifier type. Allowed values: url, other
+     * Identifier type. Suggested Values: doi, url
      * (Required)
      * 
      */
     @JsonProperty("type")
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -106,45 +106,6 @@ public class GrantId implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
-    }
-
-    public enum Type {
-
-        URL("url"),
-        OTHER("other");
-        private final String value;
-        private final static Map<String, Type> CONSTANTS = new HashMap<String, Type>();
-
-        static {
-            for (Type c: values()) {
-                CONSTANTS.put(c.value, c);
-            }
-        }
-
-        Type(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return this.value;
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @JsonCreator
-        public static Type fromValue(String value) {
-            Type constant = CONSTANTS.get(value);
-            if (constant == null) {
-                throw new MyApplicationException(value);
-            } else {
-                return constant;
-            }
-        }
-
     }
 
 }

@@ -16,6 +16,7 @@ This service integrates with the OpenCDMP platform to provide import and export 
 - **JSON Import**: Import RDA-compliant JSON files into OpenCDMP as plans.
 - **Spring Boot Microservice**: Built as a Spring Boot microservice for seamless integration with OpenCDMP.
 - **Standards-Based**: Fully compliant with the **RDA DMP Common Standard** for maDMPs.
+- **maDMP JSON Schema Version**: Supports maDMP JSON Schema **v1.2**.
 
 **Supported operations:**
 - ✅ Export plans to RDA JSON

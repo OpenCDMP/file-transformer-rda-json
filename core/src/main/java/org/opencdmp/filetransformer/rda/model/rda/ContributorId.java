@@ -37,13 +37,13 @@ public class ContributorId implements Serializable
     /**
      * The Contributor Identifier Type Schema
      * <p>
-     * Identifier type. Allowed values: orcid, isni, openid, other
+     * Identifier type. Suggested Values: orcid, isni, openid
      * (Required)
      * 
      */
     @JsonProperty("type")
-    @JsonPropertyDescription("Identifier type. Allowed values: orcid, isni, openid, other")
-    private Type type;
+    @JsonPropertyDescription("Identifier type. Suggested Values: orcid, isni, openid")
+    private String type;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = 3089650417960767482L;
@@ -75,24 +75,24 @@ public class ContributorId implements Serializable
     /**
      * The Contributor Identifier Type Schema
      * <p>
-     * Identifier type. Allowed values: orcid, isni, openid, other
+     * Identifier type. Suggested Values: orcid, isni, openid.
      * (Required)
      * 
      */
     @JsonProperty("type")
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
     /**
      * The Contributor Identifier Type Schema
      * <p>
-     * Identifier type. Allowed values: orcid, isni, openid, other
+     * Identifier type. Suggested Values: orcid, isni, openid.
      * (Required)
      * 
      */
     @JsonProperty("type")
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -106,47 +106,6 @@ public class ContributorId implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
-    }
-
-    public enum Type {
-
-        ORCID("orcid"),
-        ISNI("isni"),
-        OPENID("openid"),
-        OTHER("other");
-        private final String value;
-        private final static Map<String, Type> CONSTANTS = new HashMap<String, Type>();
-
-        static {
-            for (Type c: values()) {
-                CONSTANTS.put(c.value, c);
-            }
-        }
-
-        Type(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return this.value;
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @JsonCreator
-        public static Type fromValue(String value) {
-            Type constant = CONSTANTS.get(value);
-            if (constant == null) {
-                throw new MyApplicationException(value);
-            } else {
-                return constant;
-            }
-        }
-
     }
 
 }

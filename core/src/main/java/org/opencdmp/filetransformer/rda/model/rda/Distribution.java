@@ -6,6 +6,8 @@ import gr.cite.tools.exception.MyApplicationException;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,7 @@ import java.util.Map;
     "download_url",
     "format",
     "host",
+    "issued",
     "license",
     "title",
     "additional_properties"
@@ -43,7 +46,7 @@ public class Distribution implements Serializable
      */
     @JsonProperty("access_url")
     @JsonPropertyDescription("A URL of the resource that gives access to a distribution of the dataset. e.g. landing page.")
-    private String accessUrl;
+    private URI accessUrl;
     /**
      * The Dataset Distribution Available Until Schema
      * <p>
@@ -52,7 +55,7 @@ public class Distribution implements Serializable
      */
     @JsonProperty("available_until")
     @JsonPropertyDescription("Indicates how long this distribution will be / should be available.")
-    private String availableUntil;
+    private Date availableUntil;
     /**
      * The Dataset Distribution Byte Size Schema
      * <p>
@@ -109,11 +112,21 @@ public class Distribution implements Serializable
     @JsonProperty("host")
     @JsonPropertyDescription("To provide information on quality of service provided by infrastructure (e.g. repository) where data is stored.")
     private Host host;
+
+    /**
+     * The Dataset Distribution Issued Schema
+     * <p>
+     * To provide information on quality of service provided by infrastructure (e.g. repository) where data is stored.
+     *
+     */
+    @JsonProperty("issued")
+    @JsonPropertyDescription("To provide information on quality of service provided by infrastructure (e.g. repository) where data is stored.")
+    private Date issued;
     /**
      * The Dataset Distribution License(s) Schema
      * <p>
-     * To list all licenses applied to a specific distribution of data.
-     * 
+     * To indicate a date when a distribution was published or released.
+     *
      */
     @JsonProperty("license")
     @JsonPropertyDescription("To list all licenses applied to a specific distribution of data.")
@@ -141,7 +154,7 @@ public class Distribution implements Serializable
      * 
      */
     @JsonProperty("access_url")
-    public String getAccessUrl() {
+    public URI getAccessUrl() {
         return accessUrl;
     }
 
@@ -152,7 +165,7 @@ public class Distribution implements Serializable
      * 
      */
     @JsonProperty("access_url")
-    public void setAccessUrl(String accessUrl) {
+    public void setAccessUrl(URI accessUrl) {
         this.accessUrl = accessUrl;
     }
 
@@ -163,7 +176,7 @@ public class Distribution implements Serializable
      * 
      */
     @JsonProperty("available_until")
-    public String getAvailableUntil() {
+    public Date getAvailableUntil() {
         return availableUntil;
     }
 
@@ -174,7 +187,7 @@ public class Distribution implements Serializable
      * 
      */
     @JsonProperty("available_until")
-    public void setAvailableUntil(String availableUntil) {
+    public void setAvailableUntil(Date availableUntil) {
         this.availableUntil = availableUntil;
     }
 
@@ -310,6 +323,24 @@ public class Distribution implements Serializable
     @JsonProperty("host")
     public void setHost(Host host) {
         this.host = host;
+    }
+    /**
+     * The Dataset Distribution Issued Schema
+     * <p>
+     * To indicate a date when a distribution was published or released.
+     *
+     */
+    public Date getIssued() {
+        return issued;
+    }
+    /**
+     * The Dataset Distribution Issued Schema
+     * <p>
+     * To indicate a date when a distribution was published or released.
+     *
+     */
+    public void setIssued(Date issued) {
+        this.issued = issued;
     }
 
     /**

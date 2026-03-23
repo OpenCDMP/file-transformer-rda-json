@@ -37,13 +37,13 @@ public class DatasetId implements Serializable
     /**
      * The Dataset Identifier Type Schema
      * <p>
-     * Dataset identifier type. Allowed values: handle, doi, ark, url, other
+     * Dataset identifier type. Suggested Values: orcid, isni, openid, other
      * (Required)
      * 
      */
     @JsonProperty("type")
-    @JsonPropertyDescription("Dataset identifier type. Allowed values: handle, doi, ark, url, other")
-    private Type type;
+    @JsonPropertyDescription("Dataset identifier type. Suggested Values: orcid, isni, openid, other")
+    private String type;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = -6295164005851378031L;
@@ -51,7 +51,7 @@ public class DatasetId implements Serializable
     public DatasetId() {
     }
 
-    public DatasetId(String identifier, Type type) {
+    public DatasetId(String identifier, String type) {
         this.identifier = identifier;
         this.type = type;
     }
@@ -83,24 +83,24 @@ public class DatasetId implements Serializable
     /**
      * The Dataset Identifier Type Schema
      * <p>
-     * Dataset identifier type. Allowed values: handle, doi, ark, url, other
+     * Dataset identifier type. Suggested Values: orcid, isni, openid, other
      * (Required)
      * 
      */
     @JsonProperty("type")
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
     /**
      * The Dataset Identifier Type Schema
      * <p>
-     * Dataset identifier type. Allowed values: handle, doi, ark, url, other
+     * Dataset identifier type. Suggested Values: orcid, isni, openid, other
      * (Required)
      * 
      */
     @JsonProperty("type")
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -114,48 +114,6 @@ public class DatasetId implements Serializable
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
-    }
-
-    public enum Type {
-
-        HANDLE("handle"),
-        DOI("doi"),
-        ARK("ark"),
-        URL("url"),
-        OTHER("other");
-        private final String value;
-        private final static Map<String, Type> CONSTANTS = new HashMap<String, Type>();
-
-        static {
-            for (Type c: values()) {
-                CONSTANTS.put(c.value, c);
-            }
-        }
-
-        Type(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return this.value;
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @JsonCreator
-        public static Type fromValue(String value) {
-            Type constant = CONSTANTS.get(value);
-            if (constant == null) {
-                throw new MyApplicationException(value);
-            } else {
-                return constant;
-            }
-        }
-
     }
 
 }

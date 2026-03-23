@@ -18,16 +18,21 @@ import java.util.Map;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "alternate_identifier",
+    "creator",
     "data_quality_assurance",
     "dataset_id",
     "description",
     "distribution",
+    "is_reused",
     "issued",
     "keyword",
     "language",
     "metadata",
     "personal_data",
     "preservation_statement",
+    "rights",
+    "related_identifier",
     "security_and_privacy",
     "sensitive_data",
     "technical_resource",
@@ -38,7 +43,26 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Dataset implements Serializable
 {
-
+    /**
+     * The Alternate Identifier Schema
+     * <p>
+     *
+     *
+     */
+    @JsonProperty("alternate_identifier")
+    @JsonPropertyDescription("Alternate Identifier")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<AlternateIdentifier> alternateIdentifier = null;
+    /**
+     * The Creator Schema
+     * <p>
+     *
+     *
+     */
+    @JsonProperty("creator")
+    @JsonPropertyDescription("Data Quality Assurance")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<Creator> creator = null;
     /**
      * The Data Quality Assurance Schema
      * <p>
@@ -124,7 +148,7 @@ public class Dataset implements Serializable
     @JsonProperty("metadata")
     @JsonPropertyDescription("To describe metadata standards used.")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<Metadatum> metadata = null;
+    private List<Metadata> metadata = null;
     /**
      * The Dataset Personal Data Schema
      * <p>
@@ -144,6 +168,24 @@ public class Dataset implements Serializable
     @JsonProperty("preservation_statement")
     @JsonPropertyDescription("Preservation Statement")
     private String preservationStatement;
+    /**
+     * The Dataset Rights Schema
+     * <p>
+     * 	A statement that concerns all rights not addressed with license, such as copyright statements.
+     *
+     */
+    @JsonProperty("rights")
+    @JsonPropertyDescription("Rights")
+    private String rights;
+    /**
+     * The Dataset Related Identifier Schema
+     * <p>
+     *
+     *
+     */
+    @JsonProperty("related_identifier")
+    @JsonPropertyDescription("relatedIdentifier")
+    private List<RelatedIdentifier> relatedIdentifier;
     /**
      * The Dataset Security and Policy Schema
      * <p>
@@ -198,6 +240,26 @@ public class Dataset implements Serializable
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = -6931119120629009399L;
 
+    @JsonProperty("alternate_identifier")
+    public List<AlternateIdentifier> getAlternateIdentifier() {
+        return alternateIdentifier;
+    }
+
+    @JsonProperty("alternate_identifier")
+    public void setAlternateIdentifier(List<AlternateIdentifier> alternateIdentifier) {
+        this.alternateIdentifier = alternateIdentifier;
+    }
+
+    @JsonProperty("creator")
+    public List<Creator> getCreator() {
+        return creator;
+    }
+
+    @JsonProperty("creator")
+    public void setCreator(List<Creator> creator) {
+        this.creator = creator;
+    }
+
     /**
      * The Data Quality Assurance Schema
      * <p>
@@ -208,7 +270,6 @@ public class Dataset implements Serializable
     public List<String> getDataQualityAssurance() {
         return dataQualityAssurance;
     }
-
     /**
      * The Data Quality Assurance Schema
      * <p>
@@ -383,7 +444,7 @@ public class Dataset implements Serializable
      * 
      */
     @JsonProperty("metadata")
-    public List<Metadatum> getMetadata() {
+    public List<Metadata> getMetadata() {
         return metadata;
     }
 
@@ -394,7 +455,7 @@ public class Dataset implements Serializable
      * 
      */
     @JsonProperty("metadata")
-    public void setMetadata(List<Metadatum> metadata) {
+    public void setMetadata(List<Metadata> metadata) {
         this.metadata = metadata;
     }
 
@@ -442,6 +503,26 @@ public class Dataset implements Serializable
     @JsonProperty("preservation_statement")
     public void setPreservationStatement(String preservationStatement) {
         this.preservationStatement = preservationStatement;
+    }
+
+    @JsonProperty("rights")
+    public String getRights() {
+        return rights;
+    }
+
+    @JsonProperty("rights")
+    public void setRights(String rights) {
+        this.rights = rights;
+    }
+
+    @JsonProperty("related_identifier")
+    public List<RelatedIdentifier> getRelatedIdentifier() {
+        return relatedIdentifier;
+    }
+
+    @JsonProperty("related_identifier")
+    public void setRelatedIdentifier(List<RelatedIdentifier> relatedIdentifier) {
+        this.relatedIdentifier = relatedIdentifier;
     }
 
     /**

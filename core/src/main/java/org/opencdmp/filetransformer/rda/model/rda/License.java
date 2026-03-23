@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
