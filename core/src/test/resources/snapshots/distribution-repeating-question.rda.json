@@ -1,0 +1,78 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_60a95f55-952d-3e90-8ab7-819c83543e2a",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "60a95f55-952d-3e90-8ab7-819c83543e2a",
+        "type" : "other"
+      },
+      "description" : "Asset Sediment cores",
+      "distribution" : [ {
+        "available_until" : "2036-06-30",
+        "byte_size" : 2500000000,
+        "data_access" : "open",
+        "format" : [ "text/csv", "application/zip" ],
+        "host" : {
+          "host_id" : [ ],
+          "pid_system" : [ "doi" ],
+          "support_versioning" : "yes",
+          "title" : "Zenodo",
+          "url" : "https://zenodo.org"
+        },
+        "license" : [ {
+          "license_ref" : "https://creativecommons.org/licenses/by/4.0/",
+          "start_date" : "2026-06-30"
+        } ],
+        "title" : "Raw data"
+      }, {
+        "data_access" : "shared",
+        "host" : {
+          "host_id" : [ ],
+          "support_versioning" : "no",
+          "title" : "Institutional repository",
+          "url" : "https://repository.example.org"
+        },
+        "title" : "Processed data"
+      } ],
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Sediment cores",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with a repeating distribution question",
+    "dmp_id" : {
+      "identifier" : "9906730f-6a62-35d1-977f-44b73167aa33",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with a repeating distribution question"
+  }
+}

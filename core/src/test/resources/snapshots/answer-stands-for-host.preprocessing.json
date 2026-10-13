@@ -1,0 +1,19 @@
+{
+  "datasets" : [ {
+    "id" : "81682da9-607c-3476-bc5c-c2c05e0cf483",
+    "label" : "Survey data"
+  }, {
+    "id" : "fbcf2ad6-c19c-3675-91b2-694a76232077",
+    "label" : "Interview notes"
+  } ],
+  "plan" : {
+    "label" : "Plan answering where the data goes",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "81682da9-607c-3476-bc5c-c2c05e0cf483",
+      "label" : "Survey data"
+    }, {
+      "id" : "fbcf2ad6-c19c-3675-91b2-694a76232077",
+      "label" : "Interview notes"
+    } ]
+  }
+}

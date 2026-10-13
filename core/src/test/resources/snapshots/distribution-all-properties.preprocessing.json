@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "c9716ea1-cd88-3c3e-acd4-08a0b8724a98",
+    "label" : "Sensor data"
+  } ],
+  "plan" : {
+    "label" : "Plan with every distribution property",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "c9716ea1-cd88-3c3e-acd4-08a0b8724a98",
+      "label" : "Sensor data"
+    } ]
+  }
+}

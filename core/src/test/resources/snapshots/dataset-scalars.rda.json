@@ -1,0 +1,55 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_7b97620b-486f-3215-a544-d18457743411",
+        "type" : "internal"
+      } ],
+      "data_quality_assurance" : [ "Duplicate measurements" ],
+      "dataset_id" : {
+        "identifier" : "10.5281/zenodo.1234567",
+        "type" : "doi"
+      },
+      "description" : "Cores from three estuaries",
+      "issued" : "2026-06-30",
+      "keyword" : [ "sediment", "estuary", "geochemistry" ],
+      "language" : "eng",
+      "personal_data" : "no",
+      "preservation_statement" : "Kept for 10 years",
+      "sensitive_data" : "yes",
+      "title" : "Sediment cores 2026",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with dataset scalars",
+    "dmp_id" : {
+      "identifier" : "0b20b671-e052-3743-9979-b982725c7745",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with dataset scalars"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "5fbb0045-efb5-357a-b09b-c8b49ee53b97",
+    "label" : "Water samples"
+  } ],
+  "plan" : {
+    "label" : "Plan with a contact preset",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "5fbb0045-efb5-357a-b09b-c8b49ee53b97",
+      "label" : "Water samples"
+    } ]
+  }
+}

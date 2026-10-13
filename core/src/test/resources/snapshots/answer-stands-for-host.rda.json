@@ -1,0 +1,77 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_81682da9-607c-3476-bc5c-c2c05e0cf483",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "81682da9-607c-3476-bc5c-c2c05e0cf483",
+        "type" : "other"
+      },
+      "description" : "Asset Survey data",
+      "distribution" : [ {
+        "data_access" : "closed",
+        "host" : {
+          "host_id" : [ ],
+          "pid_system" : [ "doi" ],
+          "support_versioning" : "yes",
+          "title" : "Zenodo",
+          "url" : "https://zenodo.org"
+        },
+        "title" : "Zenodo"
+      } ],
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Survey data",
+      "type" : "DMP Dataset"
+    }, {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_fbcf2ad6-c19c-3675-91b2-694a76232077",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "fbcf2ad6-c19c-3675-91b2-694a76232077",
+        "type" : "other"
+      },
+      "description" : "Asset Interview notes",
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Interview notes",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan answering where the data goes",
+    "dmp_id" : {
+      "identifier" : "a1d110f9-d92a-301e-bd8f-04eea475dc75",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan answering where the data goes"
+  }
+}

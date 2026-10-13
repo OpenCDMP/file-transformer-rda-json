@@ -55,6 +55,7 @@ public class Distribution implements Serializable
      */
     @JsonProperty("available_until")
     @JsonPropertyDescription("Indicates how long this distribution will be / should be available.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date availableUntil;
     /**
      * The Dataset Distribution Byte Size Schema
@@ -64,7 +65,7 @@ public class Distribution implements Serializable
      */
     @JsonProperty("byte_size")
     @JsonPropertyDescription("Size in bytes.")
-    private Integer byteSize;
+    private Long byteSize;
     /**
      * The Dataset Distribution Data Access Schema
      * <p>
@@ -121,6 +122,7 @@ public class Distribution implements Serializable
      */
     @JsonProperty("issued")
     @JsonPropertyDescription("To provide information on quality of service provided by infrastructure (e.g. repository) where data is stored.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date issued;
     /**
      * The Dataset Distribution License(s) Schema
@@ -198,7 +200,7 @@ public class Distribution implements Serializable
      * 
      */
     @JsonProperty("byte_size")
-    public Integer getByteSize() {
+    public Long getByteSize() {
         return byteSize;
     }
 
@@ -209,7 +211,7 @@ public class Distribution implements Serializable
      * 
      */
     @JsonProperty("byte_size")
-    public void setByteSize(Integer byteSize) {
+    public void setByteSize(Long byteSize) {
         this.byteSize = byteSize;
     }
 

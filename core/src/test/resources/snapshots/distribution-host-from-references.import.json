@@ -1,0 +1,140 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "deposit" : {
+        "items" : [ {
+          "fields" : {
+            "licence" : {
+              "id" : "licence",
+              "references" : [ {
+                "label" : "https://creativecommons.org/licenses/by/4.0/",
+                "reference" : "https://creativecommons.org/licenses/by/4.0/",
+                "type" : {
+                  "code" : "licenses",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "uri",
+                      "dataType" : 0,
+                      "label" : "uri",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "start",
+                      "dataType" : 0,
+                      "label" : "start",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    } ]
+                  },
+                  "id" : "309e81c7-2304-3acc-a341-1c373ac27b28",
+                  "name" : "licenses"
+                }
+              } ]
+            },
+            "repository" : {
+              "id" : "repository",
+              "references" : [ {
+                "label" : "Zenodo",
+                "reference" : "r3d100010468",
+                "type" : {
+                  "code" : "repositories",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "name",
+                      "dataType" : 0,
+                      "label" : "name",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "url",
+                      "dataType" : 0,
+                      "label" : "url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "pidSystem",
+                      "dataType" : 0,
+                      "label" : "pidSystem",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "versioning",
+                      "dataType" : 0,
+                      "label" : "versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    } ]
+                  },
+                  "id" : "7fe032e6-d4c4-3e7d-89fb-0371e98e7252",
+                  "name" : "repositories"
+                }
+              } ]
+            }
+          },
+          "ordinal" : 0
+        }, {
+          "fields" : {
+            "licence" : {
+              "id" : "licence",
+              "references" : [ {
+                "label" : "https://creativecommons.org/licenses/by/4.0/",
+                "reference" : "https://creativecommons.org/licenses/by/4.0/",
+                "type" : {
+                  "code" : "licenses",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "uri",
+                      "dataType" : 0,
+                      "label" : "uri",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "start",
+                      "dataType" : 0,
+                      "label" : "start",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    } ]
+                  },
+                  "id" : "309e81c7-2304-3acc-a341-1c373ac27b28",
+                  "name" : "licenses"
+                }
+              } ]
+            },
+            "repository" : {
+              "id" : "repository",
+              "references" : [ {
+                "label" : "Dryad",
+                "reference" : "r3d100000044",
+                "type" : {
+                  "code" : "repositories",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "name",
+                      "dataType" : 0,
+                      "label" : "name",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "url",
+                      "dataType" : 0,
+                      "label" : "url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "pidSystem",
+                      "dataType" : 0,
+                      "label" : "pidSystem",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "versioning",
+                      "dataType" : 0,
+                      "label" : "versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    } ]
+                  },
+                  "id" : "7fe032e6-d4c4-3e7d-89fb-0371e98e7252",
+                  "name" : "repositories"
+                }
+              } ]
+            }
+          },
+          "ordinal" : 1
+        } ]
+      }
+    },
+    "label" : "Sediment cores"
+  } ],
+  "label" : "Plan with hosts from references",
+  "plan" : { }
+}

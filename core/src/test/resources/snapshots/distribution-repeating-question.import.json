@@ -1,0 +1,84 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "distribution" : {
+        "items" : [ {
+          "fields" : {
+            "available-until" : {
+              "dateValue" : "2036-06-30T00:00:00Z",
+              "id" : "available-until"
+            },
+            "data-access" : {
+              "id" : "data-access",
+              "textListValue" : [ "open" ]
+            },
+            "dist-title" : {
+              "id" : "dist-title",
+              "textValue" : "Raw data"
+            },
+            "format" : {
+              "id" : "format",
+              "textListValue" : [ "text/csv", "application/zip" ]
+            },
+            "host-pid" : {
+              "id" : "host-pid",
+              "textListValue" : [ "doi" ]
+            },
+            "host-title" : {
+              "id" : "host-title",
+              "textValue" : "Zenodo"
+            },
+            "host-url" : {
+              "id" : "host-url",
+              "textValue" : "https://zenodo.org"
+            },
+            "host-versioning" : {
+              "id" : "host-versioning",
+              "textValue" : "yes"
+            },
+            "license-start" : {
+              "dateValue" : "2026-06-30T00:00:00Z",
+              "id" : "license-start"
+            },
+            "license-url" : {
+              "id" : "license-url",
+              "textValue" : "https://creativecommons.org/licenses/by/4.0/"
+            },
+            "size" : {
+              "id" : "size",
+              "numberValue" : 2.5E9
+            }
+          },
+          "ordinal" : 0
+        }, {
+          "fields" : {
+            "data-access" : {
+              "id" : "data-access",
+              "textListValue" : [ "shared" ]
+            },
+            "dist-title" : {
+              "id" : "dist-title",
+              "textValue" : "Processed data"
+            },
+            "host-title" : {
+              "id" : "host-title",
+              "textValue" : "Institutional repository"
+            },
+            "host-url" : {
+              "id" : "host-url",
+              "textValue" : "https://repository.example.org"
+            },
+            "host-versioning" : {
+              "id" : "host-versioning",
+              "textValue" : "no"
+            }
+          },
+          "ordinal" : 1
+        } ]
+      }
+    },
+    "label" : "Sediment cores"
+  } ],
+  "label" : "Plan with a repeating distribution question",
+  "plan" : { }
+}

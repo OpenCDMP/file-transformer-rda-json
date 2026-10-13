@@ -1,0 +1,20 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "title" : {
+        "items" : [ {
+          "fields" : {
+            "title" : {
+              "id" : "title",
+              "textValue" : "Water samples"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Water samples"
+  } ],
+  "label" : "Plan with a contact preset",
+  "plan" : { }
+}

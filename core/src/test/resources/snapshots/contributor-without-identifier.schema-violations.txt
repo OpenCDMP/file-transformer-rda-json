@@ -1,0 +1,2 @@
+/dmp/contributor/1: required property 'contributor_id' not found
+/dmp/contributor/1: required property 'role' not found

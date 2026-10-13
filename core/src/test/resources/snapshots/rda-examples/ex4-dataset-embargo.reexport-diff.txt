@@ -1,0 +1,11 @@
+$.$schema: removed "./JSON-schema/1.2/maDMP-schema-1.2.json"
+$.dmp.affiliation: added []
+$.dmp.alternate_identifier: added []
+$.dmp.contact.contact_id: {"identifier":"0000-0000-0000-0000","type":"orcid"} -> [{"identifier":"0000-0000-0000-0000","type":"orcid"}]
+$.dmp.contributor: added [{"contributor_id":[{"identifier":"e2bc21a5-b663-3431-a16d-1b49e74b38eb","type":"other"}],"mbox":"maria.silva@example.org","name":"Maria Silva","role":["Owne...
+$.dmp.created: "2018-07-23T10:10:23.6Z" -> "2018-07-23T10:10:23.600Z"
+$.dmp.dataset[0].alternate_identifier: added [{"identifier":"opencdmp_48975207-6775-33fe-9743-7b31481c2e9c","type":"internal"}]
+$.dmp.dataset[0].distribution[0].host: added {"host_id":[],"title":"Raw data"}
+$.dmp.dataset[0].language: added "eng"
+$.dmp.modified: "2019-02-22T15:10:56.9Z" -> "2019-02-22T15:10:56.900Z"
+$.dmp.related_identifier: added []

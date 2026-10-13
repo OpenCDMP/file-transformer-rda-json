@@ -1,0 +1,5 @@
+$.dmp.dataset[0].dataset_id.identifier: "10.5281/zenodo.7654321" -> "0bce753b-7040-3eab-9dce-acdb7559c883"
+$.dmp.dataset[0].dataset_id.type: "doi" -> "other"
+$.dmp.dataset[0].distribution[0].issued: removed "2026-08-15"
+$.dmp.dataset[0].distribution[0].license[0].license_ref: removed "https://creativecommons.org/licenses/by/4.0/"
+$.dmp.dataset[0].keyword: removed ["tides","sea level"]

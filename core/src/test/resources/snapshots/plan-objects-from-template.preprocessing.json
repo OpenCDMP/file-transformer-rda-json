@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "a36594d4-62a3-3899-a02d-042409316fb1",
+    "label" : "Fish counts"
+  } ],
+  "plan" : {
+    "label" : "Plan with plan-level questions in a template",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "a36594d4-62a3-3899-a02d-042409316fb1",
+      "label" : "Fish counts"
+    } ]
+  }
+}

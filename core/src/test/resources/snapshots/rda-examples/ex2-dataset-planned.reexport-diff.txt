@@ -1,0 +1,12 @@
+$.$schema: removed "./JSON-schema/1.2/maDMP-schema-1.2.json"
+$.dmp.affiliation: added []
+$.dmp.alternate_identifier: added []
+$.dmp.contact.contact_id: {"identifier":"0000-0000-0000-0000","type":"orcid"} -> [{"identifier":"0000-0000-0000-0000","type":"orcid"}]
+$.dmp.contributor: added [{"contributor_id":[{"identifier":"e2bc21a5-b663-3431-a16d-1b49e74b38eb","type":"other"}],"mbox":"maria.silva@example.org","name":"Maria Silva","role":["Owne...
+$.dmp.created: "2019-02-22T13:20:15.5Z" -> "2019-02-22T13:20:15.500Z"
+$.dmp.dataset[0].alternate_identifier: added [{"identifier":"opencdmp_e8ea3b55-bbbf-3745-8b09-e03edfc82a85","type":"internal"}]
+$.dmp.dataset[0].dataset_id.type: "handle" -> "other"
+$.dmp.dataset[0].distribution[0].host: added {"host_id":[],"title":"Java code"}
+$.dmp.dataset[0].language: added "eng"
+$.dmp.modified: "2019-02-22T13:20:15.5Z" -> "2019-02-22T13:20:15.500Z"
+$.dmp.related_identifier: added []

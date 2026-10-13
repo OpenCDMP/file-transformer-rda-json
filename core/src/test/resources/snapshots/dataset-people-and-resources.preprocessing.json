@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "fda5adfe-74fc-38e3-b430-35a40c5c8518",
+    "label" : "Water samples 2026"
+  } ],
+  "plan" : {
+    "label" : "Plan with dataset people and resources",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "fda5adfe-74fc-38e3-b430-35a40c5c8518",
+      "label" : "Water samples 2026"
+    } ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "7b97620b-486f-3215-a544-d18457743411",
+    "label" : "Sediment cores 2026"
+  } ],
+  "plan" : {
+    "label" : "Plan with dataset scalars",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "7b97620b-486f-3215-a544-d18457743411",
+      "label" : "Sediment cores 2026"
+    } ]
+  }
+}

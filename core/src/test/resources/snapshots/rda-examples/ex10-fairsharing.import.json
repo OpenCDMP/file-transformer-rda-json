@@ -1,0 +1,809 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "rda-dataset-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-creator" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-creator-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-identifier"
+            },
+            "rda-dataset-creator-affiliation-affiliation_id-type" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-type"
+            },
+            "rda-dataset-creator-affiliation-name" : {
+              "id" : "rda-dataset-creator-affiliation-name"
+            },
+            "rda-dataset-creator-creator_id-identifier" : {
+              "id" : "rda-dataset-creator-creator_id-identifier"
+            },
+            "rda-dataset-creator-creator_id-type" : {
+              "id" : "rda-dataset-creator-creator_id-type"
+            },
+            "rda-dataset-creator-id" : {
+              "id" : "rda-dataset-creator-id"
+            },
+            "rda-dataset-creator-mbox" : {
+              "id" : "rda-dataset-creator-mbox"
+            },
+            "rda-dataset-creator-name" : {
+              "id" : "rda-dataset-creator-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-data_quality_assurance" : {
+        "items" : [ ]
+      },
+      "rda-dataset-dataset_id" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-dataset_id" : {
+              "externalIdentifier" : {
+                "identifier" : "10.15468/heuugg",
+                "type" : "doi"
+              },
+              "id" : "rda-dataset-dataset_id",
+              "references" : [ {
+                "label" : "Puerto Rico Long-Term Coral Reef Monitoring Program Database Compilation",
+                "reference" : "10.15468/heuugg",
+                "type" : {
+                  "code" : "dataset-dataset_id",
+                  "definition" : {
+                    "fields" : [ ]
+                  },
+                  "id" : "6bf924c8-33ba-3e7c-a362-42971055b21a",
+                  "name" : "dataset-dataset_id"
+                }
+              } ],
+              "textValue" : "10.15468/heuugg"
+            },
+            "rda-dataset-dataset_id-identifier" : {
+              "id" : "rda-dataset-dataset_id-identifier",
+              "textValue" : "10.15468/heuugg"
+            },
+            "rda-dataset-dataset_id-type" : {
+              "id" : "rda-dataset-dataset_id-type",
+              "textValue" : "doi"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-description" : {
+        "items" : [ ]
+      },
+      "rda-dataset-distribution" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-distribution" : {
+              "id" : "rda-dataset-distribution",
+              "references" : [ {
+                "label" : "Puerto Rico Long-Term Coral Reef Monitoring Program Database Compilation",
+                "type" : {
+                  "code" : "dataset-distribution",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "access_url",
+                      "dataType" : 0,
+                      "label" : "access_url",
+                      "semantics" : [ "rda.dataset.distribution.access_url" ]
+                    }, {
+                      "code" : "available_until",
+                      "dataType" : 0,
+                      "label" : "available_until",
+                      "semantics" : [ "rda.dataset.distribution.available_until" ]
+                    }, {
+                      "code" : "byte_size",
+                      "dataType" : 0,
+                      "label" : "byte_size",
+                      "semantics" : [ "rda.dataset.distribution.byte_size" ]
+                    }, {
+                      "code" : "data_access",
+                      "dataType" : 0,
+                      "label" : "data_access",
+                      "semantics" : [ "rda.dataset.distribution.data_access" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.description" ]
+                    }, {
+                      "code" : "download_url",
+                      "dataType" : 0,
+                      "label" : "download_url",
+                      "semantics" : [ "rda.dataset.distribution.download_url" ]
+                    }, {
+                      "code" : "format",
+                      "dataType" : 0,
+                      "label" : "format",
+                      "semantics" : [ "rda.dataset.distribution.format" ]
+                    }, {
+                      "code" : "host-availability",
+                      "dataType" : 0,
+                      "label" : "host-availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "host-backup_frequency",
+                      "dataType" : 0,
+                      "label" : "host-backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "host-backup_type",
+                      "dataType" : 0,
+                      "label" : "host-backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "host-certified_with",
+                      "dataType" : 0,
+                      "label" : "host-certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "host-description",
+                      "dataType" : 0,
+                      "label" : "host-description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "host-geo_location",
+                      "dataType" : 0,
+                      "label" : "host-geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host-host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host-host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host-host_id-type",
+                      "dataType" : 0,
+                      "label" : "host-host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "host-pid_system",
+                      "dataType" : 0,
+                      "label" : "host-pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "host-storage_type",
+                      "dataType" : 0,
+                      "label" : "host-storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "host-support_versioning",
+                      "dataType" : 0,
+                      "label" : "host-support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "host-title",
+                      "dataType" : 0,
+                      "label" : "host-title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "host-url",
+                      "dataType" : 0,
+                      "label" : "host-url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "issued",
+                      "dataType" : 0,
+                      "label" : "issued",
+                      "semantics" : [ "rda.dataset.distribution.issued" ]
+                    }, {
+                      "code" : "license-license_ref",
+                      "dataType" : 0,
+                      "label" : "license-license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "license-start_date",
+                      "dataType" : 0,
+                      "label" : "license-start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.title" ]
+                    } ]
+                  },
+                  "id" : "17225807-03e8-357e-ab06-71e077e4e919",
+                  "name" : "dataset-distribution"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-byte_size" : {
+              "id" : "rda-dataset-distribution-byte_size",
+              "numberValue" : 12288.0
+            },
+            "rda-dataset-distribution-data_access" : {
+              "id" : "rda-dataset-distribution-data_access",
+              "textListValue" : [ "open" ]
+            },
+            "rda-dataset-distribution-description" : {
+              "id" : "rda-dataset-distribution-description",
+              "textValue" : "The Puerto Rico Long-Term Coral Reef Monitoring Program (PRCRMP) database compilation includes raw biological data (by transect) from reef locations around the Puerto Rican archipelago. Substrate cover by sessile-benthic categories and fish, and motile megabenthic invertebrate taxonomic composition and densities have been characterized in these stations, with variable sampling event frequencies between 1999 to 2021. At present, 42 permanent stations are surveyed biannually (21 per year). For the benthic characterization, a set of five 10-meter-long permanent transects are surveyed at each station. Sessile-benthic reef communities are characterized by the continuous intercept chain-link method, following the Caribbean Coastal Marine Productivity (CARICOMP) (1994) protocol. Demersal diurnal non-cryptic reef fish populations and motile megabenthic invertebrates are surveyed by sets of five 10 x 3 meters wide (30 m2) belt-transects centered along the reference line of transects used for sessile-benthic characterizations at each reef station. From 2004-2013, a diver completed an Active Search Census (ASEC) survey for 30 minutes annotating sizes and abundances of fish and macroinvertebrate species of interest. From 2015, the ASEC survey methodology was replaced by 20 x 3 meters (60 m2) band transects to identify commercially and ecologically important fish and megabenthic invertebrate species. Upon completion of the 10 meters belt-transect survey, the diver swims along the same depth and physiographic reef zone for an extra 10 meters to complete the 60 m2 transect. For each fish individual within the ASEC survey (2004-2013) and 60m2 band transects (2015-2021), a visual fork length (FL) estimate in centimeters is recorded. Fish length estimations are provided by the median of 5cm interval size classes. The cephalothorax length (measurement from the tip of the rostrum to end of the thorax), also known as carapace length (CL) in centimeters is used to report the size of lobsters (Panulirus spp., Scyllarides spp.) within belt-transects. Queen conch (Lobatus gigas) length is reported as the total (diagonal) shell length in centimeters. With the length-weight relationship information available in FishBase.org, biomass estimates are calculated for a subset of commercially and ecologically important fish species. The PRCRMP database was made possible with support from the National Oceanic and Atmospheric Administrations Coral Reef Conservation Program."
+            },
+            "rda-dataset-distribution-exists" : {
+              "booleanValue" : true,
+              "id" : "rda-dataset-distribution-exists"
+            },
+            "rda-dataset-distribution-format" : {
+              "id" : "rda-dataset-distribution-format",
+              "textListValue" : [ "text/xml" ]
+            },
+            "rda-dataset-distribution-host" : {
+              "id" : "rda-dataset-distribution-host",
+              "references" : [ {
+                "label" : "GBIF.org",
+                "type" : {
+                  "code" : "dataset-distribution-host",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "availability",
+                      "dataType" : 0,
+                      "label" : "availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "backup_frequency",
+                      "dataType" : 0,
+                      "label" : "backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "backup_type",
+                      "dataType" : 0,
+                      "label" : "backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "certified_with",
+                      "dataType" : 0,
+                      "label" : "certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "geo_location",
+                      "dataType" : 0,
+                      "label" : "geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host_id-type",
+                      "dataType" : 0,
+                      "label" : "host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "pid_system",
+                      "dataType" : 0,
+                      "label" : "pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "storage_type",
+                      "dataType" : 0,
+                      "label" : "storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "support_versioning",
+                      "dataType" : 0,
+                      "label" : "support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "url",
+                      "dataType" : 0,
+                      "label" : "url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    } ]
+                  },
+                  "id" : "f0fa2b68-1453-330c-96f1-b99beb998934",
+                  "name" : "dataset-distribution-host"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-host-description" : {
+              "id" : "rda-dataset-distribution-host-description",
+              "textValue" : "GBIF—the Global Biodiversity Information Facility—is an international network and data infrastructure funded by the world's governments and aimed at providing anyone, anywhere, open access to data about all types of life on Earth. Strictly speaking, GBIF is not a data repository. Rather, GBIF indexes thousands of datasets through a distributed infrastructure involving more than 100 formal participants that supports hundreds of data-publishing institutions worldwide. GBIF.org makes the FAIR and open data discoverable and citable, assigning each download a DOI and storing it for an extended period of time. More than three peer-reviewed research articles make use of data from the GBIF network every day, in studies spanning the impacts of climate change, the spread of pests and diseases, priority areas for conservation and food security. To share data with GBIF, follow this quick guide: http://www.gbif.org/publishing-data/quick-guide. To deposit or host data, we suggest using one of the trusted data hosting centres (DHC) listed in FAIRsharing.org that uses GBIF's IPT (Integrated Publishing Toolkit) software. The DHC provides data publishers with a hosted IPT account enabling them to manage and publish datasets through GBIF.org."
+            },
+            "rda-dataset-distribution-host-title" : {
+              "id" : "rda-dataset-distribution-host-title",
+              "textValue" : "GBIF.org"
+            },
+            "rda-dataset-distribution-host-url" : {
+              "id" : "rda-dataset-distribution-host-url",
+              "textValue" : "10.25504/FAIRsharing.zv11j3"
+            },
+            "rda-dataset-distribution-license" : {
+              "id" : "rda-dataset-distribution-license",
+              "references" : [ {
+                "label" : "http://creativecommons.org/publicdomain/zero/1.0/legalcode",
+                "reference" : "http://creativecommons.org/publicdomain/zero/1.0/legalcode",
+                "type" : {
+                  "code" : "dataset-distribution-license",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "license_ref",
+                      "dataType" : 0,
+                      "label" : "license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "start_date",
+                      "dataType" : 0,
+                      "label" : "start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    } ]
+                  },
+                  "id" : "752906d7-9b6e-3e41-9f50-d57571199342",
+                  "name" : "dataset-distribution-license"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-license-license_ref" : {
+              "id" : "rda-dataset-distribution-license-license_ref",
+              "textValue" : "http://creativecommons.org/publicdomain/zero/1.0/legalcode"
+            },
+            "rda-dataset-distribution-license-start_date" : {
+              "dateValue" : "2022-02-13T00:00:00Z",
+              "id" : "rda-dataset-distribution-license-start_date"
+            },
+            "rda-dataset-distribution-title" : {
+              "id" : "rda-dataset-distribution-title",
+              "textValue" : "Puerto Rico Long-Term Coral Reef Monitoring Program Database Compilation"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-is_reused" : {
+        "items" : [ ]
+      },
+      "rda-dataset-issued" : {
+        "items" : [ ]
+      },
+      "rda-dataset-keyword" : {
+        "items" : [ ]
+      },
+      "rda-dataset-language" : {
+        "items" : [ ]
+      },
+      "rda-dataset-metadata" : {
+        "items" : [ ]
+      },
+      "rda-dataset-personal_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-personal_data" : {
+              "id" : "rda-dataset-personal_data",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-preservation_statement" : {
+        "items" : [ ]
+      },
+      "rda-dataset-related_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-rights" : {
+        "items" : [ ]
+      },
+      "rda-dataset-security_and_privacy" : {
+        "items" : [ ]
+      },
+      "rda-dataset-sensitive_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-sensitive_data" : {
+              "id" : "rda-dataset-sensitive_data",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-technical_resource" : {
+        "items" : [ ]
+      },
+      "rda-dataset-title" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-title" : {
+              "id" : "rda-dataset-title",
+              "textValue" : "Puerto Rico Long-Term Coral Reef Monitoring Program Database Compilation"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-type" : {
+        "items" : [ ]
+      },
+      "rda-dmp-affiliation" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-affiliation-affiliation_id" : {
+              "id" : "rda-dmp-affiliation-affiliation_id"
+            },
+            "rda-dmp-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-identifier"
+            },
+            "rda-dmp-affiliation-affiliation_id-type" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-type"
+            },
+            "rda-dmp-affiliation-name" : {
+              "id" : "rda-dmp-affiliation-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dmp-contributor" : {
+        "items" : [ ]
+      },
+      "rda-dmp-cost" : {
+        "items" : [ ]
+      },
+      "rda-dmp-ethical_issues_description" : {
+        "items" : [ ]
+      },
+      "rda-dmp-ethical_issues_exist" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_exist" : {
+              "id" : "rda-dmp-ethical_issues_exist",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_report" : {
+        "items" : [ ]
+      },
+      "rda-dmp-project" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-project-description" : {
+              "id" : "rda-dmp-project-description"
+            },
+            "rda-dmp-project-end" : {
+              "id" : "rda-dmp-project-end"
+            },
+            "rda-dmp-project-funding-funder_id" : {
+              "id" : "rda-dmp-project-funding-funder_id"
+            },
+            "rda-dmp-project-funding-funder_id-identifier" : {
+              "id" : "rda-dmp-project-funding-funder_id-identifier"
+            },
+            "rda-dmp-project-funding-funder_id-type" : {
+              "id" : "rda-dmp-project-funding-funder_id-type"
+            },
+            "rda-dmp-project-funding-funding_status" : {
+              "id" : "rda-dmp-project-funding-funding_status"
+            },
+            "rda-dmp-project-funding-grant_id" : {
+              "id" : "rda-dmp-project-funding-grant_id"
+            },
+            "rda-dmp-project-funding-grant_id-identifier" : {
+              "id" : "rda-dmp-project-funding-grant_id-identifier"
+            },
+            "rda-dmp-project-funding-grant_id-type" : {
+              "id" : "rda-dmp-project-funding-grant_id-type"
+            },
+            "rda-dmp-project-project_id-identifier" : {
+              "id" : "rda-dmp-project-project_id-identifier"
+            },
+            "rda-dmp-project-project_id-type" : {
+              "id" : "rda-dmp-project-project_id-type"
+            },
+            "rda-dmp-project-start" : {
+              "id" : "rda-dmp-project-start"
+            },
+            "rda-dmp-project-title" : {
+              "id" : "rda-dmp-project-title"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-related_identifier" : {
+        "items" : [ ]
+      }
+    },
+    "label" : "Puerto Rico Long-Term Coral Reef Monitoring Program Database Compilation"
+  } ],
+  "label" : "DMP including FAIRsharing DOIs",
+  "plan" : {
+    "rda-dmp-affiliation" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-affiliation-affiliation_id" : {
+            "id" : "rda-dmp-affiliation-affiliation_id"
+          },
+          "rda-dmp-affiliation-affiliation_id-identifier" : {
+            "id" : "rda-dmp-affiliation-affiliation_id-identifier"
+          },
+          "rda-dmp-affiliation-affiliation_id-type" : {
+            "id" : "rda-dmp-affiliation-affiliation_id-type"
+          },
+          "rda-dmp-affiliation-name" : {
+            "id" : "rda-dmp-affiliation-name"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-alternate_identifier" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-alternate_identifier-identifier" : {
+            "id" : "rda-dmp-alternate_identifier-identifier"
+          },
+          "rda-dmp-alternate_identifier-type" : {
+            "id" : "rda-dmp-alternate_identifier-type"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-contact" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-contact-contact_id-identifier" : {
+            "id" : "rda-dmp-contact-contact_id-identifier",
+            "textValue" : "0000-0000-0000-0000"
+          },
+          "rda-dmp-contact-contact_id-type" : {
+            "id" : "rda-dmp-contact-contact_id-type",
+            "textValue" : "orcid"
+          },
+          "rda-dmp-contact-mbox" : {
+            "id" : "rda-dmp-contact-mbox",
+            "textValue" : "cc@example.com"
+          },
+          "rda-dmp-contact-name" : {
+            "id" : "rda-dmp-contact-name",
+            "textValue" : "Charlie Chaplin"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-contributor" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-contributor" : {
+            "id" : "rda-dmp-contributor"
+          },
+          "rda-dmp-contributor-affiliation-affiliation_id-identifier" : {
+            "id" : "rda-dmp-contributor-affiliation-affiliation_id-identifier"
+          },
+          "rda-dmp-contributor-affiliation-affiliation_id-type" : {
+            "id" : "rda-dmp-contributor-affiliation-affiliation_id-type"
+          },
+          "rda-dmp-contributor-affiliation-name" : {
+            "id" : "rda-dmp-contributor-affiliation-name"
+          },
+          "rda-dmp-contributor-contributor_id-identifier" : {
+            "id" : "rda-dmp-contributor-contributor_id-identifier"
+          },
+          "rda-dmp-contributor-contributor_id-type" : {
+            "id" : "rda-dmp-contributor-contributor_id-type"
+          },
+          "rda-dmp-contributor-mbox" : {
+            "id" : "rda-dmp-contributor-mbox"
+          },
+          "rda-dmp-contributor-name" : {
+            "id" : "rda-dmp-contributor-name"
+          },
+          "rda-dmp-contributor-role" : {
+            "id" : "rda-dmp-contributor-role"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-cost" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-cost-currency_code" : {
+            "id" : "rda-dmp-cost-currency_code"
+          },
+          "rda-dmp-cost-description" : {
+            "id" : "rda-dmp-cost-description"
+          },
+          "rda-dmp-cost-title" : {
+            "id" : "rda-dmp-cost-title"
+          },
+          "rda-dmp-cost-value" : {
+            "id" : "rda-dmp-cost-value"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-created" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-created" : {
+            "id" : "rda-dmp-created",
+            "textValue" : "Wed Mar 15 10:10:23 UTC 2023"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-description" : {
+      "items" : [ ]
+    },
+    "rda-dmp-dmp_id" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-dmp_id" : {
+            "id" : "rda-dmp-dmp_id",
+            "references" : [ {
+              "label" : "10.0000/00.0.1269",
+              "type" : {
+                "code" : "dmp-dmp_id",
+                "definition" : {
+                  "fields" : [ ]
+                },
+                "id" : "eba17333-c375-39b6-901a-9db9aed85ff4",
+                "name" : "dmp-dmp_id"
+              }
+            } ]
+          },
+          "rda-dmp-dmp_id-identifier" : {
+            "id" : "rda-dmp-dmp_id-identifier",
+            "textValue" : "10.0000/00.0.1269"
+          },
+          "rda-dmp-dmp_id-type" : {
+            "id" : "rda-dmp-dmp_id-type",
+            "textValue" : "doi"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-ethical_issues_description" : {
+      "items" : [ ]
+    },
+    "rda-dmp-ethical_issues_exist" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-ethical_issues_exist" : {
+            "id" : "rda-dmp-ethical_issues_exist",
+            "textListValue" : [ "no" ]
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-ethical_issues_report" : {
+      "items" : [ ]
+    },
+    "rda-dmp-language" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-language" : {
+            "id" : "rda-dmp-language",
+            "textValue" : "en"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-modified" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-modified" : {
+            "id" : "rda-dmp-modified",
+            "textValue" : "Wed Feb 06 15:30:42 UTC 2019"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-project" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-project-description" : {
+            "id" : "rda-dmp-project-description"
+          },
+          "rda-dmp-project-end" : {
+            "id" : "rda-dmp-project-end"
+          },
+          "rda-dmp-project-funding-funder_id" : {
+            "id" : "rda-dmp-project-funding-funder_id"
+          },
+          "rda-dmp-project-funding-funder_id-identifier" : {
+            "id" : "rda-dmp-project-funding-funder_id-identifier"
+          },
+          "rda-dmp-project-funding-funder_id-type" : {
+            "id" : "rda-dmp-project-funding-funder_id-type"
+          },
+          "rda-dmp-project-funding-funding_status" : {
+            "id" : "rda-dmp-project-funding-funding_status"
+          },
+          "rda-dmp-project-funding-grant_id" : {
+            "id" : "rda-dmp-project-funding-grant_id"
+          },
+          "rda-dmp-project-funding-grant_id-identifier" : {
+            "id" : "rda-dmp-project-funding-grant_id-identifier"
+          },
+          "rda-dmp-project-funding-grant_id-type" : {
+            "id" : "rda-dmp-project-funding-grant_id-type"
+          },
+          "rda-dmp-project-project_id-identifier" : {
+            "id" : "rda-dmp-project-project_id-identifier"
+          },
+          "rda-dmp-project-project_id-type" : {
+            "id" : "rda-dmp-project-project_id-type"
+          },
+          "rda-dmp-project-start" : {
+            "id" : "rda-dmp-project-start"
+          },
+          "rda-dmp-project-title" : {
+            "id" : "rda-dmp-project-title"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-related_identifier" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-related_identifier-identifier" : {
+            "id" : "rda-dmp-related_identifier-identifier"
+          },
+          "rda-dmp-related_identifier-metadata_scheme" : {
+            "id" : "rda-dmp-related_identifier-metadata_scheme"
+          },
+          "rda-dmp-related_identifier-relation_type" : {
+            "id" : "rda-dmp-related_identifier-relation_type"
+          },
+          "rda-dmp-related_identifier-resource_type" : {
+            "id" : "rda-dmp-related_identifier-resource_type"
+          },
+          "rda-dmp-related_identifier-scheme_type" : {
+            "id" : "rda-dmp-related_identifier-scheme_type"
+          },
+          "rda-dmp-related_identifier-scheme_uri" : {
+            "id" : "rda-dmp-related_identifier-scheme_uri"
+          },
+          "rda-dmp-related_identifier-type" : {
+            "id" : "rda-dmp-related_identifier-type"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-title" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-title" : {
+            "id" : "rda-dmp-title",
+            "textValue" : "DMP including FAIRsharing DOIs"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    }
+  }
+}

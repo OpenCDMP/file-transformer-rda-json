@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "f909f47b-e204-3b1c-aecf-28e22a9bb6dd",
+    "label" : "Survey data"
+  } ],
+  "plan" : {
+    "label" : "Plan with a distribution section",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "f909f47b-e204-3b1c-aecf-28e22a9bb6dd",
+      "label" : "Survey data"
+    } ]
+  }
+}

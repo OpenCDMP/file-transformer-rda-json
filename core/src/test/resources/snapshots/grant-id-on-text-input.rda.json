@@ -1,0 +1,44 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ ],
+    "description" : "Plan for Plan with a grant typed as text",
+    "dmp_id" : {
+      "identifier" : "20f21363-42a4-363b-8a17-5ad82ce551b2",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ {
+      "funding" : [ {
+        "grant_id" : {
+          "identifier" : "PTDC/CTA-AMB/1234/2026",
+          "type" : "other"
+        }
+      } ],
+      "title" : "Estuary monitoring"
+    } ],
+    "related_identifier" : [ ],
+    "title" : "Plan with a grant typed as text"
+  }
+}

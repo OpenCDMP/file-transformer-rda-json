@@ -1,0 +1,35 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "dataset-id" : {
+        "items" : [ {
+          "fields" : {
+            "dataset-id" : {
+              "externalIdentifier" : {
+                "identifier" : "https://hdl.handle.net/20.500.12345/678",
+                "type" : "url"
+              },
+              "id" : "dataset-id",
+              "textValue" : "https://hdl.handle.net/20.500.12345/678"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "title" : {
+        "items" : [ {
+          "fields" : {
+            "title" : {
+              "id" : "title",
+              "textValue" : "Water samples 2026"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Water samples 2026"
+  } ],
+  "label" : "Plan with a dataset identifier input",
+  "plan" : { }
+}

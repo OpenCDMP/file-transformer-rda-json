@@ -1,0 +1,84 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_9f50af8c-c566-35ee-86ae-e211f758269e",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "9f50af8c-c566-35ee-86ae-e211f758269e",
+        "type" : "other"
+      },
+      "description" : "Asset Sediment cores",
+      "distribution" : [ {
+        "host" : {
+          "host_id" : [ {
+            "identifier" : "r3d100010468",
+            "type" : "other"
+          } ],
+          "pid_system" : [ "doi" ],
+          "support_versioning" : "yes",
+          "title" : "Zenodo",
+          "url" : "https://zenodo.org"
+        },
+        "license" : [ {
+          "license_ref" : "https://creativecommons.org/licenses/by/4.0/",
+          "start_date" : "2026-06-30"
+        } ],
+        "title" : "Zenodo"
+      }, {
+        "host" : {
+          "host_id" : [ {
+            "identifier" : "r3d100000044",
+            "type" : "other"
+          } ],
+          "pid_system" : [ "doi" ],
+          "support_versioning" : "no",
+          "title" : "Dryad",
+          "url" : "https://datadryad.org"
+        },
+        "license" : [ {
+          "license_ref" : "https://creativecommons.org/licenses/by/4.0/",
+          "start_date" : "2026-06-30"
+        } ],
+        "title" : "Dryad"
+      } ],
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Sediment cores",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with hosts from references",
+    "dmp_id" : {
+      "identifier" : "dacfebd1-9da1-3e13-9508-9133f5c89d15",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with hosts from references"
+  }
+}

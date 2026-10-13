@@ -1,0 +1,74 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_50b31023-12d0-3bab-8372-c8ee07c48685",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "50b31023-12d0-3bab-8372-c8ee07c48685",
+        "type" : "other"
+      },
+      "description" : "Asset Model output",
+      "distribution" : [ {
+        "access_url" : "https://data.example.org/model",
+        "available_until" : "2031-12-31",
+        "byte_size" : 2048,
+        "data_access" : "shared",
+        "description" : "Typed by the author",
+        "download_url" : "https://data.example.org/model.nc",
+        "format" : [ "application/netcdf" ],
+        "host" : {
+          "host_id" : [ {
+            "identifier" : "dist-1",
+            "type" : "other"
+          } ],
+          "title" : "Data portal",
+          "url" : "https://data.example.org"
+        },
+        "issued" : "2026-07-01",
+        "license" : [ {
+          "license_ref" : "https://creativecommons.org/licenses/by-nc/4.0/",
+          "start_date" : "2026-07-01"
+        } ],
+        "title" : "Model output"
+      } ],
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Model output",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with a distribution picked as a reference",
+    "dmp_id" : {
+      "identifier" : "9a4e6420-11cf-3a3d-8d98-e4c6f1d37d50",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with a distribution picked as a reference"
+  }
+}

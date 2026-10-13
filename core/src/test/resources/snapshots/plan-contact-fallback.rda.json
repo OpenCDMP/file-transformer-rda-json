@@ -1,0 +1,51 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "clara.nunes@example.org",
+      "name" : "Clara Nunes"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_5fbb0045-efb5-357a-b09b-c8b49ee53b97",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "5fbb0045-efb5-357a-b09b-c8b49ee53b97",
+        "type" : "other"
+      },
+      "description" : "Asset Water samples",
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Water samples",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with a contact preset",
+    "dmp_id" : {
+      "identifier" : "b18d5417-5f5e-3a15-a51f-448cb5622395",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with a contact preset"
+  }
+}

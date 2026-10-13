@@ -1,0 +1,15 @@
+$.$schema: removed "./JSON-schema/1.2/maDMP-schema-1.2.json"
+$.dmp.affiliation: added []
+$.dmp.alternate_identifier: added []
+$.dmp.contact.contact_id: {"identifier":"0000-0000-0000-0000","type":"orcid"} -> [{"identifier":"0000-0000-0000-0000","type":"orcid"}]
+$.dmp.contributor: added [{"contributor_id":[{"identifier":"e2bc21a5-b663-3431-a16d-1b49e74b38eb","type":"other"}],"mbox":"maria.silva@example.org","name":"Maria Silva","role":["Owne...
+$.dmp.created: "2023-03-15T10:10:23.6Z" -> "2023-03-15T10:10:23.600Z"
+$.dmp.dataset[0].alternate_identifier: added [{"identifier":"opencdmp_14bab80f-baa2-3c24-9d90-e5566974754e","type":"internal"}]
+$.dmp.dataset[0].description: added "Asset Puerto Rico Long-Term Coral Reef Monitoring Program Database Compilation"
+$.dmp.dataset[0].distribution[0].host.host_id: added []
+$.dmp.dataset[0].distribution[0].metadata: removed [{"description":"The Ecological Metadata Language (EML) metadata standard was originally developed for the earth, environmental and ecological sciences. It i...
+$.dmp.dataset[0].language: added "eng"
+$.dmp.dataset[0].type: added "DMP Dataset"
+$.dmp.modified: "2019-02-06T15:30:42.1Z" -> "2019-02-06T15:30:42.100Z"
+$.dmp.project: added []
+$.dmp.related_identifier: added []

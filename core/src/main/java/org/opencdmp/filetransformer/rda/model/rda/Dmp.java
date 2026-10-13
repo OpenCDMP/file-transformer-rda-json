@@ -51,6 +51,16 @@ public class Dmp implements Serializable
      */
     @JsonProperty("alternate_identifier")
     private List<AlternateIdentifier> alternateIdentifier;
+
+    /**
+     * The Affiliation Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("affiliation")
+    private List<Affiliation> affiliation;
     /**
      * The DMP Contact Schema
      * <p>
@@ -95,7 +105,6 @@ public class Dmp implements Serializable
      * 
      */
     @JsonProperty("dataset")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Dataset> dataset = null;
     /**
      * The DMP Description Schema
@@ -218,6 +227,29 @@ public class Dmp implements Serializable
     @JsonProperty("alternate_identifier")
     public void setAlternateIdentifier(List<AlternateIdentifier> alternateIdentifier) {
         this.alternateIdentifier = alternateIdentifier;
+    }
+    /**
+     * The Affiliation Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("affiliation")
+    public List<Affiliation> getAffiliation() {
+        return affiliation;
+    }
+
+    /**
+     * The Affiliation Schema
+     * <p>
+     *
+     *
+     *
+     */
+    @JsonProperty("affiliation")
+    public void setAffiliation(List<Affiliation> affiliation) {
+        this.affiliation = affiliation;
     }
     /**
      * The DMP Contact Schema

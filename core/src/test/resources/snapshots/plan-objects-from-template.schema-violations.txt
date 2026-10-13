@@ -1,0 +1,1 @@
+/dmp/related_identifier/0: required property 'type' not found

@@ -1,0 +1,51 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_1a91d1ea-28c9-3a76-a880-4d049ad259de",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "https://hdl.handle.net/20.500.12345/678",
+        "type" : "url"
+      },
+      "description" : "Asset Water samples",
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Water samples 2026",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with a dataset identifier input",
+    "dmp_id" : {
+      "identifier" : "941a081c-4057-3f7d-93fd-f77d7f01e6a1",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with a dataset identifier input"
+  }
+}

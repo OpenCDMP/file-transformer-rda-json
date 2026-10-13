@@ -1,0 +1,65 @@
+{
+  "descriptions" : [ ],
+  "label" : "Plan with a contributor without identifier",
+  "plan" : {
+    "contributor" : {
+      "items" : [ {
+        "fields" : {
+          "researchers" : {
+            "id" : "researchers",
+            "references" : [ {
+              "label" : "Maria Silva",
+              "reference" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+              "type" : {
+                "code" : "researchers",
+                "definition" : {
+                  "fields" : [ {
+                    "code" : "primaryEmail",
+                    "dataType" : 0,
+                    "label" : "primaryEmail",
+                    "semantics" : [ ]
+                  } ]
+                },
+                "id" : "eef1ce07-8944-311e-bcab-ba97e4cd02d7",
+                "name" : "researchers"
+              }
+            } ]
+          }
+        },
+        "ordinal" : 0
+      }, {
+        "fields" : {
+          "contributor-name" : {
+            "id" : "contributor-name",
+            "textValue" : "João Santos"
+          }
+        },
+        "ordinal" : 1
+      }, {
+        "fields" : {
+          "researchers" : {
+            "id" : "researchers",
+            "references" : [ {
+              "label" : "Inês Moreira",
+              "reference" : "https://orcid.org/0000-0003-1419-2405",
+              "type" : {
+                "code" : "researchers",
+                "definition" : {
+                  "fields" : [ {
+                    "code" : "primaryEmail",
+                    "dataType" : 0,
+                    "label" : "primaryEmail",
+                    "semantics" : [ ]
+                  } ]
+                },
+                "id" : "eef1ce07-8944-311e-bcab-ba97e4cd02d7",
+                "name" : "researchers"
+              }
+            } ]
+          }
+        },
+        "ordinal" : 2
+      } ]
+    }
+  }
+}

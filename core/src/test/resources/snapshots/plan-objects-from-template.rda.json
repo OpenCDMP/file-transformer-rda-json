@@ -1,0 +1,88 @@
+{
+  "dmp" : {
+    "affiliation" : [ {
+      "affiliation_id" : {
+        "identifier" : "https://ror.org/222222222"
+      },
+      "name" : "Marine Institute"
+    } ],
+    "alternate_identifier" : [ {
+      "identifier" : "FC-2026",
+      "type" : "local"
+    } ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "https://orcid.org/0000-0001-2345-6789",
+        "type" : "orcid"
+      } ],
+      "mbox" : "marta.dias@example.org",
+      "name" : "Marta Dias",
+      "role" : [ "DataCollector" ]
+    } ],
+    "cost" : [ {
+      "currency_code" : "EUR",
+      "description" : "Boat hire",
+      "title" : "Field trips",
+      "value" : 3000.0
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_a36594d4-62a3-3899-a02d-042409316fb1",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "a36594d4-62a3-3899-a02d-042409316fb1",
+        "type" : "other"
+      },
+      "description" : "Asset Fish counts",
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Fish counts",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with plan-level questions in a template",
+    "dmp_id" : {
+      "identifier" : "c33d5257-a363-3162-a1e0-892877951a79",
+      "type" : "other"
+    },
+    "ethical_issues_description" : "No human subjects",
+    "ethical_issues_exist" : "no",
+    "ethical_issues_report" : "https://ethics.example.org/none",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ {
+      "funding" : [ {
+        "funder_id" : {
+          "identifier" : "http://dx.doi.org/10.13039/501100001871",
+          "type" : "fundref"
+        },
+        "funding_status" : "applied"
+      } ],
+      "start" : "2026-04-01",
+      "title" : "Fish census"
+    } ],
+    "related_identifier" : [ {
+      "identifier" : "https://doi.org/10.1234/census.2025",
+      "relation_type" : "IsNewVersionOf"
+    } ],
+    "title" : "Plan with plan-level questions in a template"
+  }
+}

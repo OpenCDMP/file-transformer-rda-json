@@ -1,0 +1,77 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_c9716ea1-cd88-3c3e-acd4-08a0b8724a98",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "c9716ea1-cd88-3c3e-acd4-08a0b8724a98",
+        "type" : "other"
+      },
+      "description" : "Asset Sensor data",
+      "distribution" : [ {
+        "access_url" : "https://repository.example.org/record/1",
+        "byte_size" : 1048576,
+        "data_access" : "open",
+        "description" : "Hourly readings",
+        "download_url" : "https://repository.example.org/files/sensors.zip",
+        "host" : {
+          "availability" : "99.5",
+          "backup_frequency" : "daily",
+          "backup_type" : "tape",
+          "certified_with" : "coretrustseal",
+          "description" : "Run by the library",
+          "geo_location" : "PT",
+          "host_id" : [ {
+            "identifier" : "https://www.re3data.org/repository/r3d100000001",
+            "type" : "url"
+          } ],
+          "pid_system" : [ "handle" ],
+          "storage_type" : "disk",
+          "support_versioning" : "yes",
+          "title" : "Institutional repository",
+          "url" : "https://repository.example.org"
+        },
+        "issued" : "2026-05-01",
+        "title" : "Sensor data"
+      } ],
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Sensor data",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with every distribution property",
+    "dmp_id" : {
+      "identifier" : "cf19e76a-0a03-3434-8631-fe8745de5c64",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with every distribution property"
+  }
+}

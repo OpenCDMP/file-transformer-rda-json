@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "50b31023-12d0-3bab-8372-c8ee07c48685",
+    "label" : "Model output"
+  } ],
+  "plan" : {
+    "label" : "Plan with a distribution picked as a reference",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "50b31023-12d0-3bab-8372-c8ee07c48685",
+      "label" : "Model output"
+    } ]
+  }
+}

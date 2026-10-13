@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "b0491321-2734-3c37-8a94-52b232a354c9",
+    "label" : "Water samples"
+  } ],
+  "plan" : {
+    "label" : "Estuary monitoring DMP",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "b0491321-2734-3c37-8a94-52b232a354c9",
+      "label" : "Water samples"
+    } ]
+  }
+}

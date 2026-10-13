@@ -1,0 +1,17 @@
+{
+  "descriptions" : [ ],
+  "label" : "Plan with its own identifier",
+  "plan" : {
+    "plan-id" : {
+      "items" : [ {
+        "fields" : {
+          "plan-id" : {
+            "id" : "plan-id",
+            "textValue" : "https://doi.org/10.1234/dmp.5"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    }
+  }
+}

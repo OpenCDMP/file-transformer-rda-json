@@ -14,6 +14,45 @@ rda-file-transformer:
   projectEndDateCode: "endDate"
   licenseStartDateCode: "start_date"
   configuration-fields:
+    - code: grants-reference-type
+      type: 3
+      label: "Grants"
+      group: "Reference types"
+      description: "The reference type whose references are exported as the plan's grants."
+      defaultValue: ${RDA_FILE_TRANSFORMER_GRANTS_CODE:grants}
+      optionsSource: referenceTypes
+      appliesTo: [ 0 ]
+    - code: funders-reference-type
+      type: 3
+      label: "Funders"
+      group: "Reference types"
+      description: "The reference type whose references are exported as the plan's funders."
+      defaultValue: ${RDA_FILE_TRANSFORMER_FUNDERS_CODE:funders}
+      optionsSource: referenceTypes
+      appliesTo: [ 0 ]
+    - code: projects-reference-type
+      type: 3
+      label: "Projects"
+      group: "Reference types"
+      description: "The reference type whose references are exported as the plan's projects."
+      defaultValue: ${RDA_FILE_TRANSFORMER_PROJECTS_CODE:projects}
+      optionsSource: referenceTypes
+      appliesTo: [ 0 ]
+    - code: researchers-reference-type
+      type: 3
+      label: "Researchers"
+      group: "Reference types"
+      description: "The reference type whose references are exported as the plan's contributors."
+      defaultValue: ${RDA_FILE_TRANSFORMER_RESEARCHERS_CODE:researchers}
+      optionsSource: referenceTypes
+      appliesTo: [ 0 ]
+    - code: dmp-id-doi-repository
+      type: 0
+      label: "Repository of the plan identifier"
+      group: "Identifiers"
+      description: "Once the plan is deposited there, the DOI from this repository becomes the plan's identifier. Use the repository's id, as shown in Plugins."
+      defaultValue: "Zenodo"
+      appliesTo: [ 0 ]
   user-configuration-fields:
   language-map:
     aa: aar
@@ -200,4 +239,9 @@ rda-file-transformer:
     za: zha
     zh: zho
     zu: zul
-    
+
+fixture-capture:
+  # Development only. Saves the body of every export/import request (whole plans, including personal data)
+  # so it can be anonymised and added to core/src/test/resources/fixtures. Never enable it in production.
+  enabled: ${RDA_FILE_TRANSFORMER_FIXTURE_CAPTURE_ENABLED:false}
+  directory: ${RDA_FILE_TRANSFORMER_FIXTURE_CAPTURE_DIRECTORY:fixture-capture}

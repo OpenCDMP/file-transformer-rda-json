@@ -1,0 +1,46 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "https://orcid.org/0000-0002-9079-593X",
+        "type" : "orcid"
+      } ],
+      "mbox" : "paulo.lima@example.org",
+      "name" : "Paulo Lima",
+      "role" : [ "researchers" ]
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ ],
+    "description" : "Plan for Plan with references picked twice",
+    "dmp_id" : {
+      "identifier" : "d2b031a6-d3a2-3ab2-b7fa-b45acc67f444",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ {
+      "title" : "Estuary monitoring"
+    } ],
+    "related_identifier" : [ ],
+    "title" : "Plan with references picked twice"
+  }
+}

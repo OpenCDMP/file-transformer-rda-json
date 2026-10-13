@@ -1,0 +1,109 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "WS-2026",
+        "type" : "local"
+      }, {
+        "identifier" : "opencdmp_fda5adfe-74fc-38e3-b430-35a40c5c8518",
+        "type" : "internal"
+      } ],
+      "creator" : [ {
+        "affiliation" : [ {
+          "affiliation_id" : {
+            "identifier" : "https://ror.org/000000000",
+            "type" : "ror"
+          },
+          "name" : "Example University"
+        } ],
+        "creator_id" : [ {
+          "identifier" : "https://orcid.org/0000-0002-1825-0097",
+          "type" : "orcid"
+        } ],
+        "mbox" : "rui.costa@example.org",
+        "name" : "Rui Costa"
+      }, {
+        "affiliation" : [ ],
+        "creator_id" : [ ],
+        "name" : "Ana Pereira"
+      } ],
+      "dataset_id" : {
+        "identifier" : "https://hdl.handle.net/20.500.12345/678",
+        "type" : "url"
+      },
+      "description" : "Asset Water samples",
+      "is_reused" : false,
+      "language" : "por",
+      "metadata" : [ {
+        "description" : "DataCite metadata",
+        "language" : "eng",
+        "metadata_standard_id" : [ {
+          "identifier" : "https://schema.datacite.org/",
+          "type" : "url"
+        } ]
+      }, {
+        "metadata_standard_id" : [ {
+          "identifier" : "https://www.dublincore.org/specifications/dublin-core/",
+          "type" : "other"
+        } ]
+      } ],
+      "personal_data" : "unknown",
+      "related_identifier" : [ {
+        "identifier" : "https://doi.org/10.1234/protocol.9",
+        "metadata_scheme" : "DataCite",
+        "relation_type" : "IsDocumentedBy",
+        "resource_type" : "Text",
+        "scheme_type" : "xsd",
+        "scheme_uri" : "https://schema.datacite.org/meta/kernel-4/",
+        "type" : "doi"
+      } ],
+      "rights" : "Open after embargo",
+      "security_and_privacy" : [ {
+        "description" : "Sampling sites are generalised",
+        "title" : "Location data"
+      } ],
+      "sensitive_data" : "unknown",
+      "technical_resource" : [ {
+        "description" : "Field sensor for salinity",
+        "name" : "Multiparameter probe",
+        "technical_resource_id" : [ {
+          "identifier" : "PROBE-7",
+          "type" : "serial"
+        } ]
+      } ],
+      "title" : "Water samples 2026",
+      "type" : "Dataset"
+    } ],
+    "description" : "Plan for Plan with dataset people and resources",
+    "dmp_id" : {
+      "identifier" : "1fbf26ba-0025-3ad0-a32c-fa1548cf7909",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with dataset people and resources"
+  }
+}

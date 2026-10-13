@@ -1,0 +1,76 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "cost" : [ {
+      "currency_code" : "EUR",
+      "title" : "Storage",
+      "value" : 1200.0
+    }, {
+      "currency_code" : "EUR",
+      "title" : "Curation",
+      "value" : 800.5
+    } ],
+    "created" : "2025-11-20T00:00:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_563fed65-72f9-3a50-a84a-b056df74dbb2",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "563fed65-72f9-3a50-a84a-b056df74dbb2",
+        "type" : "other"
+      },
+      "description" : "Asset Interview transcripts",
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Interview transcripts",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Plan with plan-level semantics",
+    "dmp_id" : {
+      "identifier" : "2bfe5d78-15d5-3bd7-817c-15e26c56e3f4",
+      "type" : "other"
+    },
+    "ethical_issues_description" : "Interviews with minors",
+    "ethical_issues_exist" : "yes",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ {
+      "end" : "2028-12-31",
+      "funding" : [ {
+        "funder_id" : {
+          "identifier" : "http://dx.doi.org/10.13039/501100000780",
+          "type" : "fundref"
+        },
+        "funding_status" : "granted",
+        "grant_id" : {
+          "identifier" : "101000123",
+          "type" : "other"
+        }
+      } ],
+      "start" : "2026-01-01",
+      "title" : "Coastal Futures"
+    } ],
+    "related_identifier" : [ ],
+    "title" : "Plan with plan-level semantics"
+  }
+}

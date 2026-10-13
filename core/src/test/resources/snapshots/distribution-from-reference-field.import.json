@@ -1,0 +1,99 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "picked" : {
+        "items" : [ {
+          "fields" : {
+            "picked-description" : {
+              "id" : "picked-description",
+              "textValue" : "Typed by the author"
+            },
+            "picked-distribution" : {
+              "id" : "picked-distribution",
+              "references" : [ {
+                "label" : "Model output",
+                "type" : {
+                  "code" : "distributions",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.title" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.description" ]
+                    }, {
+                      "code" : "format",
+                      "dataType" : 0,
+                      "label" : "format",
+                      "semantics" : [ "rda.dataset.distribution.format" ]
+                    }, {
+                      "code" : "download",
+                      "dataType" : 0,
+                      "label" : "download",
+                      "semantics" : [ "rda.dataset.distribution.download_url" ]
+                    }, {
+                      "code" : "access",
+                      "dataType" : 0,
+                      "label" : "access",
+                      "semantics" : [ "rda.dataset.distribution.access_url" ]
+                    }, {
+                      "code" : "dataAccess",
+                      "dataType" : 0,
+                      "label" : "dataAccess",
+                      "semantics" : [ "rda.dataset.distribution.data_access" ]
+                    }, {
+                      "code" : "size",
+                      "dataType" : 0,
+                      "label" : "size",
+                      "semantics" : [ "rda.dataset.distribution.byte_size" ]
+                    }, {
+                      "code" : "until",
+                      "dataType" : 0,
+                      "label" : "until",
+                      "semantics" : [ "rda.dataset.distribution.available_until" ]
+                    }, {
+                      "code" : "issued",
+                      "dataType" : 0,
+                      "label" : "issued",
+                      "semantics" : [ "rda.dataset.distribution.issued" ]
+                    }, {
+                      "code" : "hostTitle",
+                      "dataType" : 0,
+                      "label" : "hostTitle",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "hostUrl",
+                      "dataType" : 0,
+                      "label" : "hostUrl",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "licenseUri",
+                      "dataType" : 0,
+                      "label" : "licenseUri",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "licenseStart",
+                      "dataType" : 0,
+                      "label" : "licenseStart",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    } ]
+                  },
+                  "id" : "47a9383b-0c86-3560-8a93-394887222f4d",
+                  "name" : "distributions"
+                }
+              } ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Model output"
+  } ],
+  "label" : "Plan with a distribution picked as a reference",
+  "plan" : { }
+}

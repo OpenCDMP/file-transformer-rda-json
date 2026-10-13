@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "60a95f55-952d-3e90-8ab7-819c83543e2a",
+    "label" : "Sediment cores"
+  } ],
+  "plan" : {
+    "label" : "Plan with a repeating distribution question",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "60a95f55-952d-3e90-8ab7-819c83543e2a",
+      "label" : "Sediment cores"
+    } ]
+  }
+}

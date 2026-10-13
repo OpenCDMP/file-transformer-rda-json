@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "0bce753b-7040-3eab-9dce-acdb7559c883",
+    "label" : "Tide gauges"
+  } ],
+  "plan" : {
+    "label" : "Plan with odd input types",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "0bce753b-7040-3eab-9dce-acdb7559c883",
+      "label" : "Tide gauges"
+    } ]
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "alternate" : {
+        "items" : [ {
+          "fields" : {
+            "alternate-id" : {
+              "id" : "alternate-id",
+              "textValue" : "WS-2026"
+            },
+            "alternate-type" : {
+              "id" : "alternate-type",
+              "textValue" : "local"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "creator" : {
+        "items" : [ {
+          "fields" : {
+            "creator-affiliation" : {
+              "id" : "creator-affiliation",
+              "textValue" : "Example University"
+            },
+            "creator-affiliation-id" : {
+              "id" : "creator-affiliation-id",
+              "textValue" : "https://ror.org/000000000"
+            },
+            "creator-affiliation-id-type" : {
+              "id" : "creator-affiliation-id-type",
+              "textValue" : "ror"
+            },
+            "creator-id" : {
+              "id" : "creator-id",
+              "textValue" : "https://orcid.org/0000-0002-1825-0097"
+            },
+            "creator-id-type" : {
+              "id" : "creator-id-type",
+              "textValue" : "orcid"
+            },
+            "creator-mbox" : {
+              "id" : "creator-mbox",
+              "textValue" : "rui.costa@example.org"
+            },
+            "creator-name" : {
+              "id" : "creator-name",
+              "textValue" : "Rui Costa"
+            }
+          },
+          "ordinal" : 0
+        }, {
+          "fields" : {
+            "creator-name" : {
+              "id" : "creator-name",
+              "textValue" : "Ana Pereira"
+            }
+          },
+          "ordinal" : 1
+        } ]
+      },
+      "dataset-id" : {
+        "items" : [ {
+          "fields" : {
+            "dataset-id" : {
+              "externalIdentifier" : {
+                "identifier" : "https://hdl.handle.net/20.500.12345/678",
+                "type" : "url"
+              },
+              "id" : "dataset-id",
+              "references" : [ {
+                "label" : "Water samples 2026",
+                "reference" : "https://hdl.handle.net/20.500.12345/678",
+                "type" : {
+                  "code" : "datasets",
+                  "definition" : {
+                    "fields" : [ ]
+                  },
+                  "id" : "35074096-9a5c-39a7-a976-304f20d7a8f3",
+                  "name" : "datasets"
+                }
+              } ],
+              "textValue" : "https://hdl.handle.net/20.500.12345/678"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "language" : {
+        "items" : [ {
+          "fields" : {
+            "language" : {
+              "id" : "language",
+              "textListValue" : [ "por" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "metadata" : {
+        "items" : [ {
+          "fields" : {
+            "metadata-description" : {
+              "id" : "metadata-description",
+              "textValue" : "DataCite metadata"
+            },
+            "metadata-language" : {
+              "id" : "metadata-language",
+              "textListValue" : [ "eng" ]
+            },
+            "metadata-standard" : {
+              "id" : "metadata-standard",
+              "textValue" : "https://schema.datacite.org/"
+            },
+            "metadata-standard-type" : {
+              "id" : "metadata-standard-type",
+              "textListValue" : [ "url" ]
+            }
+          },
+          "ordinal" : 0
+        }, {
+          "fields" : {
+            "metadata-standard" : {
+              "id" : "metadata-standard",
+              "textValue" : "https://www.dublincore.org/specifications/dublin-core/"
+            },
+            "metadata-standard-type" : {
+              "id" : "metadata-standard-type",
+              "textListValue" : [ "other" ]
+            }
+          },
+          "ordinal" : 1
+        } ]
+      },
+      "metadata-plain" : {
+        "items" : [ {
+          "fields" : {
+            "metadata-plain" : {
+              "id" : "metadata-plain"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "related" : {
+        "items" : [ {
+          "fields" : {
+            "related-id" : {
+              "id" : "related-id",
+              "textValue" : "https://doi.org/10.1234/protocol.9"
+            },
+            "related-relation" : {
+              "id" : "related-relation",
+              "textValue" : "IsDocumentedBy"
+            },
+            "related-resource" : {
+              "id" : "related-resource",
+              "textValue" : "Text"
+            },
+            "related-scheme" : {
+              "id" : "related-scheme",
+              "textValue" : "DataCite"
+            },
+            "related-scheme-type" : {
+              "id" : "related-scheme-type",
+              "textValue" : "xsd"
+            },
+            "related-scheme-uri" : {
+              "id" : "related-scheme-uri",
+              "textValue" : "https://schema.datacite.org/meta/kernel-4/"
+            },
+            "related-type" : {
+              "id" : "related-type",
+              "textValue" : "doi"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "reused" : {
+        "items" : [ {
+          "fields" : {
+            "reused" : {
+              "booleanValue" : false,
+              "id" : "reused"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rights" : {
+        "items" : [ {
+          "fields" : {
+            "rights" : {
+              "id" : "rights",
+              "textValue" : "Open after embargo"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "security" : {
+        "items" : [ {
+          "fields" : {
+            "security-description" : {
+              "id" : "security-description",
+              "textValue" : "Sampling sites are generalised"
+            },
+            "security-title" : {
+              "id" : "security-title",
+              "textValue" : "Location data"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "technical" : {
+        "items" : [ {
+          "fields" : {
+            "technical-description" : {
+              "id" : "technical-description",
+              "textValue" : "Field sensor for salinity"
+            },
+            "technical-id" : {
+              "id" : "technical-id",
+              "textValue" : "PROBE-7"
+            },
+            "technical-id-type" : {
+              "id" : "technical-id-type",
+              "textValue" : "serial"
+            },
+            "technical-name" : {
+              "id" : "technical-name",
+              "textValue" : "Multiparameter probe"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "title" : {
+        "items" : [ {
+          "fields" : {
+            "title" : {
+              "id" : "title",
+              "textValue" : "Water samples 2026"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "type" : {
+        "items" : [ {
+          "fields" : {
+            "type" : {
+              "id" : "type",
+              "textValue" : "Dataset"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Water samples 2026"
+  } ],
+  "label" : "Plan with dataset people and resources",
+  "plan" : { }
+}

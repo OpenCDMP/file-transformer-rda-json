@@ -1,0 +1,73 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "access" : {
+        "items" : [ {
+          "fields" : {
+            "data-access" : {
+              "id" : "data-access",
+              "textListValue" : [ "open" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "available" : {
+        "items" : [ {
+          "fields" : {
+            "available" : {
+              "dateValue" : "2026-09-01T00:00:00Z",
+              "id" : "available"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "licences" : {
+        "items" : [ {
+          "fields" : {
+            "licence-start" : {
+              "dateValue" : "2026-09-01T00:00:00Z",
+              "id" : "licence-start"
+            },
+            "licence-url" : {
+              "id" : "licence-url",
+              "textValue" : "https://creativecommons.org/licenses/by/4.0/"
+            }
+          },
+          "ordinal" : 0
+        }, {
+          "fields" : {
+            "licence-start" : {
+              "dateValue" : "2027-01-01T00:00:00Z",
+              "id" : "licence-start"
+            },
+            "licence-url" : {
+              "id" : "licence-url",
+              "textValue" : "https://creativecommons.org/publicdomain/zero/1.0/"
+            }
+          },
+          "ordinal" : 1
+        } ]
+      },
+      "where" : {
+        "items" : [ {
+          "fields" : {
+            "host-title" : {
+              "id" : "host-title",
+              "textValue" : "Zenodo"
+            },
+            "host-url" : {
+              "id" : "host-url",
+              "textValue" : "https://zenodo.org"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Survey data"
+  } ],
+  "label" : "Plan with a distribution section",
+  "plan" : { }
+}

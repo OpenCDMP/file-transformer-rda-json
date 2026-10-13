@@ -1,0 +1,78 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "cost" : [ {
+      "title" : "Sensors",
+      "value" : 950.0
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_0bce753b-7040-3eab-9dce-acdb7559c883",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "10.5281/zenodo.7654321",
+        "type" : "doi"
+      },
+      "description" : "Hourly sea level",
+      "distribution" : [ {
+        "byte_size" : 4096,
+        "data_access" : "open",
+        "format" : [ "text/csv" ],
+        "host" : {
+          "host_id" : [ ],
+          "title" : "Zenodo",
+          "url" : "https://zenodo.org"
+        },
+        "issued" : "2026-08-15",
+        "license" : [ {
+          "license_ref" : "https://creativecommons.org/licenses/by/4.0/",
+          "start_date" : "2026-08-15"
+        } ],
+        "title" : "Gauge readings"
+      } ],
+      "is_reused" : true,
+      "issued" : "2026-08-15",
+      "keyword" : [ "tides", "sea level" ],
+      "language" : "eng",
+      "personal_data" : "no",
+      "sensitive_data" : "unknown",
+      "title" : "Tide gauges",
+      "type" : "Dataset"
+    } ],
+    "description" : "Plan for Plan with odd input types",
+    "dmp_id" : {
+      "identifier" : "06d3dc8f-4b3d-3625-8f4c-83fa9ac9fde3",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ {
+      "end" : "2029-03-31",
+      "start" : "2026-04-01",
+      "title" : "Sea level watch"
+    } ],
+    "related_identifier" : [ ],
+    "title" : "Plan with odd input types"
+  }
+}

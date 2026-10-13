@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "dbf8bfcb-1e91-3835-b795-65fe6ac7837a",
+    "label" : "Sediment cores"
+  } ],
+  "plan" : {
+    "label" : "Plan with distribution split across questions",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "dbf8bfcb-1e91-3835-b795-65fe6ac7837a",
+      "label" : "Sediment cores"
+    } ]
+  }
+}

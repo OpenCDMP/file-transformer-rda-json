@@ -1,0 +1,8 @@
+$.dmp.dataset[0].distribution[0].host.pid_system: removed ["doi"]
+$.dmp.dataset[0].distribution[0].host.support_versioning: removed "yes"
+$.dmp.dataset[0].distribution[0].host.url: removed "https://zenodo.org"
+$.dmp.dataset[0].distribution[0].license: removed [{"license_ref":"https://creativecommons.org/licenses/by/4.0/","start_date":"2026-06-30"}]
+$.dmp.dataset[0].distribution[1].host.pid_system: removed ["doi"]
+$.dmp.dataset[0].distribution[1].host.support_versioning: removed "no"
+$.dmp.dataset[0].distribution[1].host.url: removed "https://datadryad.org"
+$.dmp.dataset[0].distribution[1].license: removed [{"license_ref":"https://creativecommons.org/licenses/by/4.0/","start_date":"2026-06-30"}]

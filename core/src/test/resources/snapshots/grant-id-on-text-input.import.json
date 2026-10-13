@@ -1,0 +1,21 @@
+{
+  "descriptions" : [ ],
+  "label" : "Plan with a grant typed as text",
+  "plan" : {
+    "project" : {
+      "items" : [ {
+        "fields" : {
+          "project-grant" : {
+            "id" : "project-grant",
+            "textValue" : "PTDC/CTA-AMB/1234/2026"
+          },
+          "project-title" : {
+            "id" : "project-title",
+            "textValue" : "Estuary monitoring"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    }
+  }
+}

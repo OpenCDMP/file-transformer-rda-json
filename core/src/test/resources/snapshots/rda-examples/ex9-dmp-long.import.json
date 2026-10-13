@@ -1,0 +1,1940 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "rda-dataset-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-creator" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-creator-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-identifier"
+            },
+            "rda-dataset-creator-affiliation-affiliation_id-type" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-type"
+            },
+            "rda-dataset-creator-affiliation-name" : {
+              "id" : "rda-dataset-creator-affiliation-name"
+            },
+            "rda-dataset-creator-creator_id-identifier" : {
+              "id" : "rda-dataset-creator-creator_id-identifier"
+            },
+            "rda-dataset-creator-creator_id-type" : {
+              "id" : "rda-dataset-creator-creator_id-type"
+            },
+            "rda-dataset-creator-id" : {
+              "id" : "rda-dataset-creator-id"
+            },
+            "rda-dataset-creator-mbox" : {
+              "id" : "rda-dataset-creator-mbox"
+            },
+            "rda-dataset-creator-name" : {
+              "id" : "rda-dataset-creator-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-data_quality_assurance" : {
+        "items" : [ ]
+      },
+      "rda-dataset-dataset_id" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-dataset_id" : {
+              "externalIdentifier" : {
+                "identifier" : "0000/00.00000",
+                "type" : "handle"
+              },
+              "id" : "rda-dataset-dataset_id",
+              "references" : [ {
+                "label" : "Client application",
+                "reference" : "0000/00.00000",
+                "type" : {
+                  "code" : "dataset-dataset_id",
+                  "definition" : {
+                    "fields" : [ ]
+                  },
+                  "id" : "6bf924c8-33ba-3e7c-a362-42971055b21a",
+                  "name" : "dataset-dataset_id"
+                }
+              } ],
+              "textValue" : "0000/00.00000"
+            },
+            "rda-dataset-dataset_id-identifier" : {
+              "id" : "rda-dataset-dataset_id-identifier",
+              "textValue" : "0000/00.00000"
+            },
+            "rda-dataset-dataset_id-type" : {
+              "id" : "rda-dataset-dataset_id-type",
+              "textValue" : "handle"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-description" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-description" : {
+              "id" : "rda-dataset-description",
+              "textValue" : "Some test scripts"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-distribution" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-distribution" : {
+              "id" : "rda-dataset-distribution",
+              "references" : [ {
+                "label" : "Planned distribution",
+                "type" : {
+                  "code" : "dataset-distribution",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "access_url",
+                      "dataType" : 0,
+                      "label" : "access_url",
+                      "semantics" : [ "rda.dataset.distribution.access_url" ]
+                    }, {
+                      "code" : "available_until",
+                      "dataType" : 0,
+                      "label" : "available_until",
+                      "semantics" : [ "rda.dataset.distribution.available_until" ]
+                    }, {
+                      "code" : "byte_size",
+                      "dataType" : 0,
+                      "label" : "byte_size",
+                      "semantics" : [ "rda.dataset.distribution.byte_size" ]
+                    }, {
+                      "code" : "data_access",
+                      "dataType" : 0,
+                      "label" : "data_access",
+                      "semantics" : [ "rda.dataset.distribution.data_access" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.description" ]
+                    }, {
+                      "code" : "download_url",
+                      "dataType" : 0,
+                      "label" : "download_url",
+                      "semantics" : [ "rda.dataset.distribution.download_url" ]
+                    }, {
+                      "code" : "format",
+                      "dataType" : 0,
+                      "label" : "format",
+                      "semantics" : [ "rda.dataset.distribution.format" ]
+                    }, {
+                      "code" : "host-availability",
+                      "dataType" : 0,
+                      "label" : "host-availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "host-backup_frequency",
+                      "dataType" : 0,
+                      "label" : "host-backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "host-backup_type",
+                      "dataType" : 0,
+                      "label" : "host-backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "host-certified_with",
+                      "dataType" : 0,
+                      "label" : "host-certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "host-description",
+                      "dataType" : 0,
+                      "label" : "host-description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "host-geo_location",
+                      "dataType" : 0,
+                      "label" : "host-geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host-host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host-host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host-host_id-type",
+                      "dataType" : 0,
+                      "label" : "host-host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "host-pid_system",
+                      "dataType" : 0,
+                      "label" : "host-pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "host-storage_type",
+                      "dataType" : 0,
+                      "label" : "host-storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "host-support_versioning",
+                      "dataType" : 0,
+                      "label" : "host-support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "host-title",
+                      "dataType" : 0,
+                      "label" : "host-title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "host-url",
+                      "dataType" : 0,
+                      "label" : "host-url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "issued",
+                      "dataType" : 0,
+                      "label" : "issued",
+                      "semantics" : [ "rda.dataset.distribution.issued" ]
+                    }, {
+                      "code" : "license-license_ref",
+                      "dataType" : 0,
+                      "label" : "license-license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "license-start_date",
+                      "dataType" : 0,
+                      "label" : "license-start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.title" ]
+                    } ]
+                  },
+                  "id" : "17225807-03e8-357e-ab06-71e077e4e919",
+                  "name" : "dataset-distribution"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-available_until" : {
+              "dateValue" : "2030-09-30T00:00:00Z",
+              "id" : "rda-dataset-distribution-available_until"
+            },
+            "rda-dataset-distribution-byte_size" : {
+              "id" : "rda-dataset-distribution-byte_size",
+              "numberValue" : 1.0E9
+            },
+            "rda-dataset-distribution-data_access" : {
+              "id" : "rda-dataset-distribution-data_access",
+              "textListValue" : [ "open" ]
+            },
+            "rda-dataset-distribution-exists" : {
+              "booleanValue" : true,
+              "id" : "rda-dataset-distribution-exists"
+            },
+            "rda-dataset-distribution-format" : {
+              "id" : "rda-dataset-distribution-format"
+            },
+            "rda-dataset-distribution-host" : {
+              "id" : "rda-dataset-distribution-host",
+              "references" : [ {
+                "label" : "GitHub",
+                "type" : {
+                  "code" : "dataset-distribution-host",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "availability",
+                      "dataType" : 0,
+                      "label" : "availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "backup_frequency",
+                      "dataType" : 0,
+                      "label" : "backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "backup_type",
+                      "dataType" : 0,
+                      "label" : "backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "certified_with",
+                      "dataType" : 0,
+                      "label" : "certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "geo_location",
+                      "dataType" : 0,
+                      "label" : "geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host_id-type",
+                      "dataType" : 0,
+                      "label" : "host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "pid_system",
+                      "dataType" : 0,
+                      "label" : "pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "storage_type",
+                      "dataType" : 0,
+                      "label" : "storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "support_versioning",
+                      "dataType" : 0,
+                      "label" : "support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "url",
+                      "dataType" : 0,
+                      "label" : "url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    } ]
+                  },
+                  "id" : "f0fa2b68-1453-330c-96f1-b99beb998934",
+                  "name" : "dataset-distribution-host"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-host-description" : {
+              "id" : "rda-dataset-distribution-host-description",
+              "textValue" : "GitHub is the best place to share code with friends, co-workers, classmates, and complete strangers. Over three million people use GitHub to build amazing things together. With the collaborative features of GitHub.com, our desktop and mobile apps, and GitHub Enterprise, it has never been easier for individuals and teams to write better code, faster. Originally founded by Tom Preston-Werner, Chris Wanstrath, and PJ Hyett to simplify sharing code, GitHub has grown into the largest code host in the world."
+            },
+            "rda-dataset-distribution-host-pid_system" : {
+              "id" : "rda-dataset-distribution-host-pid_system",
+              "textListValue" : [ "other" ]
+            },
+            "rda-dataset-distribution-host-storage_type" : {
+              "id" : "rda-dataset-distribution-host-storage_type",
+              "textValue" : "repository"
+            },
+            "rda-dataset-distribution-host-title" : {
+              "id" : "rda-dataset-distribution-host-title",
+              "textValue" : "GitHub"
+            },
+            "rda-dataset-distribution-host-url" : {
+              "id" : "rda-dataset-distribution-host-url",
+              "textValue" : "https://www.re3data.org/repository/r3d100010375"
+            },
+            "rda-dataset-distribution-license" : {
+              "id" : "rda-dataset-distribution-license",
+              "references" : [ {
+                "label" : "http://opensource.org/licenses/mit-license.php",
+                "reference" : "http://opensource.org/licenses/mit-license.php",
+                "type" : {
+                  "code" : "dataset-distribution-license",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "license_ref",
+                      "dataType" : 0,
+                      "label" : "license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "start_date",
+                      "dataType" : 0,
+                      "label" : "start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    } ]
+                  },
+                  "id" : "752906d7-9b6e-3e41-9f50-d57571199342",
+                  "name" : "dataset-distribution-license"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-license-license_ref" : {
+              "id" : "rda-dataset-distribution-license-license_ref",
+              "textValue" : "http://opensource.org/licenses/mit-license.php"
+            },
+            "rda-dataset-distribution-license-start_date" : {
+              "dateValue" : "2020-09-30T00:00:00Z",
+              "id" : "rda-dataset-distribution-license-start_date"
+            },
+            "rda-dataset-distribution-title" : {
+              "id" : "rda-dataset-distribution-title",
+              "textValue" : "Planned distribution"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-is_reused" : {
+        "items" : [ ]
+      },
+      "rda-dataset-issued" : {
+        "items" : [ ]
+      },
+      "rda-dataset-keyword" : {
+        "items" : [ ]
+      },
+      "rda-dataset-language" : {
+        "items" : [ ]
+      },
+      "rda-dataset-metadata" : {
+        "items" : [ ]
+      },
+      "rda-dataset-personal_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-personal_data" : {
+              "id" : "rda-dataset-personal_data",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-preservation_statement" : {
+        "items" : [ ]
+      },
+      "rda-dataset-related_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-rights" : {
+        "items" : [ ]
+      },
+      "rda-dataset-security_and_privacy" : {
+        "items" : [ ]
+      },
+      "rda-dataset-sensitive_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-sensitive_data" : {
+              "id" : "rda-dataset-sensitive_data",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-technical_resource" : {
+        "items" : [ ]
+      },
+      "rda-dataset-title" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-title" : {
+              "id" : "rda-dataset-title",
+              "textValue" : "Client application"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-type" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-type" : {
+              "id" : "rda-dataset-type",
+              "textValue" : "Source code"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-affiliation" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-affiliation-affiliation_id" : {
+              "id" : "rda-dmp-affiliation-affiliation_id"
+            },
+            "rda-dmp-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-identifier"
+            },
+            "rda-dmp-affiliation-affiliation_id-type" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-type"
+            },
+            "rda-dmp-affiliation-name" : {
+              "id" : "rda-dmp-affiliation-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dmp-contributor" : {
+        "items" : [ ]
+      },
+      "rda-dmp-cost" : {
+        "items" : [ ]
+      },
+      "rda-dmp-ethical_issues_description" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_description" : {
+              "id" : "rda-dmp-ethical_issues_description",
+              "textValue" : "Ethical issues are handled by ..."
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_exist" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_exist" : {
+              "id" : "rda-dmp-ethical_issues_exist",
+              "textListValue" : [ "yes" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_report" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_report" : {
+              "id" : "rda-dmp-ethical_issues_report",
+              "textValue" : "https://docs.google.com/document/d/xyz"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-project" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-project-description" : {
+              "id" : "rda-dmp-project-description"
+            },
+            "rda-dmp-project-end" : {
+              "id" : "rda-dmp-project-end"
+            },
+            "rda-dmp-project-funding-funder_id" : {
+              "id" : "rda-dmp-project-funding-funder_id"
+            },
+            "rda-dmp-project-funding-funder_id-identifier" : {
+              "id" : "rda-dmp-project-funding-funder_id-identifier"
+            },
+            "rda-dmp-project-funding-funder_id-type" : {
+              "id" : "rda-dmp-project-funding-funder_id-type"
+            },
+            "rda-dmp-project-funding-funding_status" : {
+              "id" : "rda-dmp-project-funding-funding_status"
+            },
+            "rda-dmp-project-funding-grant_id" : {
+              "id" : "rda-dmp-project-funding-grant_id"
+            },
+            "rda-dmp-project-funding-grant_id-identifier" : {
+              "id" : "rda-dmp-project-funding-grant_id-identifier"
+            },
+            "rda-dmp-project-funding-grant_id-type" : {
+              "id" : "rda-dmp-project-funding-grant_id-type"
+            },
+            "rda-dmp-project-project_id-identifier" : {
+              "id" : "rda-dmp-project-project_id-identifier"
+            },
+            "rda-dmp-project-project_id-type" : {
+              "id" : "rda-dmp-project-project_id-type"
+            },
+            "rda-dmp-project-start" : {
+              "id" : "rda-dmp-project-start"
+            },
+            "rda-dmp-project-title" : {
+              "id" : "rda-dmp-project-title"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-related_identifier" : {
+        "items" : [ ]
+      }
+    },
+    "label" : "Client application"
+  }, {
+    "answers" : {
+      "rda-dataset-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-creator" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-creator-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-identifier"
+            },
+            "rda-dataset-creator-affiliation-affiliation_id-type" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-type"
+            },
+            "rda-dataset-creator-affiliation-name" : {
+              "id" : "rda-dataset-creator-affiliation-name"
+            },
+            "rda-dataset-creator-creator_id-identifier" : {
+              "id" : "rda-dataset-creator-creator_id-identifier"
+            },
+            "rda-dataset-creator-creator_id-type" : {
+              "id" : "rda-dataset-creator-creator_id-type"
+            },
+            "rda-dataset-creator-id" : {
+              "id" : "rda-dataset-creator-id"
+            },
+            "rda-dataset-creator-mbox" : {
+              "id" : "rda-dataset-creator-mbox"
+            },
+            "rda-dataset-creator-name" : {
+              "id" : "rda-dataset-creator-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-data_quality_assurance" : {
+        "items" : [ ]
+      },
+      "rda-dataset-dataset_id" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-dataset_id" : {
+              "externalIdentifier" : {
+                "identifier" : "0000/00.00000",
+                "type" : "handle"
+              },
+              "id" : "rda-dataset-dataset_id",
+              "references" : [ {
+                "label" : "Image collection",
+                "reference" : "0000/00.00000",
+                "type" : {
+                  "code" : "dataset-dataset_id",
+                  "definition" : {
+                    "fields" : [ ]
+                  },
+                  "id" : "6bf924c8-33ba-3e7c-a362-42971055b21a",
+                  "name" : "dataset-dataset_id"
+                }
+              } ],
+              "textValue" : "0000/00.00000"
+            },
+            "rda-dataset-dataset_id-identifier" : {
+              "id" : "rda-dataset-dataset_id-identifier",
+              "textValue" : "0000/00.00000"
+            },
+            "rda-dataset-dataset_id-type" : {
+              "id" : "rda-dataset-dataset_id-type",
+              "textValue" : "handle"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-description" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-description" : {
+              "id" : "rda-dataset-description",
+              "textValue" : "Images of test object X"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-distribution" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-distribution" : {
+              "id" : "rda-dataset-distribution",
+              "references" : [ {
+                "label" : "Planned distribution",
+                "type" : {
+                  "code" : "dataset-distribution",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "access_url",
+                      "dataType" : 0,
+                      "label" : "access_url",
+                      "semantics" : [ "rda.dataset.distribution.access_url" ]
+                    }, {
+                      "code" : "available_until",
+                      "dataType" : 0,
+                      "label" : "available_until",
+                      "semantics" : [ "rda.dataset.distribution.available_until" ]
+                    }, {
+                      "code" : "byte_size",
+                      "dataType" : 0,
+                      "label" : "byte_size",
+                      "semantics" : [ "rda.dataset.distribution.byte_size" ]
+                    }, {
+                      "code" : "data_access",
+                      "dataType" : 0,
+                      "label" : "data_access",
+                      "semantics" : [ "rda.dataset.distribution.data_access" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.description" ]
+                    }, {
+                      "code" : "download_url",
+                      "dataType" : 0,
+                      "label" : "download_url",
+                      "semantics" : [ "rda.dataset.distribution.download_url" ]
+                    }, {
+                      "code" : "format",
+                      "dataType" : 0,
+                      "label" : "format",
+                      "semantics" : [ "rda.dataset.distribution.format" ]
+                    }, {
+                      "code" : "host-availability",
+                      "dataType" : 0,
+                      "label" : "host-availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "host-backup_frequency",
+                      "dataType" : 0,
+                      "label" : "host-backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "host-backup_type",
+                      "dataType" : 0,
+                      "label" : "host-backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "host-certified_with",
+                      "dataType" : 0,
+                      "label" : "host-certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "host-description",
+                      "dataType" : 0,
+                      "label" : "host-description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "host-geo_location",
+                      "dataType" : 0,
+                      "label" : "host-geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host-host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host-host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host-host_id-type",
+                      "dataType" : 0,
+                      "label" : "host-host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "host-pid_system",
+                      "dataType" : 0,
+                      "label" : "host-pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "host-storage_type",
+                      "dataType" : 0,
+                      "label" : "host-storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "host-support_versioning",
+                      "dataType" : 0,
+                      "label" : "host-support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "host-title",
+                      "dataType" : 0,
+                      "label" : "host-title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "host-url",
+                      "dataType" : 0,
+                      "label" : "host-url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "issued",
+                      "dataType" : 0,
+                      "label" : "issued",
+                      "semantics" : [ "rda.dataset.distribution.issued" ]
+                    }, {
+                      "code" : "license-license_ref",
+                      "dataType" : 0,
+                      "label" : "license-license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "license-start_date",
+                      "dataType" : 0,
+                      "label" : "license-start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.title" ]
+                    } ]
+                  },
+                  "id" : "17225807-03e8-357e-ab06-71e077e4e919",
+                  "name" : "dataset-distribution"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-byte_size" : {
+              "id" : "rda-dataset-distribution-byte_size",
+              "numberValue" : 5.0E10
+            },
+            "rda-dataset-distribution-data_access" : {
+              "id" : "rda-dataset-distribution-data_access",
+              "textListValue" : [ "closed" ]
+            },
+            "rda-dataset-distribution-exists" : {
+              "booleanValue" : true,
+              "id" : "rda-dataset-distribution-exists"
+            },
+            "rda-dataset-distribution-format" : {
+              "id" : "rda-dataset-distribution-format"
+            },
+            "rda-dataset-distribution-title" : {
+              "id" : "rda-dataset-distribution-title",
+              "textValue" : "Planned distribution"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-is_reused" : {
+        "items" : [ ]
+      },
+      "rda-dataset-issued" : {
+        "items" : [ ]
+      },
+      "rda-dataset-keyword" : {
+        "items" : [ ]
+      },
+      "rda-dataset-language" : {
+        "items" : [ ]
+      },
+      "rda-dataset-metadata" : {
+        "items" : [ ]
+      },
+      "rda-dataset-personal_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-personal_data" : {
+              "id" : "rda-dataset-personal_data",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-preservation_statement" : {
+        "items" : [ ]
+      },
+      "rda-dataset-related_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-rights" : {
+        "items" : [ ]
+      },
+      "rda-dataset-security_and_privacy" : {
+        "items" : [ ]
+      },
+      "rda-dataset-sensitive_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-sensitive_data" : {
+              "id" : "rda-dataset-sensitive_data",
+              "textListValue" : [ "yes" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-technical_resource" : {
+        "items" : [ ]
+      },
+      "rda-dataset-title" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-title" : {
+              "id" : "rda-dataset-title",
+              "textValue" : "Image collection"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-type" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-type" : {
+              "id" : "rda-dataset-type",
+              "textValue" : "Images"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-affiliation" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-affiliation-affiliation_id" : {
+              "id" : "rda-dmp-affiliation-affiliation_id"
+            },
+            "rda-dmp-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-identifier"
+            },
+            "rda-dmp-affiliation-affiliation_id-type" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-type"
+            },
+            "rda-dmp-affiliation-name" : {
+              "id" : "rda-dmp-affiliation-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dmp-contributor" : {
+        "items" : [ ]
+      },
+      "rda-dmp-cost" : {
+        "items" : [ ]
+      },
+      "rda-dmp-ethical_issues_description" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_description" : {
+              "id" : "rda-dmp-ethical_issues_description",
+              "textValue" : "Ethical issues are handled by ..."
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_exist" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_exist" : {
+              "id" : "rda-dmp-ethical_issues_exist",
+              "textListValue" : [ "yes" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_report" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_report" : {
+              "id" : "rda-dmp-ethical_issues_report",
+              "textValue" : "https://docs.google.com/document/d/xyz"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-project" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-project-description" : {
+              "id" : "rda-dmp-project-description"
+            },
+            "rda-dmp-project-end" : {
+              "id" : "rda-dmp-project-end"
+            },
+            "rda-dmp-project-funding-funder_id" : {
+              "id" : "rda-dmp-project-funding-funder_id"
+            },
+            "rda-dmp-project-funding-funder_id-identifier" : {
+              "id" : "rda-dmp-project-funding-funder_id-identifier"
+            },
+            "rda-dmp-project-funding-funder_id-type" : {
+              "id" : "rda-dmp-project-funding-funder_id-type"
+            },
+            "rda-dmp-project-funding-funding_status" : {
+              "id" : "rda-dmp-project-funding-funding_status"
+            },
+            "rda-dmp-project-funding-grant_id" : {
+              "id" : "rda-dmp-project-funding-grant_id"
+            },
+            "rda-dmp-project-funding-grant_id-identifier" : {
+              "id" : "rda-dmp-project-funding-grant_id-identifier"
+            },
+            "rda-dmp-project-funding-grant_id-type" : {
+              "id" : "rda-dmp-project-funding-grant_id-type"
+            },
+            "rda-dmp-project-project_id-identifier" : {
+              "id" : "rda-dmp-project-project_id-identifier"
+            },
+            "rda-dmp-project-project_id-type" : {
+              "id" : "rda-dmp-project-project_id-type"
+            },
+            "rda-dmp-project-start" : {
+              "id" : "rda-dmp-project-start"
+            },
+            "rda-dmp-project-title" : {
+              "id" : "rda-dmp-project-title"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-related_identifier" : {
+        "items" : [ ]
+      }
+    },
+    "label" : "Image collection"
+  }, {
+    "answers" : {
+      "rda-dataset-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-creator" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-creator-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-identifier"
+            },
+            "rda-dataset-creator-affiliation-affiliation_id-type" : {
+              "id" : "rda-dataset-creator-affiliation-affiliation_id-type"
+            },
+            "rda-dataset-creator-affiliation-name" : {
+              "id" : "rda-dataset-creator-affiliation-name"
+            },
+            "rda-dataset-creator-creator_id-identifier" : {
+              "id" : "rda-dataset-creator-creator_id-identifier"
+            },
+            "rda-dataset-creator-creator_id-type" : {
+              "id" : "rda-dataset-creator-creator_id-type"
+            },
+            "rda-dataset-creator-id" : {
+              "id" : "rda-dataset-creator-id"
+            },
+            "rda-dataset-creator-mbox" : {
+              "id" : "rda-dataset-creator-mbox"
+            },
+            "rda-dataset-creator-name" : {
+              "id" : "rda-dataset-creator-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-data_quality_assurance" : {
+        "items" : [ ]
+      },
+      "rda-dataset-dataset_id" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-dataset_id" : {
+              "externalIdentifier" : {
+                "identifier" : "0000/00.00000",
+                "type" : "handle"
+              },
+              "id" : "rda-dataset-dataset_id",
+              "references" : [ {
+                "label" : "Interviews",
+                "reference" : "0000/00.00000",
+                "type" : {
+                  "code" : "dataset-dataset_id",
+                  "definition" : {
+                    "fields" : [ ]
+                  },
+                  "id" : "6bf924c8-33ba-3e7c-a362-42971055b21a",
+                  "name" : "dataset-dataset_id"
+                }
+              } ],
+              "textValue" : "0000/00.00000"
+            },
+            "rda-dataset-dataset_id-identifier" : {
+              "id" : "rda-dataset-dataset_id-identifier",
+              "textValue" : "0000/00.00000"
+            },
+            "rda-dataset-dataset_id-type" : {
+              "id" : "rda-dataset-dataset_id-type",
+              "textValue" : "handle"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-description" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-description" : {
+              "id" : "rda-dataset-description",
+              "textValue" : "Audio recordings with test persons"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-distribution" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-distribution" : {
+              "id" : "rda-dataset-distribution",
+              "references" : [ {
+                "label" : "Planned distribution",
+                "type" : {
+                  "code" : "dataset-distribution",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "access_url",
+                      "dataType" : 0,
+                      "label" : "access_url",
+                      "semantics" : [ "rda.dataset.distribution.access_url" ]
+                    }, {
+                      "code" : "available_until",
+                      "dataType" : 0,
+                      "label" : "available_until",
+                      "semantics" : [ "rda.dataset.distribution.available_until" ]
+                    }, {
+                      "code" : "byte_size",
+                      "dataType" : 0,
+                      "label" : "byte_size",
+                      "semantics" : [ "rda.dataset.distribution.byte_size" ]
+                    }, {
+                      "code" : "data_access",
+                      "dataType" : 0,
+                      "label" : "data_access",
+                      "semantics" : [ "rda.dataset.distribution.data_access" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.description" ]
+                    }, {
+                      "code" : "download_url",
+                      "dataType" : 0,
+                      "label" : "download_url",
+                      "semantics" : [ "rda.dataset.distribution.download_url" ]
+                    }, {
+                      "code" : "format",
+                      "dataType" : 0,
+                      "label" : "format",
+                      "semantics" : [ "rda.dataset.distribution.format" ]
+                    }, {
+                      "code" : "host-availability",
+                      "dataType" : 0,
+                      "label" : "host-availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "host-backup_frequency",
+                      "dataType" : 0,
+                      "label" : "host-backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "host-backup_type",
+                      "dataType" : 0,
+                      "label" : "host-backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "host-certified_with",
+                      "dataType" : 0,
+                      "label" : "host-certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "host-description",
+                      "dataType" : 0,
+                      "label" : "host-description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "host-geo_location",
+                      "dataType" : 0,
+                      "label" : "host-geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host-host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host-host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host-host_id-type",
+                      "dataType" : 0,
+                      "label" : "host-host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "host-pid_system",
+                      "dataType" : 0,
+                      "label" : "host-pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "host-storage_type",
+                      "dataType" : 0,
+                      "label" : "host-storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "host-support_versioning",
+                      "dataType" : 0,
+                      "label" : "host-support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "host-title",
+                      "dataType" : 0,
+                      "label" : "host-title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "host-url",
+                      "dataType" : 0,
+                      "label" : "host-url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    }, {
+                      "code" : "issued",
+                      "dataType" : 0,
+                      "label" : "issued",
+                      "semantics" : [ "rda.dataset.distribution.issued" ]
+                    }, {
+                      "code" : "license-license_ref",
+                      "dataType" : 0,
+                      "label" : "license-license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "license-start_date",
+                      "dataType" : 0,
+                      "label" : "license-start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.title" ]
+                    } ]
+                  },
+                  "id" : "17225807-03e8-357e-ab06-71e077e4e919",
+                  "name" : "dataset-distribution"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-available_until" : {
+              "dateValue" : "2031-08-01T00:00:00Z",
+              "id" : "rda-dataset-distribution-available_until"
+            },
+            "rda-dataset-distribution-byte_size" : {
+              "id" : "rda-dataset-distribution-byte_size",
+              "numberValue" : 4.397056E8
+            },
+            "rda-dataset-distribution-data_access" : {
+              "id" : "rda-dataset-distribution-data_access",
+              "textListValue" : [ "open" ]
+            },
+            "rda-dataset-distribution-exists" : {
+              "booleanValue" : true,
+              "id" : "rda-dataset-distribution-exists"
+            },
+            "rda-dataset-distribution-format" : {
+              "id" : "rda-dataset-distribution-format",
+              "textListValue" : [ "audio/mpeg" ]
+            },
+            "rda-dataset-distribution-host" : {
+              "id" : "rda-dataset-distribution-host",
+              "references" : [ {
+                "label" : "Zenodo",
+                "type" : {
+                  "code" : "dataset-distribution-host",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "availability",
+                      "dataType" : 0,
+                      "label" : "availability",
+                      "semantics" : [ "rda.dataset.distribution.host.availability" ]
+                    }, {
+                      "code" : "backup_frequency",
+                      "dataType" : 0,
+                      "label" : "backup_frequency",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_frequency" ]
+                    }, {
+                      "code" : "backup_type",
+                      "dataType" : 0,
+                      "label" : "backup_type",
+                      "semantics" : [ "rda.dataset.distribution.host.backup_type" ]
+                    }, {
+                      "code" : "certified_with",
+                      "dataType" : 0,
+                      "label" : "certified_with",
+                      "semantics" : [ "rda.dataset.distribution.host.certified_with" ]
+                    }, {
+                      "code" : "description",
+                      "dataType" : 0,
+                      "label" : "description",
+                      "semantics" : [ "rda.dataset.distribution.host.description" ]
+                    }, {
+                      "code" : "geo_location",
+                      "dataType" : 0,
+                      "label" : "geo_location",
+                      "semantics" : [ "rda.dataset.distribution.host.geo_location" ]
+                    }, {
+                      "code" : "host_id-identifier",
+                      "dataType" : 0,
+                      "label" : "host_id-identifier",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.identifier" ]
+                    }, {
+                      "code" : "host_id-type",
+                      "dataType" : 0,
+                      "label" : "host_id-type",
+                      "semantics" : [ "rda.dataset.distribution.host.host_id.type" ]
+                    }, {
+                      "code" : "pid_system",
+                      "dataType" : 0,
+                      "label" : "pid_system",
+                      "semantics" : [ "rda.dataset.distribution.host.pid_system" ]
+                    }, {
+                      "code" : "storage_type",
+                      "dataType" : 0,
+                      "label" : "storage_type",
+                      "semantics" : [ "rda.dataset.distribution.host.storage_type" ]
+                    }, {
+                      "code" : "support_versioning",
+                      "dataType" : 0,
+                      "label" : "support_versioning",
+                      "semantics" : [ "rda.dataset.distribution.host.support_versioning" ]
+                    }, {
+                      "code" : "title",
+                      "dataType" : 0,
+                      "label" : "title",
+                      "semantics" : [ "rda.dataset.distribution.host.title" ]
+                    }, {
+                      "code" : "url",
+                      "dataType" : 0,
+                      "label" : "url",
+                      "semantics" : [ "rda.dataset.distribution.host.url" ]
+                    } ]
+                  },
+                  "id" : "f0fa2b68-1453-330c-96f1-b99beb998934",
+                  "name" : "dataset-distribution-host"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-host-description" : {
+              "id" : "rda-dataset-distribution-host-description",
+              "textValue" : "ZENODO builds and operates a simple and innovative service that enables researchers, scientists, EU projects and institutions to share and showcase multidisciplinary research results (data and publications) that are not part of the existing institutional or subject-based repositories of the research communities.\nZENODO enables researchers, scientists, EU projects and institutions to:\neasily share the long tail of small research results in a wide variety of formats including text, spreadsheets, audio, video, and images across all fields of science.\ndisplay their research results and get credited by making the research results citable and integrate them into existing reporting lines to funding agencies like the European Commission.\neasily access and reuse shared research results."
+            },
+            "rda-dataset-distribution-host-pid_system" : {
+              "id" : "rda-dataset-distribution-host-pid_system",
+              "textListValue" : [ "doi" ]
+            },
+            "rda-dataset-distribution-host-storage_type" : {
+              "id" : "rda-dataset-distribution-host-storage_type",
+              "textValue" : "repository"
+            },
+            "rda-dataset-distribution-host-title" : {
+              "id" : "rda-dataset-distribution-host-title",
+              "textValue" : "Zenodo"
+            },
+            "rda-dataset-distribution-host-url" : {
+              "id" : "rda-dataset-distribution-host-url",
+              "textValue" : "https://www.re3data.org/repository/r3d100010468"
+            },
+            "rda-dataset-distribution-license" : {
+              "id" : "rda-dataset-distribution-license",
+              "references" : [ {
+                "label" : "http://creativecommons.org/licenses/by/4.0/",
+                "reference" : "http://creativecommons.org/licenses/by/4.0/",
+                "type" : {
+                  "code" : "dataset-distribution-license",
+                  "definition" : {
+                    "fields" : [ {
+                      "code" : "license_ref",
+                      "dataType" : 0,
+                      "label" : "license_ref",
+                      "semantics" : [ "rda.dataset.distribution.license.license_ref" ]
+                    }, {
+                      "code" : "start_date",
+                      "dataType" : 0,
+                      "label" : "start_date",
+                      "semantics" : [ "rda.dataset.distribution.license.start_date" ]
+                    } ]
+                  },
+                  "id" : "752906d7-9b6e-3e41-9f50-d57571199342",
+                  "name" : "dataset-distribution-license"
+                }
+              } ]
+            },
+            "rda-dataset-distribution-license-license_ref" : {
+              "id" : "rda-dataset-distribution-license-license_ref",
+              "textValue" : "http://creativecommons.org/licenses/by/4.0/"
+            },
+            "rda-dataset-distribution-license-start_date" : {
+              "dateValue" : "2021-01-01T00:00:00Z",
+              "id" : "rda-dataset-distribution-license-start_date"
+            },
+            "rda-dataset-distribution-title" : {
+              "id" : "rda-dataset-distribution-title",
+              "textValue" : "Planned distribution"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-is_reused" : {
+        "items" : [ ]
+      },
+      "rda-dataset-issued" : {
+        "items" : [ ]
+      },
+      "rda-dataset-keyword" : {
+        "items" : [ ]
+      },
+      "rda-dataset-language" : {
+        "items" : [ ]
+      },
+      "rda-dataset-metadata" : {
+        "items" : [ ]
+      },
+      "rda-dataset-personal_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-personal_data" : {
+              "id" : "rda-dataset-personal_data",
+              "textListValue" : [ "yes" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-preservation_statement" : {
+        "items" : [ ]
+      },
+      "rda-dataset-related_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dataset-rights" : {
+        "items" : [ ]
+      },
+      "rda-dataset-security_and_privacy" : {
+        "items" : [ ]
+      },
+      "rda-dataset-sensitive_data" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-sensitive_data" : {
+              "id" : "rda-dataset-sensitive_data",
+              "textListValue" : [ "no" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-technical_resource" : {
+        "items" : [ ]
+      },
+      "rda-dataset-title" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-title" : {
+              "id" : "rda-dataset-title",
+              "textValue" : "Interviews"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dataset-type" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dataset-type" : {
+              "id" : "rda-dataset-type",
+              "textValue" : "other"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-affiliation" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-affiliation-affiliation_id" : {
+              "id" : "rda-dmp-affiliation-affiliation_id"
+            },
+            "rda-dmp-affiliation-affiliation_id-identifier" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-identifier"
+            },
+            "rda-dmp-affiliation-affiliation_id-type" : {
+              "id" : "rda-dmp-affiliation-affiliation_id-type"
+            },
+            "rda-dmp-affiliation-name" : {
+              "id" : "rda-dmp-affiliation-name"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-alternate_identifier" : {
+        "items" : [ ]
+      },
+      "rda-dmp-contributor" : {
+        "items" : [ ]
+      },
+      "rda-dmp-cost" : {
+        "items" : [ ]
+      },
+      "rda-dmp-ethical_issues_description" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_description" : {
+              "id" : "rda-dmp-ethical_issues_description",
+              "textValue" : "Ethical issues are handled by ..."
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_exist" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_exist" : {
+              "id" : "rda-dmp-ethical_issues_exist",
+              "textListValue" : [ "yes" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-ethical_issues_report" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-ethical_issues_report" : {
+              "id" : "rda-dmp-ethical_issues_report",
+              "textValue" : "https://docs.google.com/document/d/xyz"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-project" : {
+        "items" : [ {
+          "fields" : {
+            "rda-dmp-project-description" : {
+              "id" : "rda-dmp-project-description"
+            },
+            "rda-dmp-project-end" : {
+              "id" : "rda-dmp-project-end"
+            },
+            "rda-dmp-project-funding-funder_id" : {
+              "id" : "rda-dmp-project-funding-funder_id"
+            },
+            "rda-dmp-project-funding-funder_id-identifier" : {
+              "id" : "rda-dmp-project-funding-funder_id-identifier"
+            },
+            "rda-dmp-project-funding-funder_id-type" : {
+              "id" : "rda-dmp-project-funding-funder_id-type"
+            },
+            "rda-dmp-project-funding-funding_status" : {
+              "id" : "rda-dmp-project-funding-funding_status"
+            },
+            "rda-dmp-project-funding-grant_id" : {
+              "id" : "rda-dmp-project-funding-grant_id"
+            },
+            "rda-dmp-project-funding-grant_id-identifier" : {
+              "id" : "rda-dmp-project-funding-grant_id-identifier"
+            },
+            "rda-dmp-project-funding-grant_id-type" : {
+              "id" : "rda-dmp-project-funding-grant_id-type"
+            },
+            "rda-dmp-project-project_id-identifier" : {
+              "id" : "rda-dmp-project-project_id-identifier"
+            },
+            "rda-dmp-project-project_id-type" : {
+              "id" : "rda-dmp-project-project_id-type"
+            },
+            "rda-dmp-project-start" : {
+              "id" : "rda-dmp-project-start"
+            },
+            "rda-dmp-project-title" : {
+              "id" : "rda-dmp-project-title"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "rda-dmp-related_identifier" : {
+        "items" : [ ]
+      }
+    },
+    "label" : "Interviews"
+  } ],
+  "label" : "DMP for our new project",
+  "plan" : {
+    "rda-dmp-affiliation" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-affiliation-affiliation_id" : {
+            "id" : "rda-dmp-affiliation-affiliation_id"
+          },
+          "rda-dmp-affiliation-affiliation_id-identifier" : {
+            "id" : "rda-dmp-affiliation-affiliation_id-identifier"
+          },
+          "rda-dmp-affiliation-affiliation_id-type" : {
+            "id" : "rda-dmp-affiliation-affiliation_id-type"
+          },
+          "rda-dmp-affiliation-name" : {
+            "id" : "rda-dmp-affiliation-name"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-alternate_identifier" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-alternate_identifier-identifier" : {
+            "id" : "rda-dmp-alternate_identifier-identifier"
+          },
+          "rda-dmp-alternate_identifier-type" : {
+            "id" : "rda-dmp-alternate_identifier-type"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-contact" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-contact-contact_id-identifier" : {
+            "id" : "rda-dmp-contact-contact_id-identifier",
+            "textValue" : "https://www.tiss.tuwien.ac.at/person/2351952424"
+          },
+          "rda-dmp-contact-contact_id-type" : {
+            "id" : "rda-dmp-contact-contact_id-type",
+            "textValue" : "other"
+          },
+          "rda-dmp-contact-mbox" : {
+            "id" : "rda-dmp-contact-mbox",
+            "textValue" : "john.smith@tuwien.ac.at"
+          },
+          "rda-dmp-contact-name" : {
+            "id" : "rda-dmp-contact-name",
+            "textValue" : "John Smith"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-contributor" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-contributor-contributor_id-identifier" : {
+            "id" : "rda-dmp-contributor-contributor_id-identifier",
+            "textValue" : "0000-0002-0000-0000"
+          },
+          "rda-dmp-contributor-contributor_id-type" : {
+            "id" : "rda-dmp-contributor-contributor_id-type",
+            "textValue" : "orcid"
+          },
+          "rda-dmp-contributor-mbox" : {
+            "id" : "rda-dmp-contributor-mbox",
+            "textValue" : "leo.messi@barcelona.com"
+          },
+          "rda-dmp-contributor-name" : {
+            "id" : "rda-dmp-contributor-name",
+            "textValue" : "Leo Messi"
+          },
+          "rda-dmp-contributor-role" : {
+            "id" : "rda-dmp-contributor-role",
+            "textListValue" : [ "ProjectLeader" ]
+          }
+        },
+        "ordinal" : 0
+      }, {
+        "fields" : {
+          "rda-dmp-contributor-contributor_id-identifier" : {
+            "id" : "rda-dmp-contributor-contributor_id-identifier",
+            "textValue" : "0000-0002-4929-7875"
+          },
+          "rda-dmp-contributor-contributor_id-type" : {
+            "id" : "rda-dmp-contributor-contributor_id-type",
+            "textValue" : "orcid"
+          },
+          "rda-dmp-contributor-mbox" : {
+            "id" : "rda-dmp-contributor-mbox",
+            "textValue" : "robert@bayern.de"
+          },
+          "rda-dmp-contributor-name" : {
+            "id" : "rda-dmp-contributor-name",
+            "textValue" : "Robert Lewandowski"
+          },
+          "rda-dmp-contributor-role" : {
+            "id" : "rda-dmp-contributor-role",
+            "textListValue" : [ "ContactPerson", "DataManager" ]
+          }
+        },
+        "ordinal" : 1
+      }, {
+        "fields" : {
+          "rda-dmp-contributor-contributor_id-identifier" : {
+            "id" : "rda-dmp-contributor-contributor_id-identifier",
+            "textValue" : "https://www.tiss.tuwien.ac.at/person/305962565"
+          },
+          "rda-dmp-contributor-contributor_id-type" : {
+            "id" : "rda-dmp-contributor-contributor_id-type",
+            "textValue" : "other"
+          },
+          "rda-dmp-contributor-mbox" : {
+            "id" : "rda-dmp-contributor-mbox",
+            "textValue" : "CR@juve.it"
+          },
+          "rda-dmp-contributor-name" : {
+            "id" : "rda-dmp-contributor-name",
+            "textValue" : "Cristiano Ronaldo"
+          },
+          "rda-dmp-contributor-role" : {
+            "id" : "rda-dmp-contributor-role",
+            "textListValue" : [ "DataCurator" ]
+          }
+        },
+        "ordinal" : 2
+      } ]
+    },
+    "rda-dmp-cost" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-cost-currency_code" : {
+            "id" : "rda-dmp-cost-currency_code"
+          },
+          "rda-dmp-cost-description" : {
+            "id" : "rda-dmp-cost-description"
+          },
+          "rda-dmp-cost-title" : {
+            "id" : "rda-dmp-cost-title"
+          },
+          "rda-dmp-cost-value" : {
+            "id" : "rda-dmp-cost-value"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-created" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-created" : {
+            "id" : "rda-dmp-created",
+            "textValue" : "Fri Dec 06 11:33:05 UTC 2019"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-description" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-description" : {
+            "id" : "rda-dmp-description",
+            "textValue" : "This DMP is for our new project."
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-dmp_id" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-dmp_id" : {
+            "id" : "rda-dmp-dmp_id",
+            "references" : [ {
+              "label" : "10.0000/00.0.1234",
+              "type" : {
+                "code" : "dmp-dmp_id",
+                "definition" : {
+                  "fields" : [ ]
+                },
+                "id" : "eba17333-c375-39b6-901a-9db9aed85ff4",
+                "name" : "dmp-dmp_id"
+              }
+            } ]
+          },
+          "rda-dmp-dmp_id-identifier" : {
+            "id" : "rda-dmp-dmp_id-identifier",
+            "textValue" : "10.0000/00.0.1234"
+          },
+          "rda-dmp-dmp_id-type" : {
+            "id" : "rda-dmp-dmp_id-type",
+            "textValue" : "doi"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-ethical_issues_description" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-ethical_issues_description" : {
+            "id" : "rda-dmp-ethical_issues_description",
+            "textValue" : "Ethical issues are handled by ..."
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-ethical_issues_exist" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-ethical_issues_exist" : {
+            "id" : "rda-dmp-ethical_issues_exist",
+            "textListValue" : [ "yes" ]
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-ethical_issues_report" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-ethical_issues_report" : {
+            "id" : "rda-dmp-ethical_issues_report",
+            "textValue" : "https://docs.google.com/document/d/xyz"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-language" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-language" : {
+            "id" : "rda-dmp-language",
+            "textValue" : "en"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-modified" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-modified" : {
+            "id" : "rda-dmp-modified",
+            "textValue" : "Fri Dec 06 11:33:05 UTC 2019"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-project" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-project-description" : {
+            "id" : "rda-dmp-project-description",
+            "textValue" : "<p>The capabilities of the latest generation of Earth observation satellites to collect large volumes of diverse and thematically rich data are unprecedented. For exploiting these valuable data sets, many research and industry groups have started to shift their processing into the cloud. Although the functionalities of existing cloud computing solutions largely overlap, there are all custom-made and tailored to the specific data infrastructures. This lack of standards not only makes it hard for end users and application developers to develop generic front-ends, but also to compare the cloud offerings by running the same analysis against different cloud back-ends. To solve this, a common interface that allows end- and intermediate users to query cloud-based back offices and carry out computations on them in a simple way is needed. The openEO project will design such an interface, implement it as an open source community project, bind it to generic analytics front-ends and evaluate it against a set of relevant Earth observation cloud back offices. The openEO interface will consist of three layers of Application Programming Interfaces, namely a core API for finding, accessing, and processing large datasets, a driver APIs to connect to back offices operated by European and worldwide industry, and client APIs for analysing these datasets using R, Python and JavaScript. To demonstrate the capability of the openEO interface, four use cases based chiefly on Sentinel-1 and Sentinel-2 time series will be implemented. openEO will simplify the use of cloud-based processing engines, allow switching between cloud-based back office providers and comparing them, and enable reproducible, open Earth observation science. Thereby, openEO reduces the entry barriers for the adaptation of cloud computing technologies by a broad user community and paves the way for the federation of infrastructure capabilities.</p><p> </p>"
+          },
+          "rda-dmp-project-end" : {
+            "dateValue" : "2020-09-30T00:00:00Z",
+            "id" : "rda-dmp-project-end"
+          },
+          "rda-dmp-project-funding-funder_id" : {
+            "id" : "rda-dmp-project-funding-funder_id",
+            "references" : [ {
+              "reference" : "",
+              "type" : {
+                "code" : "dmp-project-funding-funder_id",
+                "definition" : {
+                  "fields" : [ ]
+                },
+                "id" : "f56b08f1-b6e6-3278-8d2f-751c864c5607",
+                "name" : "dmp-project-funding-funder_id"
+              }
+            } ]
+          },
+          "rda-dmp-project-funding-funder_id-identifier" : {
+            "id" : "rda-dmp-project-funding-funder_id-identifier"
+          },
+          "rda-dmp-project-funding-funder_id-type" : {
+            "id" : "rda-dmp-project-funding-funder_id-type",
+            "textValue" : "other"
+          },
+          "rda-dmp-project-funding-grant_id" : {
+            "id" : "rda-dmp-project-funding-grant_id",
+            "references" : [ {
+              "reference" : "EO-2-2017",
+              "type" : {
+                "code" : "dmp-project-funding-grant_id",
+                "definition" : {
+                  "fields" : [ ]
+                },
+                "id" : "78c875ed-d83d-318e-8daf-6d57e25ed4c5",
+                "name" : "dmp-project-funding-grant_id"
+              }
+            } ]
+          },
+          "rda-dmp-project-funding-grant_id-identifier" : {
+            "id" : "rda-dmp-project-funding-grant_id-identifier",
+            "textValue" : "EO-2-2017"
+          },
+          "rda-dmp-project-funding-grant_id-type" : {
+            "id" : "rda-dmp-project-funding-grant_id-type",
+            "textValue" : "other"
+          },
+          "rda-dmp-project-project_id-identifier" : {
+            "id" : "rda-dmp-project-project_id-identifier",
+            "textValue" : "https://tiss.tuwien.ac.at/api/pdb/rest/project/v3/1428966"
+          },
+          "rda-dmp-project-project_id-type" : {
+            "id" : "rda-dmp-project-project_id-type",
+            "textValue" : "HTTP-PDB"
+          },
+          "rda-dmp-project-start" : {
+            "dateValue" : "2017-10-01T00:00:00Z",
+            "id" : "rda-dmp-project-start"
+          },
+          "rda-dmp-project-title" : {
+            "id" : "rda-dmp-project-title",
+            "textValue" : "openEO - a common, open source interface between Earth Observation data infrastructures and front-end applications"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-related_identifier" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-related_identifier-identifier" : {
+            "id" : "rda-dmp-related_identifier-identifier"
+          },
+          "rda-dmp-related_identifier-metadata_scheme" : {
+            "id" : "rda-dmp-related_identifier-metadata_scheme"
+          },
+          "rda-dmp-related_identifier-relation_type" : {
+            "id" : "rda-dmp-related_identifier-relation_type"
+          },
+          "rda-dmp-related_identifier-resource_type" : {
+            "id" : "rda-dmp-related_identifier-resource_type"
+          },
+          "rda-dmp-related_identifier-scheme_type" : {
+            "id" : "rda-dmp-related_identifier-scheme_type"
+          },
+          "rda-dmp-related_identifier-scheme_uri" : {
+            "id" : "rda-dmp-related_identifier-scheme_uri"
+          },
+          "rda-dmp-related_identifier-type" : {
+            "id" : "rda-dmp-related_identifier-type"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "rda-dmp-title" : {
+      "items" : [ {
+        "fields" : {
+          "rda-dmp-title" : {
+            "id" : "rda-dmp-title",
+            "textValue" : "DMP for our new project"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    }
+  }
+}

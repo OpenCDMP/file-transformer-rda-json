@@ -1,0 +1,153 @@
+{
+  "dmp" : {
+    "affiliation" : [ {
+      "affiliation_id" : {
+        "identifier" : "https://ror.org/000000000",
+        "type" : "ror"
+      },
+      "name" : "Example University"
+    } ],
+    "alternate_identifier" : [ {
+      "identifier" : "EST-DMP-2026",
+      "type" : "internal"
+    } ],
+    "contact" : {
+      "affiliation" : [ {
+        "affiliation_id" : {
+          "identifier" : "https://ror.org/000000000",
+          "type" : "ror"
+        },
+        "name" : "Example University"
+      } ],
+      "contact_id" : [ {
+        "identifier" : "https://orcid.org/0000-0002-1825-0097",
+        "type" : "orcid"
+      } ],
+      "mbox" : "rui.costa@example.org",
+      "name" : "Rui Costa"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "https://orcid.org/0000-0002-9079-593X",
+        "type" : "orcid"
+      } ],
+      "mbox" : "paulo.lima@example.org",
+      "name" : "Paulo Lima",
+      "role" : [ "researchers" ]
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "62150ff1-de10-36df-baa2-17d67ab14733",
+        "type" : "other"
+      } ],
+      "mbox" : "sofia.rocha@example.org",
+      "name" : "Sofia Rocha",
+      "role" : [ "Reviewer" ]
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    }, {
+      "affiliation" : [ {
+        "affiliation_id" : {
+          "identifier" : "https://ror.org/000000000",
+          "type" : "ror"
+        },
+        "name" : "Example University"
+      } ],
+      "contributor_id" : [ {
+        "identifier" : "https://orcid.org/0000-0001-5109-3700",
+        "type" : "orcid"
+      } ],
+      "mbox" : "ana.pereira@example.org",
+      "name" : "Ana Pereira",
+      "role" : [ "DataCurator" ]
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "js-internal-7",
+        "type" : "other"
+      } ],
+      "name" : "João Santos",
+      "role" : [ "ProjectLeader" ]
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "https://orcid.org/0000-0003-1419-2405",
+        "type" : "orcid"
+      } ],
+      "mbox" : "ines.moreira@example.org",
+      "name" : "Inês Moreira",
+      "role" : [ "researchers" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_b0491321-2734-3c37-8a94-52b232a354c9",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "b0491321-2734-3c37-8a94-52b232a354c9",
+        "type" : "other"
+      },
+      "description" : "Asset Water samples",
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Water samples",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "<p>How estuary data is managed</p>",
+    "dmp_id" : {
+      "identifier" : "c1aece5f-80ad-3dbf-aded-360536403db2",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "ethical_issues_report" : "https://ethics.example.org/report/42",
+    "language" : "por",
+    "modified" : "2026-03-01T12:00:00Z",
+    "project" : [ {
+      "end" : "2030-12-31",
+      "funding" : [ {
+        "funder_id" : {
+          "identifier" : "501100001871",
+          "type" : "fundref"
+        },
+        "grant_id" : {
+          "identifier" : "PTDC/CTA-AMB/1234/2026",
+          "type" : "other"
+        }
+      } ],
+      "start" : "2026-01-01",
+      "title" : "Estuary monitoring (from references)"
+    }, {
+      "description" : "Five-year monitoring programme",
+      "funding" : [ {
+        "funder_id" : {
+          "identifier" : "501100001871",
+          "type" : "fundref"
+        },
+        "grant_id" : {
+          "identifier" : "PTDC/CTA-AMB/1234/2026",
+          "type" : "other"
+        }
+      } ],
+      "project_id" : [ {
+        "identifier" : "EST-2026",
+        "type" : "other"
+      } ],
+      "title" : "Estuary monitoring"
+    } ],
+    "related_identifier" : [ {
+      "identifier" : "https://doi.org/10.1234/paper.1",
+      "metadata_scheme" : "DataCite",
+      "relation_type" : "IsCitedBy",
+      "resource_type" : "Text",
+      "scheme_type" : "xsd",
+      "scheme_uri" : "https://schema.datacite.org/meta/kernel-4/",
+      "type" : "doi"
+    } ],
+    "title" : "Estuary monitoring DMP"
+  }
+}

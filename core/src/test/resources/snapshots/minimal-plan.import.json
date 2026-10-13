@@ -1,0 +1,19 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "notes" : {
+        "items" : [ {
+          "fields" : {
+            "notes" : {
+              "id" : "notes"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Survey data"
+  } ],
+  "label" : "Minimal plan",
+  "plan" : { }
+}

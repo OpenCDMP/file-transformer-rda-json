@@ -1,0 +1,52 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ {
+      "alternate_identifier" : [ {
+        "identifier" : "opencdmp_6c43b66c-d959-3cfe-9f42-e9d256647be9",
+        "type" : "internal"
+      } ],
+      "dataset_id" : {
+        "identifier" : "6c43b66c-d959-3cfe-9f42-e9d256647be9",
+        "type" : "other"
+      },
+      "description" : "Asset Survey data",
+      "keyword" : [ "survey", "social science" ],
+      "language" : "eng",
+      "personal_data" : "unknown",
+      "sensitive_data" : "unknown",
+      "title" : "Survey data",
+      "type" : "DMP Dataset"
+    } ],
+    "description" : "Plan for Minimal plan",
+    "dmp_id" : {
+      "identifier" : "eed2d95e-c4b8-3ef7-a862-b0f34b3d7a88",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Minimal plan"
+  }
+}

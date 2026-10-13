@@ -1,0 +1,45 @@
+{
+  "dmp" : {
+    "affiliation" : [ ],
+    "alternate_identifier" : [ ],
+    "contact" : {
+      "contact_id" : [ {
+        "identifier" : "488b6e36-67a6-3acf-8c80-2814f1b74ddf",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva"
+    },
+    "contributor" : [ {
+      "contributor_id" : [ {
+        "identifier" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb",
+        "type" : "other"
+      } ],
+      "mbox" : "maria.silva@example.org",
+      "name" : "Maria Silva",
+      "role" : [ "Owner" ]
+    }, {
+      "name" : "João Santos"
+    }, {
+      "contributor_id" : [ {
+        "identifier" : "https://orcid.org/0000-0003-1419-2405",
+        "type" : "orcid"
+      } ],
+      "name" : "Inês Moreira",
+      "role" : [ "researchers" ]
+    } ],
+    "created" : "2026-01-12T09:30:00Z",
+    "dataset" : [ ],
+    "description" : "Plan for Plan with a contributor without identifier",
+    "dmp_id" : {
+      "identifier" : "8861dee8-fe4e-3c76-b68c-9b4fdbed9217",
+      "type" : "other"
+    },
+    "ethical_issues_exist" : "unknown",
+    "language" : "eng",
+    "modified" : "2026-02-03T16:45:00Z",
+    "project" : [ ],
+    "related_identifier" : [ ],
+    "title" : "Plan with a contributor without identifier"
+  }
+}

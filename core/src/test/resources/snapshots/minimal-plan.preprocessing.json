@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "6c43b66c-d959-3cfe-9f42-e9d256647be9",
+    "label" : "Survey data"
+  } ],
+  "plan" : {
+    "label" : "Minimal plan",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "6c43b66c-d959-3cfe-9f42-e9d256647be9",
+      "label" : "Survey data"
+    } ]
+  }
+}

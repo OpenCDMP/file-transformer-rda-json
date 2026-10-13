@@ -1,0 +1,113 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "title" : {
+        "items" : [ {
+          "fields" : {
+            "title" : {
+              "id" : "title",
+              "textValue" : "Interview transcripts"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Interview transcripts"
+  } ],
+  "label" : "Plan with plan-level semantics",
+  "plan" : {
+    "cost" : {
+      "items" : [ {
+        "fields" : {
+          "cost-currency" : {
+            "id" : "cost-currency",
+            "textListValue" : [ "EUR" ]
+          },
+          "cost-title" : {
+            "id" : "cost-title",
+            "textValue" : "Storage"
+          },
+          "cost-value" : {
+            "id" : "cost-value",
+            "numberValue" : 1200.0
+          }
+        },
+        "ordinal" : 0
+      }, {
+        "fields" : {
+          "cost-currency" : {
+            "id" : "cost-currency",
+            "textListValue" : [ "EUR" ]
+          },
+          "cost-title" : {
+            "id" : "cost-title",
+            "textValue" : "Curation"
+          },
+          "cost-value" : {
+            "id" : "cost-value",
+            "numberValue" : 800.5
+          }
+        },
+        "ordinal" : 1
+      } ]
+    },
+    "ethical-issues" : {
+      "items" : [ {
+        "fields" : {
+          "ethical-issues-description" : {
+            "id" : "ethical-issues-description",
+            "textValue" : "Interviews with minors"
+          },
+          "ethical-issues-exist" : {
+            "id" : "ethical-issues-exist",
+            "textValue" : "yes"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "plan-created" : {
+      "items" : [ {
+        "fields" : {
+          "plan-created" : {
+            "dateValue" : "2025-11-20T00:00:00Z",
+            "id" : "plan-created"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    },
+    "project" : {
+      "items" : [ {
+        "fields" : {
+          "funder" : {
+            "id" : "funder",
+            "textValue" : "http://dx.doi.org/10.13039/501100000780"
+          },
+          "funding-status" : {
+            "id" : "funding-status",
+            "textListValue" : [ "granted" ]
+          },
+          "grant" : {
+            "id" : "grant",
+            "textValue" : "101000123"
+          },
+          "project-end" : {
+            "dateValue" : "2028-12-31T00:00:00Z",
+            "id" : "project-end"
+          },
+          "project-start" : {
+            "dateValue" : "2026-01-01T00:00:00Z",
+            "id" : "project-start"
+          },
+          "project-title" : {
+            "id" : "project-title",
+            "textValue" : "Coastal Futures"
+          }
+        },
+        "ordinal" : 0
+      } ]
+    }
+  }
+}

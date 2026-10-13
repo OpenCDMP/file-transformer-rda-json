@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "563fed65-72f9-3a50-a84a-b056df74dbb2",
+    "label" : "Interview transcripts"
+  } ],
+  "plan" : {
+    "label" : "Plan with plan-level semantics",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "563fed65-72f9-3a50-a84a-b056df74dbb2",
+      "label" : "Interview transcripts"
+    } ]
+  }
+}

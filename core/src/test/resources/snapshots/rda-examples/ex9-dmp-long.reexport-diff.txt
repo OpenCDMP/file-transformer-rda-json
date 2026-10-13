@@ -1,0 +1,42 @@
+$.$schema: removed "./JSON-schema/1.2/maDMP-schema-1.2.json"
+$.dmp.affiliation: added []
+$.dmp.alternate_identifier: added []
+$.dmp.contact.contact_id: {"identifier":"https://www.tiss.tuwien.ac.at/person/2351952424","type":"other"} -> [{"identifier":"https://www.tiss.tuwien.ac.at/person/2351952424","type":"other"}]
+$.dmp.contributor[0].contributor_id: {"identifier":"0000-0002-0000-0000","type":"orcid"} -> [{"identifier":"e2bc21a5-b663-3431-a16d-1b49e74b38eb","type":"other"}]
+$.dmp.contributor[0].mbox: "leo.messi@barcelona.com" -> "maria.silva@example.org"
+$.dmp.contributor[0].name: "Leo Messi" -> "Maria Silva"
+$.dmp.contributor[0].role[0]: "ProjectLeader" -> "Owner"
+$.dmp.contributor[1].contributor_id: {"identifier":"0000-0002-4929-7875","type":"orcid"} -> [{"identifier":"0000-0002-0000-0000","type":"orcid"}]
+$.dmp.contributor[1].mbox: "robert@bayern.de" -> "leo.messi@barcelona.com"
+$.dmp.contributor[1].name: "Robert Lewandowski" -> "Leo Messi"
+$.dmp.contributor[1].role[0]: "ContactPerson" -> "ProjectLeader"
+$.dmp.contributor[1].role[1]: removed "DataManager"
+$.dmp.contributor[2].contributor_id: {"identifier":"https://www.tiss.tuwien.ac.at/person/305962565","type":"other"} -> [{"identifier":"0000-0002-4929-7875","type":"orcid"}]
+$.dmp.contributor[2].mbox: "CR@juve.it" -> "robert@bayern.de"
+$.dmp.contributor[2].name: "Cristiano Ronaldo" -> "Robert Lewandowski"
+$.dmp.contributor[2].role[0]: "DataCurator" -> "DataManager"
+$.dmp.contributor[2].role[1]: added "ContactPerson"
+$.dmp.contributor[3]: added {"contributor_id":[{"identifier":"https://www.tiss.tuwien.ac.at/person/305962565","type":"other"}],"mbox":"CR@juve.it","name":"Cristiano Ronaldo","role":["Da...
+$.dmp.dataset[0].alternate_identifier: added [{"identifier":"opencdmp_5a3c799f-8e5d-34ef-b616-1656fce4ff3d","type":"internal"}]
+$.dmp.dataset[0].dataset_id.type: "handle" -> "other"
+$.dmp.dataset[0].distribution[0].format: removed []
+$.dmp.dataset[0].distribution[0].host.host_id: added []
+$.dmp.dataset[0].distribution[0].host.host_id_type: removed "HTTP-RE3DATA"
+$.dmp.dataset[0].distribution[0].host.supports_versioning: removed "yes"
+$.dmp.dataset[0].distribution[0].license[0].license_name: removed "The MIT License (MIT)"
+$.dmp.dataset[0].language: added "eng"
+$.dmp.dataset[1].alternate_identifier: added [{"identifier":"opencdmp_f5fa0a76-fa4b-380f-bda1-9a868c1860ac","type":"internal"}]
+$.dmp.dataset[1].dataset_id.type: "handle" -> "other"
+$.dmp.dataset[1].distribution[0].format: removed []
+$.dmp.dataset[1].distribution[0].host: added {"host_id":[],"title":"Planned distribution"}
+$.dmp.dataset[1].language: added "eng"
+$.dmp.dataset[2].alternate_identifier: added [{"identifier":"opencdmp_5584619c-d802-30d7-8521-25afdd5168c2","type":"internal"}]
+$.dmp.dataset[2].dataset_id.type: "handle" -> "other"
+$.dmp.dataset[2].distribution[0].host.host_id: added []
+$.dmp.dataset[2].distribution[0].host.host_id_type: removed "HTTP-RE3DATA"
+$.dmp.dataset[2].distribution[0].host.supports_versioning: removed "unknown"
+$.dmp.dataset[2].distribution[0].license[0].license_name: removed "Creative Commons Attribution (CC-BY)"
+$.dmp.dataset[2].language: added "eng"
+$.dmp.project[0].funding[0].funder_id: removed {"identifier":"","type":"other"}
+$.dmp.project[0].funding[0].funder_name: removed "European Commission - Framework Programme"
+$.dmp.related_identifier: added []

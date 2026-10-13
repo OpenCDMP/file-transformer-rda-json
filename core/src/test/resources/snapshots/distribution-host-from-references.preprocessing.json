@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "9f50af8c-c566-35ee-86ae-e211f758269e",
+    "label" : "Sediment cores"
+  } ],
+  "plan" : {
+    "label" : "Plan with hosts from references",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "9f50af8c-c566-35ee-86ae-e211f758269e",
+      "label" : "Sediment cores"
+    } ]
+  }
+}

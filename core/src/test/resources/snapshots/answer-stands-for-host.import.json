@@ -1,0 +1,49 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "access" : {
+        "items" : [ {
+          "fields" : {
+            "data-access" : {
+              "id" : "data-access",
+              "textListValue" : [ "closed" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "where" : {
+        "items" : [ {
+          "fields" : {
+            "repository" : {
+              "id" : "repository",
+              "textValue" : "zenodo"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Survey data"
+  }, {
+    "answers" : {
+      "access" : {
+        "items" : [ ]
+      },
+      "where" : {
+        "items" : [ {
+          "fields" : {
+            "repository" : {
+              "id" : "repository",
+              "textValue" : "none"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Interview notes"
+  } ],
+  "label" : "Plan answering where the data goes",
+  "plan" : { }
+}

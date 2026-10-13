@@ -1,0 +1,173 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "affiliation" : {
+        "items" : [ {
+          "fields" : {
+            "affiliation-id" : {
+              "id" : "affiliation-id",
+              "textValue" : "https://ror.org/222222222"
+            },
+            "affiliation-name" : {
+              "id" : "affiliation-name",
+              "textValue" : "Marine Institute"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "alternate" : {
+        "items" : [ {
+          "fields" : {
+            "alternate-id" : {
+              "id" : "alternate-id",
+              "textValue" : "FC-2026"
+            },
+            "alternate-type" : {
+              "id" : "alternate-type",
+              "textValue" : "local"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "contributor" : {
+        "items" : [ {
+          "fields" : {
+            "contributor-id" : {
+              "id" : "contributor-id",
+              "textValue" : "e2bc21a5-b663-3431-a16d-1b49e74b38eb"
+            },
+            "contributor-mbox" : {
+              "id" : "contributor-mbox",
+              "textValue" : "maria.silva@example.org"
+            },
+            "contributor-name" : {
+              "id" : "contributor-name",
+              "textValue" : "Maria Silva"
+            },
+            "contributor-role" : {
+              "id" : "contributor-role",
+              "textValue" : "Owner"
+            }
+          },
+          "ordinal" : 0
+        }, {
+          "fields" : {
+            "contributor-id" : {
+              "id" : "contributor-id",
+              "textValue" : "https://orcid.org/0000-0001-2345-6789"
+            },
+            "contributor-mbox" : {
+              "id" : "contributor-mbox",
+              "textValue" : "marta.dias@example.org"
+            },
+            "contributor-name" : {
+              "id" : "contributor-name",
+              "textValue" : "Marta Dias"
+            },
+            "contributor-role" : {
+              "id" : "contributor-role",
+              "textValue" : "DataCollector"
+            }
+          },
+          "ordinal" : 1
+        } ]
+      },
+      "cost" : {
+        "items" : [ {
+          "fields" : {
+            "cost-currency" : {
+              "id" : "cost-currency",
+              "textValue" : "EUR"
+            },
+            "cost-description" : {
+              "id" : "cost-description",
+              "textValue" : "Boat hire"
+            },
+            "cost-title" : {
+              "id" : "cost-title",
+              "textValue" : "Field trips"
+            },
+            "cost-value" : {
+              "id" : "cost-value",
+              "numberValue" : 3000.0
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "ethics" : {
+        "items" : [ {
+          "fields" : {
+            "ethics-description" : {
+              "id" : "ethics-description",
+              "textValue" : "No human subjects"
+            },
+            "ethics-exist" : {
+              "id" : "ethics-exist",
+              "textValue" : "no"
+            },
+            "ethics-report" : {
+              "id" : "ethics-report",
+              "textValue" : "https://ethics.example.org/none"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "project" : {
+        "items" : [ {
+          "fields" : {
+            "project-funder" : {
+              "id" : "project-funder",
+              "textValue" : "http://dx.doi.org/10.13039/501100001871"
+            },
+            "project-start" : {
+              "dateValue" : "2026-04-01T00:00:00Z",
+              "id" : "project-start"
+            },
+            "project-status" : {
+              "id" : "project-status",
+              "textValue" : "applied"
+            },
+            "project-title" : {
+              "id" : "project-title",
+              "textValue" : "Fish census"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "related" : {
+        "items" : [ {
+          "fields" : {
+            "related-id" : {
+              "id" : "related-id",
+              "textValue" : "https://doi.org/10.1234/census.2025"
+            },
+            "related-relation" : {
+              "id" : "related-relation",
+              "textValue" : "IsNewVersionOf"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "title" : {
+        "items" : [ {
+          "fields" : {
+            "title" : {
+              "id" : "title",
+              "textValue" : "Fish counts"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Fish counts"
+  } ],
+  "label" : "Plan with plan-level questions in a template",
+  "plan" : { }
+}

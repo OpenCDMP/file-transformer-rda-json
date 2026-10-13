@@ -1,0 +1,41 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "access" : {
+        "items" : [ {
+          "fields" : {
+            "data-access" : {
+              "id" : "data-access",
+              "textListValue" : [ "open" ]
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "available" : {
+        "items" : [ ]
+      },
+      "licences" : {
+        "items" : [ ]
+      },
+      "where" : {
+        "items" : [ {
+          "fields" : {
+            "host-title" : {
+              "id" : "host-title",
+              "textValue" : "Zenodo"
+            },
+            "host-url" : {
+              "id" : "host-url",
+              "textValue" : "https://zenodo.org"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Survey data"
+  } ],
+  "label" : "Plan with distribution questions and no object",
+  "plan" : { }
+}
