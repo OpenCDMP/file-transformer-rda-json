@@ -93,7 +93,7 @@ public class Host implements Serializable
     /**
      * The Dataset Distribution Host PID System Schema
      * <p>
-     * PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
+     * PID system(s). Suggested values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
      * 
      */
     @JsonProperty("host_id")
@@ -102,13 +102,13 @@ public class Host implements Serializable
     /**
      * The Dataset Distribution Host PID System Schema
      * <p>
-     * PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
+     * PID system(s). Suggested values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
      *
      */
     @JsonProperty("pid_system")
-    @JsonPropertyDescription("PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other")
+    @JsonPropertyDescription("PID system(s). Suggested values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<PidSystem> pidSystem = null;
+    private List<String> pidSystem = null;
     /**
      * The Dataset Distribution Host Storage Type Schema
      * <p>
@@ -296,22 +296,22 @@ public class Host implements Serializable
     /**
      * The Dataset Distribution Host PID System Schema
      * <p>
-     * PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
+     * PID system(s). Suggested values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
      * 
      */
     @JsonProperty("pid_system")
-    public List<PidSystem> getPidSystem() {
+    public List<String> getPidSystem() {
         return pidSystem;
     }
 
     /**
      * The Dataset Distribution Host PID System Schema
      * <p>
-     * PID system(s). Allowed values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
+     * PID system(s). Suggested values: ark, arxiv, bibcode, doi, ean13, eissn, handle, igsn, isbn, issn, istc, lissn, lsid, pmid, purl, upc, url, urn, other
      * 
      */
     @JsonProperty("pid_system")
-    public void setPidSystem(List<PidSystem> pidSystem) {
+    public void setPidSystem(List<String> pidSystem) {
         this.pidSystem = pidSystem;
     }
 

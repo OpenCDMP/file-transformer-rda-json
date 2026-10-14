@@ -452,7 +452,7 @@
           "rda-dmp-project-funding-funder_id" : {
             "id" : "rda-dmp-project-funding-funder_id",
             "references" : [ {
-              "reference" : "501100002428",
+              "reference" : "013tf3c58",
               "type" : {
                 "code" : "dmp-project-funding-funder_id",
                 "definition" : {
@@ -465,11 +465,11 @@
           },
           "rda-dmp-project-funding-funder_id-identifier" : {
             "id" : "rda-dmp-project-funding-funder_id-identifier",
-            "textValue" : "501100002428"
+            "textValue" : "013tf3c58"
           },
           "rda-dmp-project-funding-funder_id-type" : {
             "id" : "rda-dmp-project-funding-funder_id-type",
-            "textValue" : "fundref"
+            "textValue" : "ror"
           },
           "rda-dmp-project-funding-funding_status" : {
             "id" : "rda-dmp-project-funding-funding_status",

@@ -1,0 +1,13 @@
+{
+  "datasets" : [ {
+    "id" : "d1f2be3c-57cb-3c17-8a58-fd80b4541f80",
+    "label" : "Survey responses"
+  } ],
+  "plan" : {
+    "label" : "Plan with RDA 1.3 values",
+    "preprocessingDescriptionModels" : [ {
+      "id" : "d1f2be3c-57cb-3c17-8a58-fd80b4541f80",
+      "label" : "Survey responses"
+    } ]
+  }
+}

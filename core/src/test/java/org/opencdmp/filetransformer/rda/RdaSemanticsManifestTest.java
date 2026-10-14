@@ -74,12 +74,14 @@ class RdaSemanticsManifestTest {
                 "dmp.dataset[].metadata[].language",
                 "dmp.dataset[].related_identifier[].type",
                 "dmp.dataset[].distribution[].data_access",
-                "dmp.dataset[].distribution[].host.url");
+                "dmp.dataset[].distribution[].host.title");
 
         assertThat(this.usageOf(RdaSemantics.SEMANTIC_DMP_TITLE).getLevel()).isEqualTo(SemanticKeyLevel.CanUse);
         // filled from the host, or inferred from the identifier: not needed
         assertThat(this.usageOf(RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_TITLE).getLevel()).isEqualTo(SemanticKeyLevel.CanUse);
         assertThat(this.usageOf(RdaSemantics.SEMANTIC_DATASET_CREATOR_ID_TYPE).getLevel()).isEqualTo(SemanticKeyLevel.CanUse);
+        // optional since RDA 1.3
+        assertThat(this.usageOf(RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_HOST_URL).getLevel()).isEqualTo(SemanticKeyLevel.CanUse);
     }
 
     @Test
@@ -116,7 +118,7 @@ class RdaSemanticsManifestTest {
     void valuesSayWhatFormTheExportKeeps() {
         assertThat(this.usageOf(RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS)).satisfies(x -> {
             assertThat(x.getFormat()).isEqualTo(SemanticValueFormat.Choice);
-            assertThat(x.getValues()).containsExactlyInAnyOrder("open", "shared", "closed");
+            assertThat(x.getValues()).containsExactlyInAnyOrder("open", "restricted", "closed");
         });
         assertThat(this.usageOf(RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_BYTE_SIZE).getFormat()).isEqualTo(SemanticValueFormat.Integer);
         assertThat(this.usageOf(RdaSemantics.SEMANTIC_DMP_CREATED).getFormat()).isEqualTo(SemanticValueFormat.DateTime);

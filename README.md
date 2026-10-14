@@ -1,6 +1,6 @@
 # OpenCDMP RDA JSON file transformer
 
-**file-transformer-rda-json** exports [OpenCDMP](https://github.com/OpenCDMP/OpenCDMP) plans as machine-actionable DMPs (maDMPs) in the JSON format of the [RDA DMP Common Standard](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard) v1.2, and imports such files as new plans. It is a Spring Boot service that implements the [file-transformer-base](https://github.com/OpenCDMP/file-transformer-base) contract; its plugin id is `rda-file-transformer`. See [File transformers](https://opencdmp.github.io/optional-services/file-transformers/) in the OpenCDMP documentation.
+**file-transformer-rda-json** exports [OpenCDMP](https://github.com/OpenCDMP/OpenCDMP) plans as machine-actionable DMPs (maDMPs) in the JSON format of the [RDA DMP Common Standard](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard) v1.3, and imports such files as new plans. It is a Spring Boot service that implements the [file-transformer-base](https://github.com/OpenCDMP/file-transformer-base) contract; its plugin id is `rda-file-transformer`. See [File transformers](https://opencdmp.github.io/optional-services/file-transformers/) in the OpenCDMP documentation.
 
 | Operation | Plans | Assets |
 | --- | --- | --- |
@@ -161,6 +161,7 @@ Use a section object when the plan or dataset has one of it, and a repeating que
 - **Reference inputs** with an object key (`rda.dmp.contributor`, `rda.dataset.distribution`, `...host`, `...license`) fill the whole object from the picked reference's own fields.
 - **Answer options** of a select or radio input can stand for key values (an option "Zenodo" giving the host title and URL), or say there is nothing to export for the object.
 - **Yes/No values:** `is_reused` takes a Yes/No input or a text, radio or select answer of `true`/`false` or `yes`/`no`, in any case. `personal_data`, `sensitive_data`, `ethical_issues_exist` and `support_versioning` take `yes`, `no` or `unknown`.
+- **Data access:** `data_access` takes `open`, `restricted` or `closed`. An answer of `shared` is written as `restricted`, and import answers with whichever of the two the asset template offers.
 - **Plan-level objects in asset templates:** an asset template may also ask for `rda.dmp.*` objects (costs, contributors, projects). They are gathered from the plan blueprint and every asset into the one `dmp`.
 
 ## Related resources

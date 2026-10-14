@@ -61,7 +61,7 @@ public final class RdaSemanticCatalog {
     /**
      * @param object   the key of the RDA object the value belongs to (the key itself for {@link Kind#OBJECT})
      * @param path     where the value lands in the exported JSON; {@code []} marks a list
-     * @param standard false when the property is not part of RDA 1.2 (the export adds it anyway)
+     * @param standard false when the property is not part of RDA 1.3 (the export adds it anyway)
      */
     public record Entry(String key, String object, String path, Kind kind, Format format, List<String> values,
                         Level level, String fallback, Set<Source> sources, boolean imported, boolean standard,
@@ -131,7 +131,7 @@ public final class RdaSemanticCatalog {
             entry(SEMANTIC_DATASET_DISTRIBUTION_BYTE_SIZE, "rda.dataset.distribution", "dmp.dataset[].distribution[].byte_size", Kind.VALUE, Format.INTEGER, List.of(),
                     Level.OPTIONAL, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
                     "Dataset › Distribution › Size in bytes", null),
-            entry(SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS, "rda.dataset.distribution", "dmp.dataset[].distribution[].data_access", Kind.VALUE, Format.CHOICE, List.of("open", "shared", "closed"),
+            entry(SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS, "rda.dataset.distribution", "dmp.dataset[].distribution[].data_access", Kind.VALUE, Format.CHOICE, List.of("open", "restricted", "closed"),
                     Level.REQUIRED, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
                     "Dataset › Distribution › Data access", null),
             entry(SEMANTIC_DATASET_DISTRIBUTION_DESCRIPTION, "rda.dataset.distribution", "dmp.dataset[].distribution[].description", Kind.VALUE, Format.TEXT, List.of(),
@@ -173,7 +173,7 @@ public final class RdaSemanticCatalog {
             entry(SEMANTIC_DATASET_DISTRIBUTION_HOST_ID_TYPE, "rda.dataset.distribution.host.host_id", "dmp.dataset[].distribution[].host.host_id[].type", Kind.VALUE, Format.TEXT, List.of(),
                     Level.REQUIRED, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
                     "Dataset › Distribution › Host › Identifier › Type", null),
-            entry(SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM, "rda.dataset.distribution.host", "dmp.dataset[].distribution[].host.pid_system", Kind.LIST, Format.CHOICE, List.of("ark", "arxiv", "bibcode", "doi", "ean13", "eissn", "handle", "igsn", "isbn", "issn", "istc", "lissn", "lsid", "pmid", "purl", "upc", "url", "urn", "other"),
+            entry(SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM, "rda.dataset.distribution.host", "dmp.dataset[].distribution[].host.pid_system", Kind.LIST, Format.TEXT, List.of("ark", "arxiv", "bibcode", "doi", "ean13", "eissn", "handle", "igsn", "isbn", "issn", "istc", "lissn", "lsid", "pmid", "purl", "upc", "url", "urn", "other"),
                     Level.OPTIONAL, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
                     "Dataset › Distribution › Host › PID systems", null),
             entry(SEMANTIC_DATASET_DISTRIBUTION_HOST_STORAGE_TYPE, "rda.dataset.distribution.host", "dmp.dataset[].distribution[].host.storage_type", Kind.VALUE, Format.TEXT, List.of(),
@@ -186,7 +186,7 @@ public final class RdaSemanticCatalog {
                     Level.REQUIRED, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
                     "Dataset › Distribution › Host › Title", null),
             entry(SEMANTIC_DATASET_DISTRIBUTION_HOST_URL, "rda.dataset.distribution.host", "dmp.dataset[].distribution[].host.url", Kind.VALUE, Format.URI, List.of(),
-                    Level.REQUIRED, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
+                    Level.OPTIONAL, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
                     "Dataset › Distribution › Host › URL", null),
             entry(SEMANTIC_DATASET_DISTRIBUTION_ISSUED, "rda.dataset.distribution", "dmp.dataset[].distribution[].issued", Kind.VALUE, Format.DATE, List.of(),
                     Level.OPTIONAL, null, EnumSet.of(Source.REFERENCE_TYPE, Source.TEMPLATE), true, true,
@@ -408,7 +408,7 @@ public final class RdaSemanticCatalog {
                     Level.REQUIRED, null, EnumSet.of(Source.BLUEPRINT, Source.TEMPLATE), true, true,
                     "Plan › Project › Funding › Funder › Identifier", null),
             entry(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, "rda.dmp.project.funding.funder_id", "dmp.project[].funding[].funder_id.type", Kind.VALUE, Format.TEXT, List.of(),
-                    Level.REQUIRED_WITH_FALLBACK, "fundref for a funder identifier, other for a plain funder.", EnumSet.of(Source.BLUEPRINT, Source.TEMPLATE), true, true,
+                    Level.REQUIRED_WITH_FALLBACK, "ror for a ROR id, fundref for any other funder identifier, other for a plain funder.", EnumSet.of(Source.BLUEPRINT, Source.TEMPLATE), true, true,
                     "Plan › Project › Funding › Funder › Type", null),
             entry(SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS, "rda.dmp.project.funding", "dmp.project[].funding[].funding_status", Kind.VALUE, Format.CHOICE, List.of("planned", "applied", "granted", "rejected"),
                     Level.OPTIONAL, null, EnumSet.of(Source.BLUEPRINT, Source.TEMPLATE), true, true,

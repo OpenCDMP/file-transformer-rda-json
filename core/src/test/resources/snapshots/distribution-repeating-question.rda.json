@@ -48,7 +48,7 @@
         } ],
         "title" : "Raw data"
       }, {
-        "data_access" : "shared",
+        "data_access" : "restricted",
         "host" : {
           "host_id" : [ ],
           "support_versioning" : "no",

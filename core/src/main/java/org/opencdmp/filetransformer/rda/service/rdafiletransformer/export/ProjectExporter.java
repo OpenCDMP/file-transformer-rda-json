@@ -150,7 +150,7 @@ public class ProjectExporter extends RdaMapperSupport {
         if (funder != null && funder.getReference() != null) {
             FunderId funderId = new FunderId();
             funderId.setIdentifier(funder.getReference());
-            funderId.setType(DMP_TYPE_FUNDREF);
+            funderId.setType(inferFunderIdType(funder.getReference()));
             rda.setFunderId(funderId);
         } else if (funder != null){
             FunderId funderId = new FunderId();
@@ -271,7 +271,7 @@ public class ProjectExporter extends RdaMapperSupport {
         if (fieldValue != null) {
             FunderId funderId = new FunderId();
             funderId.setIdentifier(fieldValue);
-            funderId.setType(DMP_TYPE_FUNDREF);
+            funderId.setType(inferFunderIdType(fieldValue));
             funding.setFunderId(funderId);
             valueFound = true;
         }

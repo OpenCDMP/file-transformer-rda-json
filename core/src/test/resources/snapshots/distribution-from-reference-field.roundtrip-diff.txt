@@ -1,7 +1,7 @@
 $.dmp.dataset[0].distribution[0].access_url: removed "https://data.example.org/model"
 $.dmp.dataset[0].distribution[0].available_until: removed "2031-12-31"
 $.dmp.dataset[0].distribution[0].byte_size: removed 2048
-$.dmp.dataset[0].distribution[0].data_access: removed "shared"
+$.dmp.dataset[0].distribution[0].data_access: removed "restricted"
 $.dmp.dataset[0].distribution[0].download_url: removed "https://data.example.org/model.nc"
 $.dmp.dataset[0].distribution[0].format: removed ["application/netcdf"]
 $.dmp.dataset[0].distribution[0].host.host_id[0]: removed {"identifier":"dist-1","type":"other"}

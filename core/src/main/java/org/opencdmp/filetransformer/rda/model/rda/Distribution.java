@@ -69,12 +69,12 @@ public class Distribution implements Serializable
     /**
      * The Dataset Distribution Data Access Schema
      * <p>
-     * Indicates access mode for data. Allowed values: open, shared, closed
+     * Indicates access mode for data. Allowed values: open, restricted, closed. The value shared is deprecated, use restricted instead
      * (Required)
      * 
      */
     @JsonProperty("data_access")
-    @JsonPropertyDescription("Indicates access mode for data. Allowed values: open, shared, closed")
+    @JsonPropertyDescription("Indicates access mode for data. Allowed values: open, restricted, closed. The value shared is deprecated, use restricted instead")
     private DataAccess dataAccess;
     /**
      * The Dataset Distribution Description Schema
@@ -218,7 +218,7 @@ public class Distribution implements Serializable
     /**
      * The Dataset Distribution Data Access Schema
      * <p>
-     * Indicates access mode for data. Allowed values: open, shared, closed
+     * Indicates access mode for data. Allowed values: open, restricted, closed. The value shared is deprecated, use restricted instead
      * (Required)
      * 
      */
@@ -230,7 +230,7 @@ public class Distribution implements Serializable
     /**
      * The Dataset Distribution Data Access Schema
      * <p>
-     * Indicates access mode for data. Allowed values: open, shared, closed
+     * Indicates access mode for data. Allowed values: open, restricted, closed. The value shared is deprecated, use restricted instead
      * (Required)
      * 
      */
@@ -404,8 +404,9 @@ public class Distribution implements Serializable
     public enum DataAccess {
 
         OPEN("open"),
-        SHARED("shared"),
-        CLOSED("closed");
+        RESTRICTED("restricted"),
+        CLOSED("closed"),
+        SHARED("shared");
         private final String value;
         private final static Map<String, DataAccess> CONSTANTS = new HashMap<String, DataAccess>();
 

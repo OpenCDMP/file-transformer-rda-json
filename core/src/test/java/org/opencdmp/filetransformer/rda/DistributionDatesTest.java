@@ -10,7 +10,7 @@ import java.util.Date;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * RDA 1.2 defines {@code available_until} and {@code issued} as dates. They are written as "2030-09-30", and
+ * RDA 1.3 defines {@code available_until} and {@code issued} as dates. They are written as "2030-09-30", and
  * files exported by earlier versions ("2030-09-30T00:00:00.000Z") must still import.
  */
 class DistributionDatesTest {

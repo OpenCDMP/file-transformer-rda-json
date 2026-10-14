@@ -34,7 +34,7 @@
         "access_url" : "https://data.example.org/model",
         "available_until" : "2031-12-31",
         "byte_size" : 2048,
-        "data_access" : "shared",
+        "data_access" : "restricted",
         "description" : "Typed by the author",
         "download_url" : "https://data.example.org/model.nc",
         "format" : [ "application/netcdf" ],

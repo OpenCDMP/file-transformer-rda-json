@@ -55,6 +55,12 @@ public class DistributionExporter extends RdaMapperSupport {
         return input.getReferences().stream().map(List::of).toList();
     }
 
+    /** RDA 1.3 deprecates shared in favour of restricted, which means the same; templates may still answer shared. */
+    private static Distribution.DataAccess dataAccess(String value) {
+        Distribution.DataAccess dataAccess = Distribution.DataAccess.fromValue(value);
+        return dataAccess == Distribution.DataAccess.SHARED ? Distribution.DataAccess.RESTRICTED : dataAccess;
+    }
+
     /** One distribution from an answer, for one picked distribution reference and one picked repository (each may be absent); null when there is nothing in it. */
     Distribution buildRdaDistribution(AnswerGroup answers, List<ReferenceModel> distributionReferences, List<ReferenceModel> hostReferences) {
         boolean valueFound = false;
@@ -96,7 +102,7 @@ public class DistributionExporter extends RdaMapperSupport {
         fieldValue = answers.value(SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS);
         if (fieldValue != null) {
             try {
-                item.setDataAccess(Distribution.DataAccess.fromValue(fieldValue));
+                item.setDataAccess(dataAccess(fieldValue));
                 valueFound = true;
             } catch (Exception ex) {
                 logger.warn("invalid distribution data access type: " + fieldValue);
@@ -278,12 +284,8 @@ public class DistributionExporter extends RdaMapperSupport {
         fieldValue = answers.value(SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM);
         if (item.getPidSystem() == null) item.setPidSystem(new ArrayList<>());
         if (fieldValue != null) {
-            try {
-                item.getPidSystem().add(PidSystem.fromValue(fieldValue));
-                valueFound = true;
-            } catch (Exception ex) {
-                logger.warn("invalid host pid system value: " + fieldValue);
-            }
+            item.getPidSystem().add(fieldValue);
+            valueFound = true;
         }
 
         if (item.getHostId() == null) item.setHostId(new ArrayList<>());
@@ -306,7 +308,7 @@ public class DistributionExporter extends RdaMapperSupport {
             hostId.setType(fieldValue);
         }
 
-        if (hostId.getIdentifier() != null && hostId.getType() == null) hostId.setType(inferPersistentIdType(hostId.getIdentifier()));
+        if (hostId.getIdentifier() != null && hostId.getType() == null) hostId.setType(inferHostIdType(hostId.getIdentifier()));
         if (hostId.getIdentifier() != null || hostId.getType() != null) {
             hostIds.add(hostId);
         }
@@ -349,7 +351,7 @@ public class DistributionExporter extends RdaMapperSupport {
             fieldValue = this.getReferenceFieldValueFromSemantic(referenceModel, SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS);
             if (fieldValue != null) {
                 try {
-                    item.setDataAccess(Distribution.DataAccess.fromValue(fieldValue));
+                    item.setDataAccess(dataAccess(fieldValue));
                 } catch (Exception ex) {
                     logger.warn("invalid distribution data access type: " + fieldValue);
                 }
@@ -481,11 +483,7 @@ public class DistributionExporter extends RdaMapperSupport {
             fieldValue = this.getReferenceFieldValueFromSemantic(referenceModel, SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM);
             item.setPidSystem(new ArrayList<>());
             if (fieldValue != null) {
-                try {
-                    item.getPidSystem().add(PidSystem.fromValue(fieldValue));
-                } catch (Exception ex) {
-                    logger.warn("invalid host pid system value: " + fieldValue);
-                }
+                item.getPidSystem().add(fieldValue);
             }
 
             List<HostId> hostIds = new ArrayList<>();
@@ -503,7 +501,7 @@ public class DistributionExporter extends RdaMapperSupport {
                 hostId.setType(fieldValue);
             }
 
-            if (hostId.getIdentifier() != null && hostId.getType() == null) hostId.setType(inferPersistentIdType(hostId.getIdentifier()));
+            if (hostId.getIdentifier() != null && hostId.getType() == null) hostId.setType(inferHostIdType(hostId.getIdentifier()));
             if (hostId.getIdentifier() != null || hostId.getType() != null) {
                 hostIds.add(hostId);
             }

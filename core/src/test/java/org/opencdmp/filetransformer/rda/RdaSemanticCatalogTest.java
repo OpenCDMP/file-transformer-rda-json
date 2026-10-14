@@ -13,7 +13,6 @@ import org.opencdmp.filetransformer.rda.model.rda.Distribution;
 import org.opencdmp.filetransformer.rda.model.rda.Dmp;
 import org.opencdmp.filetransformer.rda.model.rda.Funding;
 import org.opencdmp.filetransformer.rda.model.rda.Host;
-import org.opencdmp.filetransformer.rda.model.rda.PidSystem;
 import org.opencdmp.filetransformer.rda.service.rdafiletransformer.RdaSemanticCatalog;
 import org.opencdmp.filetransformer.rda.service.rdafiletransformer.RdaSemanticCatalog.Entry;
 import org.opencdmp.filetransformer.rda.service.rdafiletransformer.RdaSemanticCatalog.Format;
@@ -65,11 +64,11 @@ class RdaSemanticCatalogTest {
                 RdaSemantics.SEMANTIC_DATASET_PERSONAL_DATA, valuesOf(Dataset.PersonalData.values(), Dataset.PersonalData::value),
                 RdaSemantics.SEMANTIC_DATASET_SENSITIVE_DATA, valuesOf(Dataset.SensitiveData.values(), Dataset.SensitiveData::value),
                 RdaSemantics.SEMANTIC_ETHICAL_ISSUES_EXISTS, valuesOf(Dmp.EthicalIssuesExist.values(), Dmp.EthicalIssuesExist::value),
-                RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS, valuesOf(Distribution.DataAccess.values(), Distribution.DataAccess::value),
+                // shared is still accepted, as restricted, but RDA 1.3 deprecates it
+                RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS, valuesOf(Distribution.DataAccess.values(), Distribution.DataAccess::value).stream().filter(x -> !x.equals("shared")).toList(),
                 RdaSemantics.SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS, valuesOf(Funding.FundingStatus.values(), Funding.FundingStatus::value),
                 RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_HOST_CERTIFIED_WITH, valuesOf(Host.CertifiedWith.values(), Host.CertifiedWith::value),
-                RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_HOST_SUPPORT_VERSIONING, valuesOf(Host.SupportVersioning.values(), Host.SupportVersioning::value),
-                RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM, valuesOf(PidSystem.values(), PidSystem::value));
+                RdaSemantics.SEMANTIC_DATASET_DISTRIBUTION_HOST_SUPPORT_VERSIONING, valuesOf(Host.SupportVersioning.values(), Host.SupportVersioning::value));
         accepted.forEach((key, expected) -> assertThat(RdaSemanticCatalog.find(key).values()).as(key).containsExactlyInAnyOrderElementsOf(expected));
 
         List<String> unchecked = RdaSemanticCatalog.ENTRIES.stream()

@@ -67,7 +67,8 @@ public final class Scenarios {
                 new Scenario("contributor-without-identifier", ObjectScenarios::contributorWithoutIdentifier, true),
                 new Scenario("reference-picked-twice", ObjectScenarios::referencePickedTwice, true),
                 new Scenario("dataset-id-on-identifier-input", ObjectScenarios::datasetIdOnIdentifierInput, true),
-                new Scenario("grant-id-on-text-input", ObjectScenarios::grantIdOnTextInput, true)));
+                new Scenario("grant-id-on-text-input", ObjectScenarios::grantIdOnTextInput, true),
+                new Scenario("rda-1-3-values", ObjectScenarios::rda13Values, true)));
         scenarios.addAll(captured());
         return scenarios.stream();
     }

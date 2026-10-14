@@ -20,7 +20,7 @@ public class JsonHandlingService {
     public JsonHandlingService() {
         this.objectMapper = JsonMapper.builder()
                 .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
-                // RDA 1.2 lets contact_id, contributor_id, creator_id and metadata_standard_id be one object or a list;
+                // RDA 1.3 lets contact_id, contributor_id, creator_id and metadata_standard_id be one object or a list;
                 // files from other tools often use the single object, which the list-typed model must still read
                 .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
                 .build();

@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Imports the official RDA DMP Common Standard 1.2 examples (RDA-DMP-Common/RDA-DMP-Common-Standard,
+ * Imports the official RDA DMP Common Standard 1.3 examples (RDA-DMP-Common/RDA-DMP-Common-Standard,
  * examples/JSON, copied unmodified into src/test/resources/rda-examples), the way the import wizard does:
  * preprocess the file, map every dataset to a template, import.
  * <p>

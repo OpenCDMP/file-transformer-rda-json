@@ -16,7 +16,6 @@ import org.opencdmp.filetransformer.rda.model.rda.*;
 import org.opencdmp.filetransformerbase.models.misc.*;
 import java.time.*;
 import java.util.*;
-import java.util.stream.Collectors;
 import org.opencdmp.filetransformer.rda.service.rdafiletransformer.RdaMapperContext;
 import org.opencdmp.filetransformer.rda.service.rdafiletransformer.RdaMapperSupport;
 import static org.opencdmp.filetransformer.rda.service.rdafiletransformer.RdaSemantics.*;
@@ -1188,7 +1187,7 @@ public class DescriptionImporter extends RdaMapperSupport {
                                 valueFound = true;
                             }
                             if (distribution.getDataAccess() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DISTRIBUTION_DATA_ACCESS)){
-                                fieldModel = this.buildFieldModel(fieldModel, templateFieldModel, distribution.getDataAccess().value(), null, null, null);
+                                fieldModel = this.buildFieldModel(fieldModel, templateFieldModel, dataAccessAnswer(templateFieldModel, distribution.getDataAccess()), null, null, null);
                                 valueFound = true;
                             }
                             if (distribution.getByteSize() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DISTRIBUTION_BYTE_SIZE)){
@@ -1260,7 +1259,7 @@ public class DescriptionImporter extends RdaMapperSupport {
                                 valueFound = true;
                             }
                             if (distribution.getHost() != null && distribution.getHost().getPidSystem() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DISTRIBUTION_HOST_PID_SYSTEM)){
-                                fieldModel = this.buildFieldModel(fieldModel, templateFieldModel, null, null, null, distribution.getHost().getPidSystem().stream().map(PidSystem::value).collect(Collectors.toList()));
+                                fieldModel = this.buildFieldModel(fieldModel, templateFieldModel, null, null, null, distribution.getHost().getPidSystem());
                                 valueFound = true;
                             }
                             if (distribution.getHost() != null && distribution.getHost().getStorageType() != null && templateFieldModel.getSemantics().contains(SEMANTIC_DATASET_DISTRIBUTION_HOST_STORAGE_TYPE)){
@@ -1334,6 +1333,14 @@ public class DescriptionImporter extends RdaMapperSupport {
         }
 
         return fieldSetModelMap;
+    }
+
+    /** shared and restricted mean the same since RDA 1.3 deprecated shared: answer with the one the input offers. */
+    private static String dataAccessAnswer(FieldModel templateFieldModel, Distribution.DataAccess dataAccess) {
+        if (dataAccess != Distribution.DataAccess.SHARED && dataAccess != Distribution.DataAccess.RESTRICTED) return dataAccess.value();
+        List<String> options = answerOptions(templateFieldModel).stream().map(AnswerOption::value).toList();
+        String other = dataAccess == Distribution.DataAccess.SHARED ? Distribution.DataAccess.RESTRICTED.value() : Distribution.DataAccess.SHARED.value();
+        return !options.contains(dataAccess.value()) && options.contains(other) ? other : dataAccess.value();
     }
 
     Map<String, PropertyDefinitionFieldSetModel> buildFieldByRdaProject(DescriptionTemplateModel descriptionTemplateModel, List<Project> projects){

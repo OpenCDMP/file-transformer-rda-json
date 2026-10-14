@@ -12,8 +12,8 @@ import java.io.UncheckedIOException;
 import java.util.List;
 
 /**
- * The official RDA DMP Common Standard 1.2 JSON schema (RDA-DMP-Common/RDA-DMP-Common-Standard,
- * examples/JSON/JSON-schema/1.2/maDMP-schema-1.2.json), copied unmodified into src/test/resources/schema.
+ * The official RDA DMP Common Standard 1.3 JSON schema (RDA-DMP-Common/RDA-DMP-Common-Standard,
+ * examples/JSON/JSON-schema/1.3/maDMP-schema-1.3.json), copied unmodified into src/test/resources/schema.
  */
 public final class RdaSchema {
 
@@ -34,8 +34,8 @@ public final class RdaSchema {
     }
 
     private static Schema load() {
-        try (InputStream stream = RdaSchema.class.getResourceAsStream("/schema/maDMP-schema-1.2.json")) {
-            if (stream == null) throw new IllegalStateException("schema/maDMP-schema-1.2.json is missing from the test resources");
+        try (InputStream stream = RdaSchema.class.getResourceAsStream("/schema/maDMP-schema-1.3.json")) {
+            if (stream == null) throw new IllegalStateException("schema/maDMP-schema-1.3.json is missing from the test resources");
             return SchemaRegistry.withDefaultDialect(SpecificationVersion.DRAFT_2020_12).getSchema(stream, InputFormat.JSON);
         } catch (IOException e) {
             throw new UncheckedIOException(e);

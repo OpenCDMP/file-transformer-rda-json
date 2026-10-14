@@ -1,4 +1,4 @@
-$.$schema: removed "./JSON-schema/1.2/maDMP-schema-1.2.json"
+$.$schema: removed "./JSON-schema/1.3/maDMP-schema-1.3.json"
 $.dmp.affiliation: added []
 $.dmp.alternate_identifier: added []
 $.dmp.contact.contact_id: {"identifier":"0000-0000-0000-0000","type":"orcid"} -> [{"identifier":"0000-0000-0000-0000","type":"orcid"}]

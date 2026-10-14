@@ -50,8 +50,9 @@ public abstract class RdaMapperSupport {
     protected static final String DMP_TYPE_OTHER = "other";
     protected static final String DMP_TYPE_ORCID = "orcid";
     protected static final String DMP_TYPE_FUNDREF = "fundref";
+    protected static final String DMP_TYPE_ROR = "ror";
     protected static final String DMP_TYPE_OPENCDMP = "OPENCDMP";
-    /** RDA 1.2 only allows "url" or "other" as a metadata standard identifier type. */
+    /** RDA 1.3 only allows "url" or "other" as a metadata standard identifier type. */
     protected static final String METADATA_STANDARD_TYPE_OTHER = "other";
 
     protected RdaMapperSupport(RdaMapperContext context) {
@@ -188,6 +189,25 @@ public abstract class RdaMapperSupport {
         if (DOI.matcher(value).matches()) return DMP_TYPE_DOI;
         if (value.startsWith("http://") || value.startsWith("https://")) return "url";
         return DMP_TYPE_OTHER;
+    }
+
+    private static final java.util.regex.Pattern ROR = java.util.regex.Pattern.compile("(?:https?://ror\\.org/)?0[a-hj-km-np-tv-z0-9]{6}\\d{2}/?");
+
+    /**
+     * The type of a funder identifier that was given without one: a ROR id, bare or as a ror.org URL, is "ror", which
+     * RDA 1.3 recommends; anything else "fundref".
+     */
+    protected static String inferFunderIdType(String identifier) {
+        if (identifier != null && ROR.matcher(identifier.trim()).matches()) return DMP_TYPE_ROR;
+        return DMP_TYPE_FUNDREF;
+    }
+
+    private static final java.util.regex.Pattern RE3DATA = java.util.regex.Pattern.compile("(?:https?://(?:dx\\.)?doi\\.org/|doi:)?10\\.17616/R3\\w+/?|https?://(?:www\\.)?re3data\\.org/repository/\\S+", java.util.regex.Pattern.CASE_INSENSITIVE);
+
+    /** The type of a host identifier that was given without one: a re3data DOI or record URL is "re3data", anything else as for a plan or dataset identifier. */
+    protected static String inferHostIdType(String identifier) {
+        if (identifier != null && RE3DATA.matcher(identifier.trim()).matches()) return "re3data";
+        return inferPersistentIdType(identifier);
     }
 
     protected Language buildRdaLanguage(String language){

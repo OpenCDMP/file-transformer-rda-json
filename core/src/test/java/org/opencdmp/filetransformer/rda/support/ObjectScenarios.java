@@ -420,6 +420,35 @@ final class ObjectScenarios {
                 .build();
     }
 
+    /**
+     * What RDA 1.3 changed: a template still offering the deprecated shared, a PID system outside the old list, a host
+     * without a URL, and a ROR funder and a re3data host identifier given without their types.
+     */
+    static PlanModel rda13Values() {
+        DescriptionTemplateModel template = definition()
+                .section("sharing")
+                .repeatingQuestion("distribution")
+                .input("dist-title", FieldType.FREE_TEXT, "rda.dataset.distribution.title")
+                .radio("dist-access", List.of("open", "Open", "shared", "Shared", "closed", "Closed"), "rda.dataset.distribution.data_access")
+                .input("host-title", FieldType.FREE_TEXT, "rda.dataset.distribution.host.title")
+                .input("host-pid", FieldType.FREE_TEXT, "rda.dataset.distribution.host.pid_system")
+                .input("host-id", FieldType.FREE_TEXT, "rda.dataset.distribution.host.host_id.identifier")
+                .section("plan-level")
+                .question("project")
+                .input("project-title", FieldType.FREE_TEXT, "rda.dmp.project.title")
+                .input("project-funder", FieldType.FREE_TEXT, "rda.dmp.project.funding.funder_id.identifier")
+                .toTemplate("RDA 1.3 values");
+
+        var answers = values()
+                .answer("distribution", a -> a.text("dist-title", "Survey responses").text("dist-access", "shared")
+                        .text("host-title", "Social science archive").text("host-pid", "swhid").text("host-id", "https://doi.org/10.17616/R3QP53"))
+                .answer("project", a -> a.text("project-title", "Coastal survey").text("project-funder", "013tf3c58"));
+
+        return plan("Plan with RDA 1.3 values")
+                .description("Survey responses", template, answers)
+                .build();
+    }
+
     /** Every distribution and host property answered as its own input. */
     static PlanModel distributionAllProperties() {
         DescriptionTemplateModel template = definition()

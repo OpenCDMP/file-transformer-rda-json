@@ -1,0 +1,51 @@
+{
+  "descriptions" : [ {
+    "answers" : {
+      "distribution" : {
+        "items" : [ {
+          "fields" : {
+            "dist-access" : {
+              "id" : "dist-access",
+              "textValue" : "shared"
+            },
+            "dist-title" : {
+              "id" : "dist-title",
+              "textValue" : "Survey responses"
+            },
+            "host-id" : {
+              "id" : "host-id",
+              "textValue" : "https://doi.org/10.17616/R3QP53"
+            },
+            "host-pid" : {
+              "id" : "host-pid",
+              "textValue" : "swhid"
+            },
+            "host-title" : {
+              "id" : "host-title",
+              "textValue" : "Social science archive"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      },
+      "project" : {
+        "items" : [ {
+          "fields" : {
+            "project-funder" : {
+              "id" : "project-funder",
+              "textValue" : "013tf3c58"
+            },
+            "project-title" : {
+              "id" : "project-title",
+              "textValue" : "Coastal survey"
+            }
+          },
+          "ordinal" : 0
+        } ]
+      }
+    },
+    "label" : "Survey responses"
+  } ],
+  "label" : "Plan with RDA 1.3 values",
+  "plan" : { }
+}

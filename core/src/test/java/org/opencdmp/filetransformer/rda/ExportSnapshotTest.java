@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 
 /**
- * Pins the RDA JSON each scenario exports, and the RDA 1.2 schema violations in it.
+ * Pins the RDA JSON each scenario exports, and the RDA 1.3 schema violations in it.
  * <p>
  * The violations file is a baseline, not a pass/fail gate: it records what is wrong today,
  * so a fix (or a regression) shows up as a change to it. An export that throws is pinned as
