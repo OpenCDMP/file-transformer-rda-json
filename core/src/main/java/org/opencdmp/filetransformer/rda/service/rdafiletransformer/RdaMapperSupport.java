@@ -5,7 +5,9 @@ import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.f
 import org.opencdmp.commonmodels.models.plandescriptionfields.ExternalIdentifierModel;
 import org.opencdmp.commonmodels.models.plandescriptionfields.PropertyDefinitionFieldSetItemModel;
 import org.opencdmp.commonmodels.models.plandescriptionfields.PropertyDefinitionFieldSetModel;
+import org.opencdmp.commonmodels.models.referencetype.ReferenceTypeDefinitionModel;
 import org.opencdmp.commonmodels.models.referencetype.ReferenceTypeFieldModel;
+import org.opencdmp.commonmodels.models.referencetype.ReferenceTypeModel;
 import org.opencdmp.filetransformer.rda.convention.ConventionService;
 import org.opencdmp.filetransformer.rda.service.planblueprintsearcher.PlanBlueprintFieldSearcherService;
 import gr.cite.tools.logging.LoggerService;
@@ -18,6 +20,7 @@ import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.F
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.FieldSetModel;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.SectionModel;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.fielddata.ReferenceTypeDataModel;
+import org.opencdmp.commonmodels.models.reference.ReferenceDefinitionModel;
 import org.opencdmp.commonmodels.models.reference.ReferenceFieldModel;
 import org.opencdmp.commonmodels.models.reference.ReferenceModel;
 import org.opencdmp.filetransformer.rda.model.rda.*;
@@ -25,6 +28,7 @@ import org.opencdmp.filetransformer.rda.service.descriptiontemplatesearcher.Temp
 import org.opencdmp.filetransformer.rda.service.json.JsonHandlingService;
 import org.opencdmp.filetransformerbase.models.misc.*;
 import org.slf4j.LoggerFactory;
+import tools.jackson.databind.JsonNode;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -120,6 +124,15 @@ public abstract class RdaMapperSupport {
     protected static final String OBJECT_ALTERNATE_IDENTIFIER = "rda.dmp.alternate_identifier";
     protected static final String OBJECT_RELATED_IDENTIFIER = "rda.dmp.related_identifier";
     protected static final String OBJECT_AFFILIATION = "rda.dmp.affiliation";
+    protected static final String OBJECT_CREATOR_AFFILIATION = "rda.dataset.creator.affiliation";
+    protected static final String OBJECT_CONTACT_AFFILIATION = "rda.dmp.contact.affiliation";
+    protected static final String OBJECT_CONTRIBUTOR_AFFILIATION = "rda.dmp.contributor.affiliation";
+    protected static final String OBJECT_CREATOR = "rda.dataset.creator";
+    protected static final String OBJECT_PROJECT_FUNDING = "rda.dmp.project.funding";
+    protected static final String OBJECT_METADATA = "rda.dataset.metadata";
+    protected static final String OBJECT_TECHNICAL_RESOURCE = "rda.dataset.technical_resource";
+    protected static final String OBJECT_DATASET_ALTERNATE_IDENTIFIER = "rda.dataset.alternate_identifier";
+    protected static final String OBJECT_DATASET_RELATED_IDENTIFIER = "rda.dataset.related_identifier";
 
     /**
      * Imports a plan-level object only where it is first asked for. The export gathers these objects from the
@@ -200,6 +213,12 @@ public abstract class RdaMapperSupport {
     protected static String inferFunderIdType(String identifier) {
         if (identifier != null && ROR.matcher(identifier.trim()).matches()) return DMP_TYPE_ROR;
         return DMP_TYPE_FUNDREF;
+    }
+
+    /** The type of an affiliation identifier that was given without one: a ROR id is "ror", anything else as for a person. */
+    protected static String inferAffiliationIdType(String identifier) {
+        if (identifier != null && ROR.matcher(identifier.trim()).matches()) return DMP_TYPE_ROR;
+        return inferIdentifierType(identifier);
     }
 
     private static final java.util.regex.Pattern RE3DATA = java.util.regex.Pattern.compile("(?:https?://(?:dx\\.)?doi\\.org/|doi:)?10\\.17616/R3\\w+/?|https?://(?:www\\.)?re3data\\.org/repository/\\S+", java.util.regex.Pattern.CASE_INSENSITIVE);
@@ -404,6 +423,257 @@ public abstract class RdaMapperSupport {
         return answers;
     }
 
+    /** A reference input filling an RDA list: the list's path ({@code []} marks a list) and the keys the input gives its items. */
+    private record ReferenceFill(FieldModel field, ReferenceTypeModel type, boolean multiple, String list, Set<String> keys) {
+    }
+
+    /**
+     * Rebuilds the references picked in the inputs that fill an RDA list (affiliations, creators, contributors,
+     * fundings, identifiers, ...) from the imported objects, as the export reads them back: the code from the
+     * input's own key or the type's id key, the name, description and fields from the type's keys. One answer per
+     * object, or the picks of one answer for objects nested in it; a multiple-select input takes all objects in one
+     * answer when the question is answered once or has nothing else to fill them with. Distributions are imported
+     * on their own and left alone.
+     *
+     * @param placedBefore the plan-level objects imported before this blueprint or description; they are skipped
+     * @param placed       filled with the plan-level objects this pass writes
+     */
+    protected void importReferences(List<FieldSetModel> questions, Map<String, PropertyDefinitionFieldSetModel> answers, Dmp dmp, Dataset dataset,
+                                    Set<String> placedBefore, Set<String> placed) {
+        if (questions == null || dmp == null) return;
+        JsonNode dmpNode = this.jsonHandlingService.fromJsonSafe(JsonNode.class, this.jsonHandlingService.toJsonSafe(dmp));
+        JsonNode datasetNode = dataset == null ? null : this.jsonHandlingService.fromJsonSafe(JsonNode.class, this.jsonHandlingService.toJsonSafe(dataset));
+        for (FieldSetModel question : questions) {
+            if (question.getFields() == null) continue;
+            List<ReferenceFill> fills = question.getFields().stream().map(RdaMapperSupport::referenceFill).filter(Objects::nonNull).toList();
+            Set<String> lists = new HashSet<>();
+            for (FieldModel field : question.getFields()) {
+                if (field.getSemantics() != null) field.getSemantics().stream().map(RdaMapperSupport::listOf).filter(Objects::nonNull).forEach(lists::add);
+            }
+            fills.forEach(x -> lists.add(x.list()));
+            for (String list : fills.stream().map(ReferenceFill::list).distinct().toList()) {
+                String top = "rda.dmp." + list.split("\\.")[1].replace("[]", "");
+                JsonNode root;
+                if (list.startsWith("dmp.dataset[].")) {
+                    if (datasetNode == null) continue;
+                    root = datasetNode;
+                    top = null;
+                } else if (list.startsWith("dmp.dataset[]") || placedBefore.contains(top)) continue;
+                else root = dmpNode;
+                if (root == null) continue;
+                List<ReferenceFill> here = fills.stream().filter(x -> x.list().equals(list)).toList();
+                String unit = lists.stream().filter(x -> x.equals(list) || list.startsWith(x + ".")).min(Comparator.comparingInt(String::length)).orElse(list);
+                List<JsonNode> units = walk(root, relative(unit, root == datasetNode ? "dmp.dataset[]" : "dmp"));
+                boolean wrote = unit.equals(list)
+                        ? this.importReferencesPerObject(question, answers, here, list, units)
+                        : this.importReferencesNested(question, answers, here, list, unit, units);
+                if (wrote && top != null) placed.add(top);
+            }
+        }
+    }
+
+    /** One answer per object of the list, or all of them in one answer (see {@link #importReferences}). Did it write anything? */
+    private boolean importReferencesPerObject(FieldSetModel question, Map<String, PropertyDefinitionFieldSetModel> answers, List<ReferenceFill> fills, String list, List<JsonNode> objects) {
+        List<Map<ReferenceFill, ReferenceModel>> picks = objects.stream().map(x -> pick(fills, list, x)).filter(x -> !x.isEmpty()).toList();
+        if (picks.isEmpty()) return false;
+        boolean othersFill = question.getFields().stream().anyMatch(x -> !(x.getData() instanceof ReferenceTypeDataModel) && x.getSemantics() != null && x.getSemantics().stream().anyMatch(y -> list.equals(listOf(y))));
+        boolean collapse = fills.stream().anyMatch(ReferenceFill::multiple) && (!question.isHasMultiplicity() || !othersFill) && reproduces(fills, picks);
+        if (collapse) {
+            PropertyDefinitionFieldSetItemModel item = answerItem(question, answers, 0);
+            for (ReferenceFill fill : fills) setReferences(item, fill, picks.stream().map(x -> x.get(fill)).filter(Objects::nonNull).toList());
+            List<PropertyDefinitionFieldSetItemModel> items = answers.get(question.getId()).getItems();
+            // the other objects were answered one by one before; with their picks gathered here they are left with nothing
+            for (int i = items.size() - 1; i > 0; i--) {
+                for (ReferenceFill fill : fills) setReferences(items.get(i), fill, List.of());
+                if (items.get(i).getFields() == null || items.get(i).getFields().values().stream().allMatch(RdaMapperSupport::unanswered)) items.remove(i);
+            }
+            return true;
+        }
+        for (int i = 0; i < picks.size(); i++) {
+            PropertyDefinitionFieldSetItemModel item = answerItem(question, answers, i);
+            for (ReferenceFill fill : fills) setReferences(item, fill, picks.get(i).containsKey(fill) ? List.of(picks.get(i).get(fill)) : List.of());
+        }
+        return true;
+    }
+
+    /** The objects nested in each answer of the question (affiliations of a creator, fundings of a project) as its picks. Did it write anything? */
+    private boolean importReferencesNested(FieldSetModel question, Map<String, PropertyDefinitionFieldSetModel> answers, List<ReferenceFill> fills, String list, String unit, List<JsonNode> units) {
+        boolean wrote = false;
+        for (int i = 0; i < units.size(); i++) {
+            List<Map<ReferenceFill, ReferenceModel>> picks = walk(units.get(i), relative(list, unit)).stream().map(x -> pick(fills, list, x)).filter(x -> !x.isEmpty()).toList();
+            if (picks.isEmpty()) continue;
+            PropertyDefinitionFieldSetItemModel item = answerItem(question, answers, i);
+            for (ReferenceFill fill : fills) setReferences(item, fill, picks.stream().map(x -> x.get(fill)).filter(Objects::nonNull).toList());
+            wrote = true;
+        }
+        return wrote;
+    }
+
+    /**
+     * The reference each group of alternative inputs takes for the object: inputs filling the same keys are
+     * alternatives and the first that makes a reference of it takes it; inputs filling other keys each take theirs.
+     */
+    private static Map<ReferenceFill, ReferenceModel> pick(List<ReferenceFill> fills, String list, JsonNode object) {
+        Map<ReferenceFill, ReferenceModel> picks = new LinkedHashMap<>();
+        Set<String> taken = new HashSet<>();
+        for (ReferenceFill fill : fills) {
+            if (!Collections.disjoint(taken, fill.keys())) continue;
+            ReferenceModel reference = reference(fill, list, object);
+            if (reference == null) continue;
+            picks.put(fill, reference);
+            taken.addAll(fill.keys());
+        }
+        return picks;
+    }
+
+    /** Are the gathered picks what the export makes again of one answer, i.e. every combination of the inputs' picks? */
+    private static boolean reproduces(List<ReferenceFill> fills, List<Map<ReferenceFill, ReferenceModel>> picks) {
+        long combinations = 1;
+        for (ReferenceFill fill : fills) {
+            long count = picks.stream().map(x -> x.get(fill)).filter(Objects::nonNull).map(RdaMapperSupport::identity).distinct().count();
+            if (count > 0) combinations *= fill.multiple() ? count : 1;
+            if (count > 1 && !fill.multiple()) return false;
+        }
+        return combinations == picks.size();
+    }
+
+    /** The reference an input makes of an imported object, through its own key and its type's keys; null when the object gives it neither code nor name. */
+    private static ReferenceModel reference(ReferenceFill fill, String list, JsonNode object) {
+        ReferenceTypeDefinitionModel definition = fill.type() == null ? null : fill.type().getDefinition();
+        String own = fill.field().getSemantics() == null ? null : firstValue(fill.field().getSemantics(), list, object);
+        String code = own != null ? own : definition == null ? null : firstValue(definition.getReferenceIdSemantics(), list, object);
+        String name = definition == null ? null : firstValue(definition.getLabelSemantics(), list, object);
+        if (code == null && name == null) return null;
+        ReferenceModel reference = new ReferenceModel();
+        reference.setType(fill.type());
+        reference.setReference(code);
+        reference.setLabel(name != null ? name : code);
+        if (definition != null) {
+            reference.setDescription(firstValue(definition.getDescriptionSemantics(), list, object));
+            List<ReferenceFieldModel> fields = new ArrayList<>();
+            if (definition.getFields() != null) {
+                for (ReferenceTypeFieldModel typeField : definition.getFields()) {
+                    String value = firstValue(typeField.getSemantics(), list, object);
+                    if (value == null || typeField.getCode() == null) continue;
+                    ReferenceFieldModel field = new ReferenceFieldModel();
+                    field.setCode(typeField.getCode());
+                    field.setDataType(typeField.getDataType());
+                    field.setValue(value);
+                    fields.add(field);
+                }
+            }
+            if (!fields.isEmpty()) {
+                ReferenceDefinitionModel referenceDefinition = new ReferenceDefinitionModel();
+                referenceDefinition.setFields(fields);
+                reference.setDefinition(referenceDefinition);
+            }
+        }
+        return reference;
+    }
+
+    /** The reference input as one filling an RDA list, or null when its keys (own or through its type) land in none, or in a distribution. */
+    private static ReferenceFill referenceFill(FieldModel field) {
+        if (!(field.getData() instanceof ReferenceTypeDataModel data)) return null;
+        Set<String> keys = new HashSet<>(referenceTypeKeysUnder(data.getReferenceType(), "rda"));
+        if (field.getSemantics() != null) keys.addAll(field.getSemantics());
+        String list = keys.stream().map(RdaMapperSupport::listOf).filter(Objects::nonNull).min(Comparator.comparingInt(String::length)).orElse(null);
+        if (list == null || list.contains("distribution[]")) return null;
+        Set<String> under = keys.stream().filter(x -> { String path = pathOf(x); return path != null && path.startsWith(list + "."); }).collect(java.util.stream.Collectors.toSet());
+        return new ReferenceFill(field, data.getReferenceType(), Boolean.TRUE.equals(data.getMultipleSelect()), list, under);
+    }
+
+    /** Where a value key lands in the exported JSON, or null for an object key or one the export does not know. */
+    private static String pathOf(String key) {
+        RdaSemanticCatalog.Entry entry = key == null ? null : RdaSemanticCatalog.find(key);
+        return entry == null || entry.kind() == RdaSemanticCatalog.Kind.OBJECT ? null : entry.path();
+    }
+
+    /** The innermost list a value key lands in ("dmp.dataset[].creator[]"), or null. */
+    private static String listOf(String key) {
+        String path = pathOf(key);
+        if (path == null || !path.contains("[]")) return null;
+        String list = path.substring(0, path.lastIndexOf("[]") + 2);
+        // an identifier list of a creator or contributor belongs to it: the person is the object picked
+        return list.matches(".*\\[]\\.\\w+_id\\[]") ? list.substring(0, list.lastIndexOf('.')) : list;
+    }
+
+    /** The first of the keys the object gives a value. */
+    private static String firstValue(List<String> keys, String list, JsonNode object) {
+        if (keys == null) return null;
+        for (String key : keys) {
+            String path = pathOf(key);
+            if (path == null || !path.startsWith(list + ".")) continue;
+            for (JsonNode node : walk(object, relative(path, list))) {
+                if (node.isValueNode() && !node.asText().isBlank()) return node.asText();
+            }
+        }
+        return null;
+    }
+
+    private static String relative(String path, String from) {
+        return path.equals(from) ? "" : path.substring(from.length() + 1);
+    }
+
+    /** The nodes at the path, every item of a list marked {@code []}. */
+    private static List<JsonNode> walk(JsonNode node, String path) {
+        List<JsonNode> nodes = new ArrayList<>(List.of(node));
+        if (path.isEmpty()) return nodes;
+        for (String segment : path.split("\\.")) {
+            List<JsonNode> next = new ArrayList<>();
+            for (JsonNode at : nodes) {
+                JsonNode child = at.path(segment.replace("[]", ""));
+                if (child.isArray()) child.forEach(next::add);
+                else if (!child.isMissingNode() && !child.isNull()) next.add(child);
+            }
+            nodes = next;
+        }
+        return nodes;
+    }
+
+    private static String identity(ReferenceModel reference) {
+        return reference.getReference() + "|" + reference.getLabel();
+    }
+
+    /** Sets the input's references in the answer, each picked once, only the first for an input picking one. */
+    private static void setReferences(PropertyDefinitionFieldSetItemModel item, ReferenceFill fill, List<ReferenceModel> references) {
+        Map<String, ReferenceModel> distinct = new LinkedHashMap<>();
+        references.forEach(x -> distinct.putIfAbsent(identity(x), x));
+        List<ReferenceModel> picked = new ArrayList<>(distinct.values());
+        if (!fill.multiple() && picked.size() > 1) picked = new ArrayList<>(picked.subList(0, 1));
+        org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel value = item.getFields().computeIfAbsent(fill.field().getId(), x -> {
+            org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel created = new org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel();
+            created.setId(x);
+            return created;
+        });
+        value.setReferences(picked.isEmpty() ? null : picked);
+    }
+
+    /** The question's answer at the position, adding empty answers up to it. */
+    private static PropertyDefinitionFieldSetItemModel answerItem(FieldSetModel question, Map<String, PropertyDefinitionFieldSetModel> answers, int index) {
+        PropertyDefinitionFieldSetModel answered = answers.computeIfAbsent(question.getId(), x -> new PropertyDefinitionFieldSetModel());
+        if (answered.getItems() == null) answered.setItems(new ArrayList<>());
+        while (answered.getItems().size() <= index) {
+            PropertyDefinitionFieldSetItemModel item = new PropertyDefinitionFieldSetItemModel();
+            item.setOrdinal(answered.getItems().size());
+            item.setFields(new HashMap<>());
+            for (FieldModel field : question.getFields()) {
+                org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel value = new org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel();
+                value.setId(field.getId());
+                item.getFields().put(field.getId(), value);
+            }
+            answered.getItems().add(item);
+        }
+        PropertyDefinitionFieldSetItemModel item = answered.getItems().get(index);
+        if (item.getFields() == null) item.setFields(new HashMap<>());
+        return item;
+    }
+
+    private static boolean unanswered(org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel value) {
+        return value == null || ((value.getTextValue() == null || value.getTextValue().isBlank()) && (value.getTextListValue() == null || value.getTextListValue().isEmpty())
+                && value.getDateValue() == null && value.getBooleanValue() == null && value.getNumberValue() == null && value.getExternalIdentifier() == null
+                && (value.getReferences() == null || value.getReferences().isEmpty()));
+    }
+
     /** Never more answers than a question allows: one for a question answered once, at most its maximum otherwise. */
     protected void trimToMultiplicity(List<FieldSetModel> questions, Map<String, PropertyDefinitionFieldSetModel> answers) {
         if (questions == null) return;
@@ -446,17 +716,87 @@ public abstract class RdaMapperSupport {
     }
 
     protected String getReferenceFieldValueFromSemantic(ReferenceModel referenceModel, String semantic) {
-        if (referenceModel == null || referenceModel.getDefinition() == null ||referenceModel.getDefinition().getFields() == null || referenceModel.getDefinition().getFields().isEmpty()
-                || referenceModel.getType() == null || referenceModel.getType().getDefinition().getFields() == null || referenceModel.getType().getDefinition().getFields().isEmpty()
-                || semantic == null) return null;
+        if (referenceModel == null || referenceModel.getType() == null) return null;
+        return referenceValue(referenceModel, referenceModel.getType().getDefinition(), semantic);
+    }
 
-        org.opencdmp.commonmodels.models.referencetype.ReferenceTypeFieldModel referenceTypeFieldModel = referenceModel.getType().getDefinition().getFields().stream().filter(x -> x.getSemantics() != null && !x.getSemantics().isEmpty() && x.getSemantics().contains(semantic)).findFirst().orElse(null);
-        if (referenceTypeFieldModel == null || referenceTypeFieldModel.getCode() == null) return null;
+    /**
+     * The value a picked reference gives the key through its type: its id, name or description when the type gives
+     * that system field the key, else the value of the reference's own field carrying it. Null when none does.
+     */
+    static String referenceValue(ReferenceModel referenceModel, ReferenceTypeDefinitionModel definition, String semantic) {
+        if (referenceModel == null || definition == null || semantic == null) return null;
+        String value = null;
+        if (definition.getReferenceIdSemantics() != null && definition.getReferenceIdSemantics().contains(semantic)) value = referenceModel.getReference();
+        else if (definition.getLabelSemantics() != null && definition.getLabelSemantics().contains(semantic)) value = referenceModel.getLabel();
+        else if (definition.getDescriptionSemantics() != null && definition.getDescriptionSemantics().contains(semantic)) value = referenceModel.getDescription();
+        else if (definition.getFields() != null && referenceModel.getDefinition() != null && referenceModel.getDefinition().getFields() != null) {
+            ReferenceTypeFieldModel typeField = definition.getFields().stream().filter(x -> x.getCode() != null && x.getSemantics() != null && x.getSemantics().contains(semantic)).findFirst().orElse(null);
+            if (typeField != null) value = referenceModel.getDefinition().getFields().stream().filter(x -> typeField.getCode().equals(x.getCode())).map(ReferenceFieldModel::getValue).findFirst().orElse(null);
+        }
+        return value != null && !value.isBlank() ? value : null;
+    }
 
-        ReferenceFieldModel referenceFieldModel = referenceModel.getDefinition().getFields().stream().filter(x -> x.getCode() != null && x.getCode().equals(referenceTypeFieldModel.getCode())).findFirst().orElse(null);
-        if (referenceFieldModel == null) return null;
+    /**
+     * The affiliations an answer picks: one per organisation, researcher or other reference picked for the object,
+     * named and identified through its reference type's semantics, the identifier's type inferred when not given.
+     */
+    protected List<org.opencdmp.filetransformer.rda.model.rda.Affiliation> pickedAffiliations(AnswerGroup answers, String object, String nameKey, String idKey, String idTypeKey) {
+        List<org.opencdmp.filetransformer.rda.model.rda.Affiliation> affiliations = new ArrayList<>();
+        for (AnswerGroup part : answers.partsPerReference(object)) {
+            org.opencdmp.filetransformer.rda.model.rda.Affiliation affiliation = new org.opencdmp.filetransformer.rda.model.rda.Affiliation();
+            affiliation.setName(part.value(nameKey));
+            String identifier = part.value(idKey);
+            String type = part.value(idTypeKey);
+            if (identifier != null || type != null) {
+                org.opencdmp.filetransformer.rda.model.rda.AffiliationId affiliationId = new org.opencdmp.filetransformer.rda.model.rda.AffiliationId();
+                affiliationId.setIdentifier(identifier);
+                affiliationId.setType(type == null ? inferAffiliationIdType(identifier) : type);
+                affiliation.setAffiliationId(affiliationId);
+            }
+            if (affiliation.getName() != null || affiliation.getAffiliationId() != null) affiliations.add(affiliation);
+        }
+        return affiliations;
+    }
 
-        return referenceFieldModel.getValue() != null && !referenceFieldModel.getValue().isBlank() ? referenceFieldModel.getValue(): null;
+    /** Is the key under the object, and not under one of the nested objects? */
+    static boolean under(String key, String object, String... nested) {
+        if (key == null || !key.startsWith(object + ".")) return false;
+        return java.util.Arrays.stream(nested).noneMatch(x -> key.equals(x) || key.startsWith(x + "."));
+    }
+
+    /** The keys under the object (and not under one of the nested objects) the reference type gives its id, name, description or fields. */
+    static Set<String> referenceTypeKeysUnder(ReferenceTypeModel type, String object, String... nested) {
+        Set<String> keys = new HashSet<>();
+        if (type == null || type.getDefinition() == null) return keys;
+        ReferenceTypeDefinitionModel definition = type.getDefinition();
+        java.util.function.Consumer<List<String>> add = semantics -> {
+            if (semantics != null) semantics.stream().filter(x -> under(x, object, nested)).forEach(keys::add);
+        };
+        add.accept(definition.getReferenceIdSemantics());
+        add.accept(definition.getLabelSemantics());
+        add.accept(definition.getDescriptionSemantics());
+        if (definition.getFields() != null) definition.getFields().forEach(x -> add.accept(x.getSemantics()));
+        return keys;
+    }
+
+    /** Does the reference type give its id, name, description or one of its fields a key under the object (and not under one of the nested objects)? */
+    static boolean referenceTypeCarriesUnder(ReferenceTypeModel type, String object, String... nested) {
+        if (type == null || type.getDefinition() == null) return false;
+        ReferenceTypeDefinitionModel definition = type.getDefinition();
+        java.util.function.Predicate<List<String>> under = semantics -> semantics != null && semantics.stream().anyMatch(x -> under(x, object, nested));
+        return under.test(definition.getReferenceIdSemantics()) || under.test(definition.getLabelSemantics()) || under.test(definition.getDescriptionSemantics())
+                || (definition.getFields() != null && definition.getFields().stream().anyMatch(x -> under.test(x.getSemantics())));
+    }
+
+    /** Does the reference type give the key to a system field (id, name, description) or to one of its own fields? */
+    static boolean referenceTypeCarries(ReferenceTypeModel type, String semantic) {
+        if (type == null || type.getDefinition() == null) return false;
+        ReferenceTypeDefinitionModel definition = type.getDefinition();
+        return (definition.getReferenceIdSemantics() != null && definition.getReferenceIdSemantics().contains(semantic))
+                || (definition.getLabelSemantics() != null && definition.getLabelSemantics().contains(semantic))
+                || (definition.getDescriptionSemantics() != null && definition.getDescriptionSemantics().contains(semantic))
+                || (definition.getFields() != null && definition.getFields().stream().anyMatch(x -> x.getSemantics() != null && x.getSemantics().contains(semantic)));
     }
 
     protected org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel buildFieldModel(org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel fieldModel, FieldModel templateFieldModel, String textValue, Date dateValue, Boolean booleanValue, List<String> textListValue){

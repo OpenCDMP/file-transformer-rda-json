@@ -23,29 +23,32 @@ public class CreatorExporter extends RdaMapperSupport {
 
     List<Creator> buildRdaDatasetCreator(DescriptionModel model){
             List<Creator> values = new ArrayList<>();
-            for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_CREATOR_NAME, SEMANTIC_DATASET_CREATOR_MBOX, SEMANTIC_DATASET_CREATOR_ID_IDENTIFIER,
+            for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_CREATOR_NAME, SEMANTIC_DATASET_CREATOR_MBOX, SEMANTIC_DATASET_CREATOR_ID_IDENTIFIER,
                     SEMANTIC_DATASET_CREATOR_ID_TYPE, SEMANTIC_DATASET_CREATOR_AFFILIATION_NAME, SEMANTIC_DATASET_CREATOR_AFFILIATION_ID_TYPE, SEMANTIC_DATASET_CREATOR_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DATASET_CREATOR_ID ))) {
-                boolean valueFound = false;
-                Creator item = new Creator();
+                // several references picked for the object: one object each
+                for (AnswerGroup answers : group.picksFor(OBJECT_CREATOR, OBJECT_CREATOR_AFFILIATION) ? group.partsPerReference(OBJECT_CREATOR, OBJECT_CREATOR_AFFILIATION) : List.of(group)) {
+                    boolean valueFound = false;
+                    Creator item = new Creator();
 
-                String fieldValue = answers.value(SEMANTIC_DATASET_CREATOR_NAME);
-                if (fieldValue != null) {
-                    item.setName(fieldValue);
-                    valueFound = true;
+                    String fieldValue = answers.value(SEMANTIC_DATASET_CREATOR_NAME);
+                    if (fieldValue != null) {
+                        item.setName(fieldValue);
+                        valueFound = true;
+                    }
+
+                    fieldValue = answers.value(SEMANTIC_DATASET_CREATOR_MBOX);
+                    if (fieldValue != null) {
+                        item.setMbox(fieldValue);
+                        valueFound = true;
+                    }
+
+
+                    item.setAffiliation(this.buildRdaDatasetCreatorAffiliation(answers));
+                    item.setCreatorId(this.buildRdaDatasetCreatorId(answers));
+
+                    if (valueFound || (item.getAffiliation() != null && !item.getAffiliation().isEmpty()) || (item.getCreatorId() != null && !item.getCreatorId().isEmpty())) values.add(item);
+
                 }
-
-                fieldValue = answers.value(SEMANTIC_DATASET_CREATOR_MBOX);
-                if (fieldValue != null) {
-                    item.setMbox(fieldValue);
-                    valueFound = true;
-                }
-
-
-                item.setAffiliation(this.buildRdaDatasetCreatorAffiliation(answers));
-                item.setCreatorId(this.buildRdaDatasetCreatorId(answers));
-
-                if (valueFound || (item.getAffiliation() != null && !item.getAffiliation().isEmpty()) || (item.getCreatorId() != null && !item.getCreatorId().isEmpty())) values.add(item);
-
             }
             return values.isEmpty() ? null : values;
         }
@@ -71,6 +74,7 @@ public class CreatorExporter extends RdaMapperSupport {
     }
 
     List<Affiliation> buildRdaDatasetCreatorAffiliation(AnswerGroup answers) {
+        if (answers.picksFor(OBJECT_CREATOR_AFFILIATION)) return this.pickedAffiliations(answers, OBJECT_CREATOR_AFFILIATION, SEMANTIC_DATASET_CREATOR_AFFILIATION_NAME, SEMANTIC_DATASET_CREATOR_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DATASET_CREATOR_AFFILIATION_ID_TYPE);
 
         List<Affiliation> affiliations = new ArrayList<>();
         Affiliation affiliation = new Affiliation();

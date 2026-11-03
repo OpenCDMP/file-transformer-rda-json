@@ -452,6 +452,7 @@
           "rda-dmp-project-funding-funder_id" : {
             "id" : "rda-dmp-project-funding-funder_id",
             "references" : [ {
+              "label" : "013tf3c58",
               "reference" : "013tf3c58",
               "type" : {
                 "code" : "dmp-project-funding-funder_id",
@@ -478,6 +479,7 @@
           "rda-dmp-project-funding-grant_id" : {
             "id" : "rda-dmp-project-funding-grant_id",
             "references" : [ {
+              "label" : "1234567-AT",
               "reference" : "1234567-AT",
               "type" : {
                 "code" : "dmp-project-funding-grant_id",

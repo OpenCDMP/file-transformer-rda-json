@@ -75,6 +75,7 @@ public class ContactExporter extends RdaMapperSupport {
                 affiliation.setAffiliationId(affiliationId);
                 item.setAffiliation(List.of(affiliation));
             }
+            if (answers.picksFor(OBJECT_CONTACT_AFFILIATION)) item.setAffiliation(this.pickedAffiliations(answers, OBJECT_CONTACT_AFFILIATION, SEMANTIC_CONTACT_AFFILIATION_NAME, SEMANTIC_CONTACT_AFFILIATION_ID_IDENTIFIER, SEMANTIC_CONTACT_AFFILIATION_ID_TYPE));
 
             if (rdaContactId.getIdentifier() != null && rdaContactId.getType() == null) rdaContactId.setType(inferIdentifierType(rdaContactId.getIdentifier()));
             item.setContactId(List.of(rdaContactId));

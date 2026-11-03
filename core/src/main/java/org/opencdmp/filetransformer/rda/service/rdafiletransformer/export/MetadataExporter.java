@@ -23,34 +23,37 @@ public class MetadataExporter extends RdaMapperSupport {
 
     List<Metadata> buildRdaDatasetMetadata(DescriptionModel model){
         List<Metadata> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_METADATA_DESCRIPTION, SEMANTIC_DATASET_METADATA_LANGUAGE, SEMANTIC_DATASET_METADATA_STANDARD_ID, SEMANTIC_DATASET_METADATA_STANDARD_ID_IDENTIFIER, SEMANTIC_DATASET_METADATA_STANDARD_ID_TYPE))) {
-            boolean valueFound = false;
-            Metadata item = new Metadata();
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_METADATA_DESCRIPTION, SEMANTIC_DATASET_METADATA_LANGUAGE, SEMANTIC_DATASET_METADATA_STANDARD_ID, SEMANTIC_DATASET_METADATA_STANDARD_ID_IDENTIFIER, SEMANTIC_DATASET_METADATA_STANDARD_ID_TYPE))) {
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_METADATA) ? group.partsPerReference(OBJECT_METADATA) : List.of(group)) {
+                boolean valueFound = false;
+                Metadata item = new Metadata();
 
-           String fieldValue = answers.value(SEMANTIC_DATASET_METADATA_LANGUAGE);
-            if (fieldValue != null) {
-                try {
-                    item.setLanguage(Metadata.Language.fromValue(fieldValue));
-                    valueFound = true;
-                } catch (Exception e) {
-                    logger.warn("invalid metadatum language value: " + fieldValue);
+               String fieldValue = answers.value(SEMANTIC_DATASET_METADATA_LANGUAGE);
+                if (fieldValue != null) {
+                    try {
+                        item.setLanguage(Metadata.Language.fromValue(fieldValue));
+                        valueFound = true;
+                    } catch (Exception e) {
+                        logger.warn("invalid metadatum language value: " + fieldValue);
+                    }
                 }
-            }
             
 
-            fieldValue = answers.value(SEMANTIC_DATASET_METADATA_DESCRIPTION);
-            if (fieldValue != null) {
-                item.setDescription(fieldValue);
-                valueFound = true;
-            }
-            MetadataStandardId standardId = this.buildRdaMetadataStandardId(answers);
-            if (standardId != null) {
-                item.setMetadataStandardId(List.of(standardId));
-                valueFound = true;
+                fieldValue = answers.value(SEMANTIC_DATASET_METADATA_DESCRIPTION);
+                if (fieldValue != null) {
+                    item.setDescription(fieldValue);
+                    valueFound = true;
+                }
+                MetadataStandardId standardId = this.buildRdaMetadataStandardId(answers);
+                if (standardId != null) {
+                    item.setMetadataStandardId(List.of(standardId));
+                    valueFound = true;
 
-            }
+                }
 
-            if (valueFound) values.add(item);
+                if (valueFound) values.add(item);
+            }
         }
         return values.isEmpty() ? null : values;
     }

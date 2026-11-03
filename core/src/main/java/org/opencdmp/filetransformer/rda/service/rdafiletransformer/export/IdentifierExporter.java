@@ -28,6 +28,10 @@ public class IdentifierExporter extends RdaMapperSupport {
         List<Affiliation> values = new ArrayList<>();
 
         for (AnswerGroup answers : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_AFFILIATION_NAME, SEMANTIC_DMP_AFFILIATION_ID_TYPE, SEMANTIC_DMP_AFFILIATION_ID_IDENTIFIER))) {
+            if (answers.picksFor(OBJECT_AFFILIATION)) {
+                values.addAll(this.pickedAffiliations(answers, OBJECT_AFFILIATION, SEMANTIC_DMP_AFFILIATION_NAME, SEMANTIC_DMP_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DMP_AFFILIATION_ID_TYPE));
+                continue;
+            }
             boolean valueFound = false;
 
             Affiliation item = new Affiliation();
@@ -72,23 +76,26 @@ public class IdentifierExporter extends RdaMapperSupport {
         if (model == null) throw new MyApplicationException("Plan is missing");
 
         List<AlternateIdentifier> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID, SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE))) {
-            boolean valueFound = false;
-            AlternateIdentifier item = new AlternateIdentifier();
+        for (AnswerGroup group : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID, SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE))) {
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_ALTERNATE_IDENTIFIER) ? group.partsPerReference(OBJECT_ALTERNATE_IDENTIFIER) : List.of(group)) {
+                boolean valueFound = false;
+                AlternateIdentifier item = new AlternateIdentifier();
 
-            String fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID);
-            if (fieldValue != null) {
-                item.setIdentifier(fieldValue);
-                valueFound = true;
+                String fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID);
+                if (fieldValue != null) {
+                    item.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE);
+                if (fieldValue != null) {
+                    item.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (valueFound) values.add(item);
             }
-
-            fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE);
-            if (fieldValue != null) {
-                item.setType(fieldValue);
-                valueFound = true;
-            }
-
-            if (valueFound) values.add(item);
         }
 
         return values;
@@ -96,142 +103,151 @@ public class IdentifierExporter extends RdaMapperSupport {
 
     List<RelatedIdentifier> buildRdaRelatedIdentifier(PlanModel model) {
         List<RelatedIdentifier> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER, SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME, SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE, SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE,
+        for (AnswerGroup group : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER, SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME, SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE, SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE,
                 SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_TYPE, SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_URI, SEMANTIC_DMP_RELATED_IDENTIFIER_TYPE))) {
-            boolean valueFound = false;
-            RelatedIdentifier item = new RelatedIdentifier();
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_RELATED_IDENTIFIER) ? group.partsPerReference(OBJECT_RELATED_IDENTIFIER) : List.of(group)) {
+                boolean valueFound = false;
+                RelatedIdentifier item = new RelatedIdentifier();
 
-            String fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER);
-            if (fieldValue != null) {
-                item.setIdentifier(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME);
-            if (fieldValue != null) {
-                item.setMetadataScheme(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE);
-            if (fieldValue != null) {
-                item.setRelationType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE);
-            if (fieldValue != null) {
-                item.setResourceType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_TYPE);
-            if (fieldValue != null) {
-                item.setSchemeType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_URI);
-            if (fieldValue != null) {
-                try{
-                    item.setSchemeUri(URI.create(fieldValue));
+                String fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER);
+                if (fieldValue != null) {
+                    item.setIdentifier(fieldValue);
                     valueFound = true;
-                }catch (Exception ex){
-                    logger.warn("invalid Scheme Uri value: " + fieldValue);
                 }
-            }
 
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_TYPE);
-            if (fieldValue != null) {
-                item.setType(fieldValue);
-                valueFound = true;
-            }
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME);
+                if (fieldValue != null) {
+                    item.setMetadataScheme(fieldValue);
+                    valueFound = true;
+                }
 
-            if (valueFound ) values.add(item);
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE);
+                if (fieldValue != null) {
+                    item.setRelationType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE);
+                if (fieldValue != null) {
+                    item.setResourceType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_TYPE);
+                if (fieldValue != null) {
+                    item.setSchemeType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_URI);
+                if (fieldValue != null) {
+                    try{
+                        item.setSchemeUri(URI.create(fieldValue));
+                        valueFound = true;
+                    }catch (Exception ex){
+                        logger.warn("invalid Scheme Uri value: " + fieldValue);
+                    }
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_TYPE);
+                if (fieldValue != null) {
+                    item.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (valueFound ) values.add(item);
+            }
         }
         return values;
     }
 
     List<RelatedIdentifier> buildRdaDatasetRelatedIdentifier(DescriptionModel model){
         List<RelatedIdentifier> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(
                 SEMANTIC_DATASET_RELATED_IDENTIFIER_IDENTIFIER, SEMANTIC_DATASET_RELATED_IDENTIFIER_METADATA_SCHEME, SEMANTIC_DATASET_RELATED_IDENTIFIER_RELATION_TYPE,
                 SEMANTIC_DATASET_RELATED_IDENTIFIER_RESOURCE_TYPE, SEMANTIC_DATASET_RELATED_IDENTIFIER_SCHEME_TYPE,
                 SEMANTIC_DATASET_RELATED_IDENTIFIER_SCHEME_URI, SEMANTIC_DATASET_RELATED_IDENTIFIER_TYPE))) {
-            boolean valueFound = false;
-            RelatedIdentifier item = new RelatedIdentifier();
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_DATASET_RELATED_IDENTIFIER) ? group.partsPerReference(OBJECT_DATASET_RELATED_IDENTIFIER) : List.of(group)) {
+                boolean valueFound = false;
+                RelatedIdentifier item = new RelatedIdentifier();
 
-            String fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_IDENTIFIER);
-            if (fieldValue != null) {
-                item.setIdentifier(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_METADATA_SCHEME);
-            if (fieldValue != null) {
-                item.setMetadataScheme(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_RELATION_TYPE);
-            if (fieldValue != null) {
-                item.setRelationType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_RESOURCE_TYPE);
-            if (fieldValue != null) {
-                item.setResourceType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_SCHEME_TYPE);
-            if (fieldValue != null) {
-                item.setSchemeType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_SCHEME_URI);
-            if (fieldValue != null) {
-                try {
-                    item.setSchemeUri(URI.create(fieldValue));
+                String fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_IDENTIFIER);
+                if (fieldValue != null) {
+                    item.setIdentifier(fieldValue);
                     valueFound = true;
-                } catch (Exception ex) {
-                    logger.warn("invalid dataset related identifier value: " + fieldValue);
                 }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_METADATA_SCHEME);
+                if (fieldValue != null) {
+                    item.setMetadataScheme(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_RELATION_TYPE);
+                if (fieldValue != null) {
+                    item.setRelationType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_RESOURCE_TYPE);
+                if (fieldValue != null) {
+                    item.setResourceType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_SCHEME_TYPE);
+                if (fieldValue != null) {
+                    item.setSchemeType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_SCHEME_URI);
+                if (fieldValue != null) {
+                    try {
+                        item.setSchemeUri(URI.create(fieldValue));
+                        valueFound = true;
+                    } catch (Exception ex) {
+                        logger.warn("invalid dataset related identifier value: " + fieldValue);
+                    }
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_TYPE);
+                if (fieldValue != null) {
+                    item.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (valueFound) values.add(item);
+
             }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_RELATED_IDENTIFIER_TYPE);
-            if (fieldValue != null) {
-                item.setType(fieldValue);
-                valueFound = true;
-            }
-
-            if (valueFound) values.add(item);
-
         }
         return values.isEmpty() ? null : values;
     }
 
     List<AlternateIdentifier> buildRdaDatasetAlternateIdentifier(DescriptionModel model){
         List<AlternateIdentifier> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_ID, SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_TYPE))) {
-            boolean valueFound = false;
-            AlternateIdentifier item = new AlternateIdentifier();
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_ID, SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_TYPE))) {
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_DATASET_ALTERNATE_IDENTIFIER) ? group.partsPerReference(OBJECT_DATASET_ALTERNATE_IDENTIFIER) : List.of(group)) {
+                boolean valueFound = false;
+                AlternateIdentifier item = new AlternateIdentifier();
 
-            String fieldValue = answers.value(SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_ID);
-            if (fieldValue != null) {
-                item.setIdentifier(fieldValue);
-                valueFound = true;
+                String fieldValue = answers.value(SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_ID);
+                if (fieldValue != null) {
+                    item.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_TYPE);
+                if (fieldValue != null) {
+                    item.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (valueFound) values.add(item);
             }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_ALTERNATE_IDENTIFIER_TYPE);
-            if (fieldValue != null) {
-                item.setType(fieldValue);
-                valueFound = true;
-            }
-
-            if (valueFound) values.add(item);
         }
         return values;
     }
@@ -247,24 +263,27 @@ public class IdentifierExporter extends RdaMapperSupport {
 
     List<AlternateIdentifier> buildRdaDmpAlternateIdentifiers(DescriptionModel model){
         List<AlternateIdentifier> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID, SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE))) {
-            boolean valueFound = false;
-            AlternateIdentifier item = new AlternateIdentifier();
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID, SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE))) {
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_ALTERNATE_IDENTIFIER) ? group.partsPerReference(OBJECT_ALTERNATE_IDENTIFIER) : List.of(group)) {
+                boolean valueFound = false;
+                AlternateIdentifier item = new AlternateIdentifier();
 
-            String fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID);
-            if (fieldValue != null) {
-                item.setIdentifier(fieldValue);
-                valueFound = true;
+                String fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_ID);
+                if (fieldValue != null) {
+                    item.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE);
+                if (fieldValue != null) {
+                    item.setType(fieldValue);
+                    valueFound = true;
+                }
+
+
+                if (valueFound) values.add(item);
             }
-
-            fieldValue = answers.value(SEMANTIC_DMP_ALTERNATE_IDENTIFIER_TYPE);
-            if (fieldValue != null) {
-                item.setType(fieldValue);
-                valueFound = true;
-            }
-
-
-            if (valueFound) values.add(item);
         }
         return values;
     }
@@ -313,58 +332,61 @@ public class IdentifierExporter extends RdaMapperSupport {
 
     List<RelatedIdentifier> buildRdaRelatedIdentifiers(DescriptionModel model){
         List<RelatedIdentifier> values = new ArrayList<>();
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER, SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME, SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE, SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE,
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER, SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME, SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE, SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE,
                 SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_TYPE, SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_URI, SEMANTIC_DMP_RELATED_IDENTIFIER_TYPE))) {
-            boolean valueFound = false;
-            RelatedIdentifier item = new RelatedIdentifier();
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_RELATED_IDENTIFIER) ? group.partsPerReference(OBJECT_RELATED_IDENTIFIER) : List.of(group)) {
+                boolean valueFound = false;
+                RelatedIdentifier item = new RelatedIdentifier();
 
-           String fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER);
-            if (fieldValue != null) {
-                    item.setIdentifier(fieldValue);
-                    valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME);
-            if (fieldValue != null) {
-                item.setMetadataScheme(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE);
-            if (fieldValue != null) {
-                item.setRelationType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE);
-            if (fieldValue != null) {
-                item.setResourceType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_TYPE);
-            if (fieldValue != null) {
-                item.setSchemeType(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_URI);
-            if (fieldValue != null) {
-                try{
-                    item.setSchemeUri(URI.create(fieldValue));
-                    valueFound = true;
-                }catch (Exception ex){
-                    logger.warn("invalid Scheme Uri value: " + fieldValue);
+               String fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_IDENTIFIER);
+                if (fieldValue != null) {
+                        item.setIdentifier(fieldValue);
+                        valueFound = true;
                 }
-            }
 
-            fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_TYPE);
-            if (fieldValue != null) {
-                item.setType(fieldValue);
-                valueFound = true;
-            }
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_METADATA_SCHEME);
+                if (fieldValue != null) {
+                    item.setMetadataScheme(fieldValue);
+                    valueFound = true;
+                }
 
-            if (valueFound ) values.add(item);
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RELATION_TYPE);
+                if (fieldValue != null) {
+                    item.setRelationType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_RESOURCE_TYPE);
+                if (fieldValue != null) {
+                    item.setResourceType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_TYPE);
+                if (fieldValue != null) {
+                    item.setSchemeType(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_SCHEME_URI);
+                if (fieldValue != null) {
+                    try{
+                        item.setSchemeUri(URI.create(fieldValue));
+                        valueFound = true;
+                    }catch (Exception ex){
+                        logger.warn("invalid Scheme Uri value: " + fieldValue);
+                    }
+                }
+
+                fieldValue = answers.value(SEMANTIC_DMP_RELATED_IDENTIFIER_TYPE);
+                if (fieldValue != null) {
+                    item.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (valueFound ) values.add(item);
+            }
         }
         return values;
     }

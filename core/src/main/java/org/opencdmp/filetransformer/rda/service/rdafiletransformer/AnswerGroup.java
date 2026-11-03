@@ -4,16 +4,17 @@ import gr.cite.tools.logging.LoggerService;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.FieldModel;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.FieldSetModel;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.fielddata.RadioBoxDataModel;
+import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.fielddata.ReferenceTypeDataModel;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.fielddata.SelectDataModel;
 import org.opencdmp.commonmodels.models.planblueprintdescriptiontemplatefields.fielddata.SemanticValueModel;
 import org.opencdmp.commonmodels.models.plandescriptionfields.PropertyDefinitionFieldSetItemModel;
 import org.opencdmp.commonmodels.models.reference.ReferenceModel;
+import org.opencdmp.commonmodels.models.referencetype.ReferenceTypeModel;
 import org.slf4j.LoggerFactory;
 
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The answers that together describe one RDA object, and the values they give for each semantic key.
@@ -60,6 +61,117 @@ public final class AnswerGroup {
         return parts.isEmpty() ? List.of(this) : parts;
     }
 
+    /**
+     * As {@link #parts}, with an answer that picks references split further: one part per object its picks make, each
+     * keeping the answer's other values. Inputs filling the same keys of the object are alternatives, so each of their
+     * picks is an object of its own (every organisation or researcher picked for an affiliation); inputs filling other
+     * keys complete it, one pick of each (a funder and a grant make one funding).
+     */
+    public List<AnswerGroup> partsPerReference(String object, String... nested) {
+        List<AnswerGroup> parts = new ArrayList<>();
+        for (AnswerGroup part : this.parts(object)) {
+            List<AnswerGroup> picks = new ArrayList<>();
+            for (Member member : part.members) {
+                for (Map<String, ReferenceModel> combination : combinations(member, object, nested)) picks.add(part.withOnly(member, combination, object, nested));
+            }
+            if (picks.isEmpty()) parts.add(part);
+            else parts.addAll(picks);
+        }
+        return parts;
+    }
+
+    /** The objects the member's picks make, each as the one reference it takes from each input that fills the object. */
+    private static List<Map<String, ReferenceModel>> combinations(Member member, String object, String... nested) {
+        List<Set<String>> keys = new ArrayList<>();
+        List<List<Map.Entry<String, ReferenceModel>>> alternatives = new ArrayList<>();
+        for (FieldModel field : fields(member)) {
+            if (!fills(field, object, nested) || member.answer() == null || member.answer().getFields() == null) continue;
+            org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel stored = member.answer().getFields().get(field.getId());
+            if (stored == null || stored.getReferences() == null) continue;
+            List<Map.Entry<String, ReferenceModel>> picks = stored.getReferences().stream().filter(Objects::nonNull).map(x -> Map.entry(field.getId(), x)).toList();
+            if (picks.isEmpty()) continue;
+            Set<String> fieldKeys = new HashSet<>(keysUnder(field, object, nested));
+            List<Map.Entry<String, ReferenceModel>> merged = new ArrayList<>(picks);
+            for (int i = keys.size() - 1; i >= 0; i--) {
+                if (Collections.disjoint(keys.get(i), fieldKeys)) continue;
+                fieldKeys.addAll(keys.remove(i));
+                merged.addAll(0, alternatives.remove(i));
+            }
+            keys.add(fieldKeys);
+            alternatives.add(merged);
+        }
+        if (alternatives.isEmpty()) return List.of();
+        List<Map<String, ReferenceModel>> combinations = new ArrayList<>(List.of(Map.of()));
+        for (List<Map.Entry<String, ReferenceModel>> alternative : alternatives) {
+            List<Map<String, ReferenceModel>> next = new ArrayList<>();
+            for (Map<String, ReferenceModel> combination : combinations) {
+                for (Map.Entry<String, ReferenceModel> pick : alternative) {
+                    Map<String, ReferenceModel> more = new LinkedHashMap<>(combination);
+                    more.put(pick.getKey(), pick.getValue());
+                    next.add(more);
+                }
+            }
+            combinations = next;
+        }
+        return combinations;
+    }
+
+    /** The keys under the object an input fills: its own, and those its reference type gives the picked references. */
+    private static Set<String> keysUnder(FieldModel field, String object, String... nested) {
+        Set<String> keys = new HashSet<>();
+        if (field.getSemantics() != null) field.getSemantics().stream().filter(x -> RdaMapperSupport.under(x, object, nested)).forEach(keys::add);
+        if (field.getData() instanceof ReferenceTypeDataModel data) keys.addAll(RdaMapperSupport.referenceTypeKeysUnder(data.getReferenceType(), object, nested));
+        return keys;
+    }
+
+    /** Does an answer of the group pick references in an input that fills the object (not one of its nested objects)? */
+    public boolean picksFor(String object, String... nested) {
+        for (AnswerGroup part : this.parts(object)) {
+            for (Member member : part.members) {
+                for (FieldModel field : fields(member)) {
+                    if (!fills(field, object, nested) || member.answer() == null || member.answer().getFields() == null) continue;
+                    org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel stored = member.answer().getFields().get(field.getId());
+                    if (stored != null && stored.getReferences() != null && stored.getReferences().stream().anyMatch(java.util.Objects::nonNull)) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * A reference input that gives the object values: by a key of its own under it, or through its reference type; not
+     * one standing for the whole object (its exporter reads it) nor one filling only a nested object that is split on its own.
+     */
+    private static boolean fills(FieldModel field, String object, String... nested) {
+        if (!(field.getData() instanceof ReferenceTypeDataModel data)) return false;
+        if (field.getSemantics() != null && field.getSemantics().stream().anyMatch(x -> RdaMapperSupport.under(x, object, nested))) return true;
+        return RdaMapperSupport.referenceTypeCarriesUnder(data.getReferenceType(), object, nested);
+    }
+
+    /** This group with the member's inputs that fill the object answering only the references of the combination. */
+    private AnswerGroup withOnly(Member picked, Map<String, ReferenceModel> combination, String object, String... nested) {
+        List<Member> members = new ArrayList<>();
+        for (Member member : this.members) {
+            if (member != picked) {
+                members.add(member);
+                continue;
+            }
+            PropertyDefinitionFieldSetItemModel answer = new PropertyDefinitionFieldSetItemModel();
+            answer.setOrdinal(member.answer().getOrdinal());
+            java.util.Map<String, org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel> fields = new java.util.LinkedHashMap<>(member.answer().getFields());
+            for (FieldModel field : fields(member)) {
+                if (!fills(field, object, nested) || !fields.containsKey(field.getId())) continue;
+                org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel only = new org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel();
+                only.setId(fields.get(field.getId()).getId());
+                only.setReferences(combination.containsKey(field.getId()) ? List.of(combination.get(field.getId())) : List.of());
+                fields.put(field.getId(), only);
+            }
+            answer.setFields(fields);
+            members.add(new Member(member.question(), answer));
+        }
+        return new AnswerGroup(members);
+    }
+
     /** True when a chosen answer option says there is nothing to export for the object. */
     public boolean exportsNothing() {
         for (Member member : this.members) {
@@ -72,7 +184,18 @@ public final class AnswerGroup {
 
     /** The first input of the question that carries the key. */
     private static FieldModel inputDefinition(Member member, String semantic) {
-        return fields(member).stream().filter(x-> x.getSemantics() != null && x.getSemantics().contains(semantic)).findFirst().orElse(null);
+        return fields(member).stream().filter(x -> carries(x, semantic)).findFirst().orElse(null);
+    }
+
+    /**
+     * An input carries a key it has itself, or that its reference type gives to the picked references' id, name,
+     * description or a field of theirs. Not through the type when the input stands for an object around the key
+     * (rda.dataset.distribution): its exporter reads the picked references itself.
+     */
+    private static boolean carries(FieldModel field, String semantic) {
+        if (field.getSemantics() != null && field.getSemantics().contains(semantic)) return true;
+        if (field.getSemantics() != null && field.getSemantics().stream().anyMatch(x -> semantic.startsWith(x + "."))) return false;
+        return field.getData() instanceof ReferenceTypeDataModel data && RdaMapperSupport.referenceTypeCarries(data.getReferenceType(), semantic);
     }
 
     private static List<FieldModel> fields(Member member) {
@@ -109,15 +232,16 @@ public final class AnswerGroup {
     }
 
     /**
-     * Every value the key has in this group, as export strings, or null when there is none: from the first member
-     * whose input carrying the key is answered, else from the chosen answer options standing for the key.
+     * Every value the key has in this group, as export strings, or null when there is none: from the first answered
+     * input carrying the key, else from the chosen answer options standing for the key.
      */
     public List<String> values(String semantic) {
         for (Member member : this.members) {
-            FieldModel field = inputDefinition(member, semantic);
-            if (field == null) continue;
-            List<String> values = valuesOf(member, field, semantic);
-            if (!values.isEmpty()) return values;
+            for (FieldModel field : fields(member)) {
+                if (!carries(field, semantic)) continue;
+                List<String> values = valuesOf(member, field, semantic);
+                if (!values.isEmpty()) return values;
+            }
         }
         List<String> fromOptions = new ArrayList<>();
         for (Member member : this.members) {
@@ -207,9 +331,14 @@ public final class AnswerGroup {
                 case SELECT, RADIO_BOX -> chosenOptions(member, field).forEach(option -> values.add(option.value()));
                 case REFERENCE_TYPES -> {
                     if (valueField.getReferences() != null && !valueField.getReferences().isEmpty()) {
+                        boolean ownKey = field.getSemantics() != null && field.getSemantics().contains(semantic);
+                        ReferenceTypeModel type = ((ReferenceTypeDataModel) field.getData()).getReferenceType();
                         for (ReferenceModel referenceModel : valueField.getReferences()) {
                             if (referenceModel == null) continue;
-                            if (referenceModel.getReference() != null && !referenceModel.getReference().isBlank()) {
+                            if (!ownKey) {
+                                String value = RdaMapperSupport.referenceValue(referenceModel, type == null ? null : type.getDefinition(), semantic);
+                                if (value != null) values.add(value);
+                            } else if (referenceModel.getReference() != null && !referenceModel.getReference().isBlank()) {
                                 values.add(referenceModel.getReference());
                             }
                         }

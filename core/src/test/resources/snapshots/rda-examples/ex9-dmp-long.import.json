@@ -1835,18 +1835,7 @@
             "id" : "rda-dmp-project-end"
           },
           "rda-dmp-project-funding-funder_id" : {
-            "id" : "rda-dmp-project-funding-funder_id",
-            "references" : [ {
-              "reference" : "",
-              "type" : {
-                "code" : "dmp-project-funding-funder_id",
-                "definition" : {
-                  "fields" : [ ]
-                },
-                "id" : "f56b08f1-b6e6-3278-8d2f-751c864c5607",
-                "name" : "dmp-project-funding-funder_id"
-              }
-            } ]
+            "id" : "rda-dmp-project-funding-funder_id"
           },
           "rda-dmp-project-funding-funder_id-identifier" : {
             "id" : "rda-dmp-project-funding-funder_id-identifier"
@@ -1858,6 +1847,7 @@
           "rda-dmp-project-funding-grant_id" : {
             "id" : "rda-dmp-project-funding-grant_id",
             "references" : [ {
+              "label" : "EO-2-2017",
               "reference" : "EO-2-2017",
               "type" : {
                 "code" : "dmp-project-funding-grant_id",

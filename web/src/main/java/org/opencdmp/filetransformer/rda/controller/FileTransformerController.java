@@ -40,7 +40,7 @@ public class FileTransformerController implements org.opencdmp.filetransformerba
         FileEnvelopeModel model = fileTransformerExecutor.exportPlan(planDepositModel, format);
 
         this.auditService.track(AuditableAction.FileTransformer_ExportPlan, Map.ofEntries(
-                new AbstractMap.SimpleEntry<String, Object>("planDepositModel", planDepositModel),
+                new AbstractMap.SimpleEntry<String, Object>("planId", planDepositModel.getId()),
                 new AbstractMap.SimpleEntry<String, Object>("format", format)
         ));
         return model;
@@ -52,7 +52,7 @@ public class FileTransformerController implements org.opencdmp.filetransformerba
         FileEnvelopeModel model = fileTransformerExecutor.exportDescription(descriptionModel, format);
 
         this.auditService.track(AuditableAction.FileTransformer_ExportDescription, Map.ofEntries(
-                new AbstractMap.SimpleEntry<String, Object>("descriptionModel", descriptionModel),
+                new AbstractMap.SimpleEntry<String, Object>("descriptionId", descriptionModel.getId()),
                 new AbstractMap.SimpleEntry<String, Object>("format", format)
         ));
         return model;
@@ -64,7 +64,7 @@ public class FileTransformerController implements org.opencdmp.filetransformerba
         PreprocessingPlanModel model = fileTransformerExecutor.preprocessingPlan(fileEnvelopeModel);
 
         this.auditService.track(AuditableAction.FileTransformer_ImportFileToPlan, Map.ofEntries(
-                new AbstractMap.SimpleEntry<String, Object>("fileEnvelope", fileEnvelopeModel)
+                new AbstractMap.SimpleEntry<String, Object>("filename", fileEnvelopeModel != null && fileEnvelopeModel.getFilename() != null ? fileEnvelopeModel.getFilename() : "")
         ));
         return model;
     }
@@ -75,7 +75,7 @@ public class FileTransformerController implements org.opencdmp.filetransformerba
         PlanModel model = fileTransformerExecutor.importPlan(planImportModel);
 
         this.auditService.track(AuditableAction.FileTransformer_ImportFileToPlan, Map.ofEntries(
-                new AbstractMap.SimpleEntry<String, Object>("fileEnvelope", planImportModel.getFile())
+                new AbstractMap.SimpleEntry<String, Object>("filename", planImportModel.getFile() != null && planImportModel.getFile().getFilename() != null ? planImportModel.getFile().getFilename() : "")
         ));
         return model;
     }
@@ -86,7 +86,7 @@ public class FileTransformerController implements org.opencdmp.filetransformerba
         PreprocessingDescriptionModel model = fileTransformerExecutor.preprocessingDescription(fileEnvelopeModel);
 
         this.auditService.track(AuditableAction.FileTransformer_ImportFileToPlan, Map.ofEntries(
-                new AbstractMap.SimpleEntry<String, Object>("fileEnvelope", fileEnvelopeModel)
+                new AbstractMap.SimpleEntry<String, Object>("filename", fileEnvelopeModel != null && fileEnvelopeModel.getFilename() != null ? fileEnvelopeModel.getFilename() : "")
         ));
         return model;
     }
@@ -97,7 +97,7 @@ public class FileTransformerController implements org.opencdmp.filetransformerba
         DescriptionModel model = fileTransformerExecutor.importDescription(descriptionImportModel);
 
         this.auditService.track(AuditableAction.FileTransformer_ImportFileToDescription, Map.ofEntries(
-                new AbstractMap.SimpleEntry<String, Object>("importFileToDescription ", descriptionImportModel.getFile())
+                new AbstractMap.SimpleEntry<String, Object>("filename", descriptionImportModel.getFile() != null && descriptionImportModel.getFile().getFilename() != null ? descriptionImportModel.getFile().getFilename() : "")
         ));
         return model;
     }

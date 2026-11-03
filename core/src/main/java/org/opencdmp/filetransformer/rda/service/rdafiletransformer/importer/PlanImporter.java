@@ -74,6 +74,7 @@ public class PlanImporter extends RdaMapperSupport {
     public PlanPropertiesModel buildPlanPropertiesModel(PlanBlueprintModel planBlueprintModel, Dmp dmp, Set<String> placed) {
         PlanPropertiesModel planPropertiesModel = new PlanPropertiesModel();
         if (dmp == null) return planPropertiesModel;
+        Set<String> placedBefore = Set.copyOf(placed);
 
         if (planBlueprintModel == null) throw new MyApplicationException("planBlueprintModel is missing");
 
@@ -115,6 +116,7 @@ public class PlanImporter extends RdaMapperSupport {
 
         if (dmp.getAffiliation() != null) this.placeOnce(placed, OBJECT_AFFILIATION, fieldSets, () -> this.buildPlanBlueprintValuesByDmpAffiliations(planBlueprintModel, dmp.getAffiliation()));
 
+        this.importReferences(planBlueprintModel.getDefinition().getAllFieldSets(), fieldSets, dmp, null, placedBefore, placed);
         this.trimToMultiplicity(planBlueprintModel.getDefinition().getAllFieldSets(), fieldSets);
 
         for (FieldSetModel fieldSetModel: planBlueprintModel.getDefinition().getAllFieldSets()){

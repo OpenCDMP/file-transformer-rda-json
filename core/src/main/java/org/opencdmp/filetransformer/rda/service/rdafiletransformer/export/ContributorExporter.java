@@ -29,83 +29,87 @@ public class ContributorExporter extends RdaMapperSupport {
     List<Contributor> buildContributor(PlanModel model){
         List<Contributor> values = new ArrayList<>();
 
-        for (AnswerGroup answers : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE,
+        for (AnswerGroup group : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE,
                 SEMANTIC_DATASET_CONTRIBUTOR_MBOX, SEMANTIC_DATASET_CONTRIBUTOR_NAME, SEMANTIC_DATASET_CONTRIBUTOR_ROLE, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE))) {
-            boolean valueFound = false;
-            Contributor item = new Contributor();
+            // several organisations, researchers or grants picked for a contributor: one contributor each
+            for (AnswerGroup answers : group.picksFor(OBJECT_CONTRIBUTOR, OBJECT_CONTRIBUTOR_AFFILIATION) ? group.partsPerReference(OBJECT_CONTRIBUTOR, OBJECT_CONTRIBUTOR_AFFILIATION) : List.of(group)) {
+                boolean valueFound = false;
+                Contributor item = new Contributor();
 
-            org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel fieldModel = answers.input(SEMANTIC_DATASET_CONTRIBUTOR);
-            if (fieldModel != null && fieldModel.getReferences() != null  && !fieldModel.getReferences().isEmpty()) {
-                for (ReferenceModel referenceModel : fieldModel.getReferences()){
-                    Contributor contributor = this.buildRdaContributor(referenceModel);
-                    if (values.isEmpty()) values.add(contributor);
-                    else if (values.stream().noneMatch(x -> sameIdentifier(x, contributor))) values.add(contributor);
+                org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel fieldModel = answers.input(SEMANTIC_DATASET_CONTRIBUTOR);
+                if (fieldModel != null && fieldModel.getReferences() != null  && !fieldModel.getReferences().isEmpty()) {
+                    for (ReferenceModel referenceModel : fieldModel.getReferences()){
+                        Contributor contributor = this.buildRdaContributor(referenceModel);
+                        if (values.isEmpty()) values.add(contributor);
+                        else if (values.stream().noneMatch(x -> sameIdentifier(x, contributor))) values.add(contributor);
+                    }
                 }
+
+                String fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_MBOX);
+                if (fieldValue != null) {
+                    item.setMbox(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_NAME);
+                if (fieldValue != null) {
+                    item.setName(fieldValue);
+                    valueFound = true;
+                }
+
+                List<String> fieldValues = answers.values(SEMANTIC_DATASET_CONTRIBUTOR_ROLE);
+                if (fieldValues != null && !fieldValues.isEmpty()) {
+                    item.setRole(new HashSet<>(fieldValues));
+                    valueFound = true;
+                }
+
+                ContributorId id = new ContributorId();
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER);
+                if (fieldValue != null) {
+                    id.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE);
+                if (fieldValue != null) {
+                    id.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (id.getIdentifier() != null && id.getType() == null) id.setType(inferIdentifierType(id.getIdentifier()));
+                if (id.getIdentifier() != null || id.getType() != null) item.setContributorId(List.of(id));
+
+                Affiliation affiliation = new Affiliation();
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME);
+                if (fieldValue != null) {
+                    affiliation.setName(fieldValue);
+                    valueFound = true;
+                }
+
+                AffiliationId affiliationId = new AffiliationId();
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER);
+                if (fieldValue != null) {
+                    affiliationId.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE);
+                if (fieldValue != null) {
+                    affiliationId.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (affiliationId.getIdentifier() != null || affiliationId.getType() != null){
+                    affiliation.setAffiliationId(affiliationId);
+                    item.setAffiliation(List.of(affiliation));
+                }
+                if (answers.picksFor(OBJECT_CONTRIBUTOR_AFFILIATION)) item.setAffiliation(this.pickedAffiliations(answers, OBJECT_CONTRIBUTOR_AFFILIATION, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE));
+
+                if (valueFound) values.add(item);
             }
-
-            String fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_MBOX);
-            if (fieldValue != null) {
-                item.setMbox(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_NAME);
-            if (fieldValue != null) {
-                item.setName(fieldValue);
-                valueFound = true;
-            }
-
-            List<String> fieldValues = answers.values(SEMANTIC_DATASET_CONTRIBUTOR_ROLE);
-            if (fieldValues != null && !fieldValues.isEmpty()) {
-                item.setRole(new HashSet<>(fieldValues));
-                valueFound = true;
-            }
-
-            ContributorId id = new ContributorId();
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER);
-            if (fieldValue != null) {
-                id.setIdentifier(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE);
-            if (fieldValue != null) {
-                id.setType(fieldValue);
-                valueFound = true;
-            }
-
-            if (id.getIdentifier() != null && id.getType() == null) id.setType(inferIdentifierType(id.getIdentifier()));
-            if (id.getIdentifier() != null || id.getType() != null) item.setContributorId(List.of(id));
-
-            Affiliation affiliation = new Affiliation();
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME);
-            if (fieldValue != null) {
-                affiliation.setName(fieldValue);
-                valueFound = true;
-            }
-
-            AffiliationId affiliationId = new AffiliationId();
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER);
-            if (fieldValue != null) {
-                affiliationId.setIdentifier(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE);
-            if (fieldValue != null) {
-                affiliationId.setType(fieldValue);
-                valueFound = true;
-            }
-
-            if (affiliationId.getIdentifier() != null || affiliationId.getType() != null){
-                affiliation.setAffiliationId(affiliationId);
-                item.setAffiliation(List.of(affiliation));
-            }
-
-            if (valueFound) values.add(item);
         }
 
         return values;
@@ -176,83 +180,87 @@ public class ContributorExporter extends RdaMapperSupport {
     List<Contributor> buildContributor(DescriptionModel model, List<Contributor> values){
         if (values == null) values = new ArrayList<>();
 
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE,
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_DATASET_CONTRIBUTOR, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE,
                 SEMANTIC_DATASET_CONTRIBUTOR_MBOX, SEMANTIC_DATASET_CONTRIBUTOR_NAME, SEMANTIC_DATASET_CONTRIBUTOR_ROLE, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE))) {
-            boolean valueFound = false;
-            Contributor item = new Contributor();
+            // several organisations, researchers or grants picked for a contributor: one contributor each
+            for (AnswerGroup answers : group.picksFor(OBJECT_CONTRIBUTOR, OBJECT_CONTRIBUTOR_AFFILIATION) ? group.partsPerReference(OBJECT_CONTRIBUTOR, OBJECT_CONTRIBUTOR_AFFILIATION) : List.of(group)) {
+                boolean valueFound = false;
+                Contributor item = new Contributor();
 
-            org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel fieldModel = answers.input(SEMANTIC_DATASET_CONTRIBUTOR);
-            if (fieldModel != null && fieldModel.getReferences() != null  && !fieldModel.getReferences().isEmpty()) {
-                for (ReferenceModel referenceModel : fieldModel.getReferences()){
-                    Contributor contributor = this.buildRdaContributor(referenceModel);
-                    if (values.isEmpty()) values.add(contributor);
-                    else if (values.stream().noneMatch(x -> sameIdentifier(x, contributor))) values.add(contributor);
+                org.opencdmp.commonmodels.models.plandescriptionfields.FieldModel fieldModel = answers.input(SEMANTIC_DATASET_CONTRIBUTOR);
+                if (fieldModel != null && fieldModel.getReferences() != null  && !fieldModel.getReferences().isEmpty()) {
+                    for (ReferenceModel referenceModel : fieldModel.getReferences()){
+                        Contributor contributor = this.buildRdaContributor(referenceModel);
+                        if (values.isEmpty()) values.add(contributor);
+                        else if (values.stream().noneMatch(x -> sameIdentifier(x, contributor))) values.add(contributor);
+                    }
                 }
-            }
 
-            String fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_MBOX);
-            if (fieldValue != null) {
-                item.setMbox(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_NAME);
-            if (fieldValue != null) {
-                item.setName(fieldValue);
-                valueFound = true;
-            }
-
-            List<String> fieldValues = answers.values(SEMANTIC_DATASET_CONTRIBUTOR_ROLE);
-            if (fieldValues != null && !fieldValues.isEmpty()) {
-                item.setRole(new HashSet<>(fieldValues));
-                valueFound = true;
-            }
-
-            ContributorId id = new ContributorId();
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER);
-            if (fieldValue != null) {
-                id.setIdentifier(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE);
-            if (fieldValue != null) {
-                    id.setType(fieldValue);
+                String fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_MBOX);
+                if (fieldValue != null) {
+                    item.setMbox(fieldValue);
                     valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_NAME);
+                if (fieldValue != null) {
+                    item.setName(fieldValue);
+                    valueFound = true;
+                }
+
+                List<String> fieldValues = answers.values(SEMANTIC_DATASET_CONTRIBUTOR_ROLE);
+                if (fieldValues != null && !fieldValues.isEmpty()) {
+                    item.setRole(new HashSet<>(fieldValues));
+                    valueFound = true;
+                }
+
+                ContributorId id = new ContributorId();
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_IDENTIFIER);
+                if (fieldValue != null) {
+                    id.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_CONTRIBUTOR_ID_TYPE);
+                if (fieldValue != null) {
+                        id.setType(fieldValue);
+                        valueFound = true;
+                }
+
+                if (id.getIdentifier() != null && id.getType() == null) id.setType(inferIdentifierType(id.getIdentifier()));
+                if (id.getIdentifier() != null || id.getType() != null) item.setContributorId(List.of(id));
+
+                Affiliation affiliation = new Affiliation();
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME);
+                if (fieldValue != null) {
+                    affiliation.setName(fieldValue);
+                    valueFound = true;
+                }
+
+                AffiliationId affiliationId = new AffiliationId();
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER);
+                if (fieldValue != null) {
+                    affiliationId.setIdentifier(fieldValue);
+                    valueFound = true;
+                }
+
+                fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE);
+                if (fieldValue != null) {
+                    affiliationId.setType(fieldValue);
+                    valueFound = true;
+                }
+
+                if (affiliationId.getIdentifier() != null || affiliationId.getType() != null){
+                    affiliation.setAffiliationId(affiliationId);
+                    item.setAffiliation(List.of(affiliation));
+                }
+                if (answers.picksFor(OBJECT_CONTRIBUTOR_AFFILIATION)) item.setAffiliation(this.pickedAffiliations(answers, OBJECT_CONTRIBUTOR_AFFILIATION, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER, SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE));
+
+                if (valueFound && values.stream().noneMatch(x -> sameIdentifier(x, item))) values.add(item);
             }
-
-            if (id.getIdentifier() != null && id.getType() == null) id.setType(inferIdentifierType(id.getIdentifier()));
-            if (id.getIdentifier() != null || id.getType() != null) item.setContributorId(List.of(id));
-
-            Affiliation affiliation = new Affiliation();
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_NAME);
-            if (fieldValue != null) {
-                affiliation.setName(fieldValue);
-                valueFound = true;
-            }
-
-            AffiliationId affiliationId = new AffiliationId();
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_IDENTIFIER);
-            if (fieldValue != null) {
-                affiliationId.setIdentifier(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_DATASET_CONTRIBUTOR_AFFILIATION_ID_TYPE);
-            if (fieldValue != null) {
-                affiliationId.setType(fieldValue);
-                valueFound = true;
-            }
-
-            if (affiliationId.getIdentifier() != null || affiliationId.getType() != null){
-                affiliation.setAffiliationId(affiliationId);
-                item.setAffiliation(List.of(affiliation));
-            }
-
-            if (valueFound && values.stream().noneMatch(x -> sameIdentifier(x, item))) values.add(item);
         }
 
         return values;

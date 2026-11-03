@@ -59,6 +59,7 @@ public class DescriptionImporter extends RdaMapperSupport {
         if (descriptionTemplateModel == null) throw new MyApplicationException("description template is missing");
 
         Map<String, PropertyDefinitionFieldSetModel> fieldSets = this.buildFieldSetMap(descriptionTemplateModel, dataset, dmp);
+        Set<String> placedBefore = Set.copyOf(placed);
 
         if (dataset.getMetadata() != null) this.mergeAnswers(fieldSets, this.buildFieldByRdaMetadata(descriptionTemplateModel, dataset.getMetadata()));
         if (dataset.getSecurityAndPrivacy() != null) this.mergeAnswers(fieldSets, this.buildFieldByRdaSecurityAndPrivacy(descriptionTemplateModel, dataset.getSecurityAndPrivacy()));
@@ -75,6 +76,7 @@ public class DescriptionImporter extends RdaMapperSupport {
         if (dataset.getCreator() != null) this.mergeAnswers(fieldSets, this.buildFieldByRdaCreator(descriptionTemplateModel, dataset.getCreator()));
         if (dmp.getAffiliation() != null) this.placeOnce(placed, OBJECT_AFFILIATION, fieldSets, () -> this.buildFieldByRdaDmpAffiliations(descriptionTemplateModel, dmp.getAffiliation()));
 
+        this.importReferences(descriptionTemplateModel.getDefinition().getAllFieldSets(), fieldSets, dmp, dataset, placedBefore, placed);
         this.trimToMultiplicity(descriptionTemplateModel.getDefinition().getAllFieldSets(), fieldSets);
 
         for (FieldSetModel fieldSetModel: descriptionTemplateModel.getDefinition().getAllFieldSets()){

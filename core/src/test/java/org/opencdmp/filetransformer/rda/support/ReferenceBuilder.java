@@ -46,6 +46,17 @@ public final class ReferenceBuilder {
             return this;
         }
 
+        /** Semantics of the system fields every reference has: its id and its name. */
+        public ReferenceTypeBuilder referenceIdSemantics(String... semantics) {
+            this.type.getDefinition().setReferenceIdSemantics(new ArrayList<>(List.of(semantics)));
+            return this;
+        }
+
+        public ReferenceTypeBuilder labelSemantics(String... semantics) {
+            this.type.getDefinition().setLabelSemantics(new ArrayList<>(List.of(semantics)));
+            return this;
+        }
+
         public ReferenceTypeModel build() {
             return this.type;
         }

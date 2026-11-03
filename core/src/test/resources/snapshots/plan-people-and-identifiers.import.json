@@ -313,6 +313,7 @@
           "project-funder" : {
             "id" : "project-funder",
             "references" : [ {
+              "label" : "501100001871",
               "reference" : "501100001871",
               "type" : {
                 "code" : "funders",
@@ -331,6 +332,7 @@
           "project-grant" : {
             "id" : "project-grant",
             "references" : [ {
+              "label" : "PTDC/CTA-AMB/1234/2026",
               "reference" : "PTDC/CTA-AMB/1234/2026",
               "type" : {
                 "code" : "grants",

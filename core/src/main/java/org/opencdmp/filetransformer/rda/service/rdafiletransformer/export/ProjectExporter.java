@@ -30,55 +30,58 @@ public class ProjectExporter extends RdaMapperSupport {
     List<Project> buildProject(PlanModel model){
         List<Project> values = new ArrayList<>();
 
-        for (AnswerGroup answers : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_FUNDER_ID, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, SEMANTIC_PROJECT_FUNDING_GRANT_ID,
+        for (AnswerGroup group : this.groups(model.getPlanBlueprint(), model.getProperties().getFieldSets(), List.of(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_FUNDER_ID, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, SEMANTIC_PROJECT_FUNDING_GRANT_ID,
                 SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE, SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS, SEMANTIC_PROJECT_START, SEMANTIC_PROJECT_END, SEMANTIC_PROJECT_TITLE, SEMANTIC_PROJECT_DESCRIPTION,
                 SEMANTIC_PROJECT_ID_IDENTIFIER, SEMANTIC_PROJECT_ID_TYPE))) {
-            boolean valueFound = false;
-            Project project = new Project();
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_PROJECT, OBJECT_PROJECT_FUNDING) ? group.partsPerReference(OBJECT_PROJECT, OBJECT_PROJECT_FUNDING) : List.of(group)) {
+                boolean valueFound = false;
+                Project project = new Project();
 
-            String fieldValue = answers.value(SEMANTIC_PROJECT_TITLE);
-            if (fieldValue != null) {
-                project.setTitle(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_PROJECT_DESCRIPTION);
-            if (fieldValue != null) {
-                project.setDescription(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_PROJECT_START);
-            if (fieldValue != null) {
-                String formatedValue = this.formatTextAsDate(fieldValue);
-                if (formatedValue != null) {
-                    project.setStart(formatedValue);
+                String fieldValue = answers.value(SEMANTIC_PROJECT_TITLE);
+                if (fieldValue != null) {
+                    project.setTitle(fieldValue);
                     valueFound = true;
                 }
-            }
 
-            fieldValue = answers.value(SEMANTIC_PROJECT_END);
-            if (fieldValue != null) {
-                String formatedValue = this.formatTextAsDate(fieldValue);
-                if (formatedValue != null) {
-                    project.setEnd(formatedValue);
+                fieldValue = answers.value(SEMANTIC_PROJECT_DESCRIPTION);
+                if (fieldValue != null) {
+                    project.setDescription(fieldValue);
                     valueFound = true;
                 }
-            }
 
-            List<Funding> fundings = this.buildRDAFunding(answers);
-            if (!fundings.isEmpty()) {
-                project.setFunding(fundings);
-                valueFound = true;
-            }
+                fieldValue = answers.value(SEMANTIC_PROJECT_START);
+                if (fieldValue != null) {
+                    String formatedValue = this.formatTextAsDate(fieldValue);
+                    if (formatedValue != null) {
+                        project.setStart(formatedValue);
+                        valueFound = true;
+                    }
+                }
 
-            List<ProjectId> projectIds = this.buildRDAProjectId(answers);
-            if (!projectIds.isEmpty()) {
-                project.setProjectId(projectIds);
-                valueFound = true;
-            }
+                fieldValue = answers.value(SEMANTIC_PROJECT_END);
+                if (fieldValue != null) {
+                    String formatedValue = this.formatTextAsDate(fieldValue);
+                    if (formatedValue != null) {
+                        project.setEnd(formatedValue);
+                        valueFound = true;
+                    }
+                }
 
-            if (valueFound) values.add(project);
+                List<Funding> fundings = this.buildRDAFunding(answers);
+                if (!fundings.isEmpty()) {
+                    project.setFunding(fundings);
+                    valueFound = true;
+                }
+
+                List<ProjectId> projectIds = this.buildRDAProjectId(answers);
+                if (!projectIds.isEmpty()) {
+                    project.setProjectId(projectIds);
+                    valueFound = true;
+                }
+
+                if (valueFound) values.add(project);
+            }
         }
         return values;
     }
@@ -175,55 +178,58 @@ public class ProjectExporter extends RdaMapperSupport {
     List<Project> buildProject(DescriptionModel model, List<Project> values){
         if (values == null) values = new ArrayList<>();
 
-        for (AnswerGroup answers : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_FUNDER_ID, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, SEMANTIC_PROJECT_FUNDING_GRANT_ID,
+        for (AnswerGroup group : this.groups(model.getDescriptionTemplate(), model.getProperties().getFieldSets(), List.of(SEMANTIC_PROJECT_FUNDING_FUNDER_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_FUNDER_ID, SEMANTIC_PROJECT_FUNDING_FUNDER_ID_TYPE, SEMANTIC_PROJECT_FUNDING_GRANT_ID,
                 SEMANTIC_PROJECT_FUNDING_GRANT_ID_IDENTIFIER, SEMANTIC_PROJECT_FUNDING_GRANT_ID_TYPE, SEMANTIC_PROJECT_FUNDING_FUNDING_STATUS, SEMANTIC_PROJECT_START, SEMANTIC_PROJECT_END, SEMANTIC_PROJECT_TITLE, SEMANTIC_PROJECT_DESCRIPTION,
                 SEMANTIC_PROJECT_ID_IDENTIFIER, SEMANTIC_PROJECT_ID_TYPE))) {
-            boolean valueFound = false;
-            Project project = new Project();
+            // several references picked for the object: one object each
+            for (AnswerGroup answers : group.picksFor(OBJECT_PROJECT, OBJECT_PROJECT_FUNDING) ? group.partsPerReference(OBJECT_PROJECT, OBJECT_PROJECT_FUNDING) : List.of(group)) {
+                boolean valueFound = false;
+                Project project = new Project();
 
-            String fieldValue = answers.value(SEMANTIC_PROJECT_TITLE);
-            if (fieldValue != null) {
-                project.setTitle(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_PROJECT_DESCRIPTION);
-            if (fieldValue != null) {
-                project.setDescription(fieldValue);
-                valueFound = true;
-            }
-
-            fieldValue = answers.value(SEMANTIC_PROJECT_START);
-            if (fieldValue != null) {
-                String formatedValue = this.formatTextAsDate(fieldValue);
-                if (formatedValue != null) {
-                    project.setStart(formatedValue);
+                String fieldValue = answers.value(SEMANTIC_PROJECT_TITLE);
+                if (fieldValue != null) {
+                    project.setTitle(fieldValue);
                     valueFound = true;
                 }
-            }
 
-            fieldValue = answers.value(SEMANTIC_PROJECT_END);
-            if (fieldValue != null) {
-                String formatedValue = this.formatTextAsDate(fieldValue);
-                if (formatedValue != null) {
-                    project.setEnd(formatedValue);
+                fieldValue = answers.value(SEMANTIC_PROJECT_DESCRIPTION);
+                if (fieldValue != null) {
+                    project.setDescription(fieldValue);
                     valueFound = true;
                 }
-            }
 
-            List<Funding> fundings = this.buildRDAFunding(answers);
-            if (!fundings.isEmpty()) {
-                project.setFunding(fundings);
-                valueFound = true;
-            }
+                fieldValue = answers.value(SEMANTIC_PROJECT_START);
+                if (fieldValue != null) {
+                    String formatedValue = this.formatTextAsDate(fieldValue);
+                    if (formatedValue != null) {
+                        project.setStart(formatedValue);
+                        valueFound = true;
+                    }
+                }
 
-            List<ProjectId> projectIds = this.buildRDAProjectId(answers);
-            if (!projectIds.isEmpty()) {
-                project.setProjectId(projectIds);
-                valueFound = true;
-            }
+                fieldValue = answers.value(SEMANTIC_PROJECT_END);
+                if (fieldValue != null) {
+                    String formatedValue = this.formatTextAsDate(fieldValue);
+                    if (formatedValue != null) {
+                        project.setEnd(formatedValue);
+                        valueFound = true;
+                    }
+                }
 
-            if (valueFound && values.stream().noneMatch(x -> sameProject(x, project))) values.add(project);
+                List<Funding> fundings = this.buildRDAFunding(answers);
+                if (!fundings.isEmpty()) {
+                    project.setFunding(fundings);
+                    valueFound = true;
+                }
+
+                List<ProjectId> projectIds = this.buildRDAProjectId(answers);
+                if (!projectIds.isEmpty()) {
+                    project.setProjectId(projectIds);
+                    valueFound = true;
+                }
+
+                if (valueFound && values.stream().noneMatch(x -> sameProject(x, project))) values.add(project);
+            }
         }
         return values;
     }
@@ -252,7 +258,16 @@ public class ProjectExporter extends RdaMapperSupport {
         return projectIds;
     }
 
-    List<Funding> buildRDAFunding(AnswerGroup answers){
+    /** One funding per answer, and per funder or grant it picks. */
+    List<Funding> buildRDAFunding(AnswerGroup group){
+        List<Funding> fundings = new ArrayList<>();
+        for (AnswerGroup answers : group.picksFor(OBJECT_PROJECT_FUNDING) ? group.partsPerReference(OBJECT_PROJECT_FUNDING) : List.of(group)) {
+            fundings.addAll(this.buildRDAFundingOf(answers));
+        }
+        return fundings;
+    }
+
+    private List<Funding> buildRDAFundingOf(AnswerGroup answers){
         List<Funding> fundings = new ArrayList<>();
 
         boolean valueFound = false;
