@@ -40,6 +40,7 @@ public class ContributorExporter extends RdaMapperSupport {
                 if (fieldModel != null && fieldModel.getReferences() != null  && !fieldModel.getReferences().isEmpty()) {
                     for (ReferenceModel referenceModel : fieldModel.getReferences()){
                         Contributor contributor = this.buildRdaContributor(referenceModel);
+                        if (contributor == null) continue;
                         if (values.isEmpty()) values.add(contributor);
                         else if (values.stream().noneMatch(x -> sameIdentifier(x, contributor))) values.add(contributor);
                     }
@@ -150,6 +151,11 @@ public class ContributorExporter extends RdaMapperSupport {
 
     public Contributor buildRdaContributor(ReferenceModel model) {
         if (model == null) throw new MyApplicationException("Contributor is missing");
+        // RDA requires a contributor_id: a researcher without an identifier is left out rather than failing the export
+        if (model.getReference() == null || model.getReference().isBlank()) {
+            logger.warn("invalid contributor without identifier: " + model.getLabel());
+            return null;
+        }
 
         Contributor rdaModel = new Contributor();
         rdaModel.setContributorId(List.of(buildRdaContributorId(model.getReference())));
@@ -191,6 +197,7 @@ public class ContributorExporter extends RdaMapperSupport {
                 if (fieldModel != null && fieldModel.getReferences() != null  && !fieldModel.getReferences().isEmpty()) {
                     for (ReferenceModel referenceModel : fieldModel.getReferences()){
                         Contributor contributor = this.buildRdaContributor(referenceModel);
+                        if (contributor == null) continue;
                         if (values.isEmpty()) values.add(contributor);
                         else if (values.stream().noneMatch(x -> sameIdentifier(x, contributor))) values.add(contributor);
                     }

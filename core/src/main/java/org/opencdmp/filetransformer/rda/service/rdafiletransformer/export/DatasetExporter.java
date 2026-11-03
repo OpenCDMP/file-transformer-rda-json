@@ -45,6 +45,8 @@ public class DatasetExporter extends RdaMapperSupport {
     Dataset buildRdaDataset(DescriptionModel model, Dmp dmpRda){
         if (model == null) throw new MyApplicationException("Model is missing");
         if (model.getLabel() == null)  throw new MyApplicationException("Dataset Label is missing");
+        // a description saved without any answers has no properties; export it with its other data
+        if (model.getProperties() == null) model.setProperties(new PropertyDefinitionModel());
 
         Dataset rda = new Dataset();
 
